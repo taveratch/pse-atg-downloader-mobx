@@ -10,7 +10,7 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, '/'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -37,9 +37,6 @@ module.exports = {
   },
   resolve: {
     root: path.resolve('./src'),
-    alias: {
-      'libs': path.join(__dirname, 'libs'),
-    },
     extensions: ['', '.js', '.jsx']
   }
 };
