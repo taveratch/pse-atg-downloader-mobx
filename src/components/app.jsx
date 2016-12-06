@@ -1,4 +1,4 @@
-import '../global-module.js';
+import 'global-module';
 export default class App extends React.Component {
   render () {
     return (

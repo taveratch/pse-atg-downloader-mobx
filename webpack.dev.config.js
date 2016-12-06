@@ -22,7 +22,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js?$/,
+      { test: /\.js|jsx?$/,
         loader: 'babel',
         exclude: path.join(__dirname, 'node_modules') },
       { test: /\.scss?$/,
@@ -34,5 +34,9 @@ module.exports = {
         loader: 'file'},
       { test: /\.json$/, loader: "json-loader" }
     ]
+  },
+  resolve: {
+    root: path.resolve('./src'),
+    extensions: ['', '.js', '.jsx']
   }
 };

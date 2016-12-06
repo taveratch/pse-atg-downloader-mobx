@@ -43,5 +43,9 @@ module.exports = {
         loader: 'file'},
       { test: /\.json$/, loader: "json-loader" }
     ]
+  },
+  resolve: {
+    root: path.resolve('./src'),
+    extensions: ['', '.js', '.jsx']
   }
 };
