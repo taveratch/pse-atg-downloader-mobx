@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
 
   plugins: [
@@ -37,6 +37,9 @@ module.exports = {
   },
   resolve: {
     root: path.resolve('./src'),
+    alias: {
+      'libs': path.join(__dirname, 'libs'),
+    },
     extensions: ['', '.js', '.jsx']
   }
 };

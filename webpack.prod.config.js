@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'production';
 const path = require('path');
 const webpack = require('webpack');
 
@@ -31,7 +32,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js?$/,
+      { test: /\.js|jsx?$/,
         loader: 'babel',
         exclude: /node_modules/ },
       { test: /\.scss?$/,
