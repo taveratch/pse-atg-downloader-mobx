@@ -1,5 +1,5 @@
-import { render } from 'react-dom';
-import App from './components/app';
-import './styles/app.scss';
+import App from 'src/components/app'
+import React from 'react'
+import { render } from 'react-dom'
 
-render(<App/>, document.getElementById('main'));
+render(<App/>, document.getElementById('main'))
