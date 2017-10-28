@@ -10,9 +10,9 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, '/'),
+    path: path.join(__dirname, '/dist/'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/dist'
   },
 
   plugins: [
@@ -23,7 +23,14 @@ module.exports = {
   module: {
     preLoaders: [
       // Javascript
-      { test: /\.js|jsx?$/, loader: 'eslint', exclude: /node_modules/ }
+      {
+        test: /\.js|jsx?$/,
+        loader: 'eslint',
+        exclude: /node_modules/,
+        options: {
+          fix: true
+        }
+      }
     ],
     loaders: [
       {
@@ -44,6 +51,10 @@ module.exports = {
         loader: 'file'
       },
       {
+        test: /\.css$/,
+        loader: 'style!css!'
+      },
+      {
         test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         loader: 'file'
       },
@@ -53,5 +64,10 @@ module.exports = {
   resolve: {
     root: path.resolve('.'),
     extensions: ['', '.js', '.jsx']
+  },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    fs: 'empty'
   }
 }

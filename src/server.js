@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 
+const BUNDLE_DIR = path.join(__dirname, '../bundle')
 module.exports = {
   app: function () {
     const app = express()
@@ -10,9 +11,10 @@ module.exports = {
       indexPath = path.join(__dirname, '/../public/index.html')
       publicPath = express.static(path.join(__dirname, '../public'))
     }
+    // app.use('/bundle', express.static(BUNDLE_DIR))
     app.use('/public', publicPath)
     app.use('/stylesheet', express.static(path.join(__dirname, '../stylesheet')))
-    app.get('/', function (_, res) { res.sendFile(indexPath) })
+    app.use('*', function (_, res) { res.sendFile(indexPath) })
 
     return app
   }

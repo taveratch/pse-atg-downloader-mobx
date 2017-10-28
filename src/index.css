@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins';
+}
+
+
+.btn-second, .bg-second {
+  background: #f1c40f;
+  color: white !important;
+}
+
+.form-control {
+  border: 1px solid rgba(0,0,0,0.15);
+  height: 45px;
+}
+
+.shadow-bottom {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.04), 0 1px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.box-shadow {
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.04), 0 1px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.box-shadow-heavy {
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.04), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+input::placeholder {
+  color: white;
+}

@@ -1,7 +1,9 @@
-import Counter from 'src/stores/counter'
+import auth from 'src/stores/auth'
+import inventory from 'src/stores/inventory'
 
 const stores = {}
 
-stores.counter = new Counter()
+stores.auth = auth
+stores.inventory = inventory
 
 export default stores

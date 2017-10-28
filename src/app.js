@@ -1,6 +1,7 @@
-const Server = require('./server.js')
+const path = require('path')
+const express = require('express')
 const port = (process.env.PORT || 8080)
-const app = Server.app()
+const app = express()
 const production = process.env.NODE_ENV === 'production'
 if (!production) {
   const webpack = require('webpack')
@@ -18,6 +19,17 @@ if (!production) {
     }
   }))
 }
+
+let indexPath = path.join(__dirname, '/../index.html')
+let publicPath = express.static(path.join(__dirname, '../'))
+if (process.env.NODE_ENV === 'production') {
+  indexPath = path.join(__dirname, '/../public/index.html')
+  publicPath = express.static(path.join(__dirname, '../public'))
+}
+
+app.use('/public', publicPath)
+app.use('/stylesheet', express.static(path.join(__dirname, '../stylesheet')))
+app.use('*', function (_, res) { res.sendFile(indexPath) })
 
 app.listen(port)
 

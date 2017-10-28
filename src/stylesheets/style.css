@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'Sukhumvit';
+  font-weight: bold;
+  src: url('./fonts/sukhumvit-set/SukhumvitSet-Bold.ttf');
+}
+@font-face {
+  font-family: 'Sukhumvit';
+  font-weight: normal;
+  src: url('./fonts/sukhumvit-set/SukhumvitSet-Text.ttf');
+}
+
+input, button {
+  font-family: 'Sukhumvit';
+}
+
+html,body {
+  font-family: 'Sukhumvit' !important;
+  height: 100%;
+  min-height: 100%;
+  display: initial;
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-middle {
+  align-items: center;
+}
+.pull-right {
+  position: absolute;
+  right: 0
+}
+
+.padding-all {
+  padding: 15px;
+}
+
+.pull-top {
+  position: absolute;
+  top: 0
+}
+
+.full-height {
+  height: 100%;
+}
+
+.margin-left {
+  margin-left: 15px;
+}
+
+.margin-right {
+  margin-right: 15px;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+
+.progress {
+  margin-bottom: 0px;
+  width: 120px;
+  margin-right: 30px;
+}
+
+#root {
+  min-height: 100%;
+  height: 100%;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-control::placeholder {
+  color: rgba(0,0,0,0.2);
+}
+
+.btn-second {
+  background: #47C1BF
+}
+
+.btn {
+  cursor: pointer
+}
+
+th, td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 50%;
+}
+
+tr {
+  transition: 0.3s;
+}
+
+tr:hover {
+  background: #ECF9F8;
+}
+
+.form-control {
+  height: 38px;
+}
+
+.hidden {
+  display: none !important;
+}

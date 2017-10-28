@@ -9,19 +9,13 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, '/public/'),
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/public'
   },
 
   plugins: [
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
@@ -34,7 +28,10 @@ module.exports = {
       {
         test: /\.js|jsx?$/,
         loader: 'babel',
-        exclude: /node_modules/
+        exclude: path.join(__dirname, 'node_modules'),
+        query: {
+          plugins: ['transform-decorators-legacy']
+        },
       },
       {
         test: /\.scss?$/,
@@ -46,6 +43,10 @@ module.exports = {
         loader: 'file'
       },
       {
+        test: /\.css$/,
+        loader:'style!css!'
+      },
+      {
         test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         loader: 'file'
       },
@@ -55,5 +56,10 @@ module.exports = {
   resolve: {
     root: path.resolve('.'),
     extensions: ['', '.js', '.jsx']
+  },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    fs: 'empty'
   }
 }

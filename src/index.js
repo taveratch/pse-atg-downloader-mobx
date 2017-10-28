@@ -1,5 +1,18 @@
-import App from 'src/components/app'
-import React from 'react'
-import { render } from 'react-dom'
+// import 'src/index.css'
+// import 'src/stylesheets'
 
-render(<App/>, document.getElementById('main'))
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Root from 'src/containers/root'
+
+// const App = () => (
+//   <MuiThemeProvider>
+//     <Root />
+//   </MuiThemeProvider>
+// )
+
+ReactDOM.render(
+  <Root />,
+  document.getElementById('root')
+)
