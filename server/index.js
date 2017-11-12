@@ -3,6 +3,7 @@ import 'server/utils/database.js'
 /*--- Import APIs ----*/
 import AuthAPI from 'server/api/auth'
 import SiteAPI from 'server/api/site'
+import UsersApi from 'server/api/user'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 /*--- Import dependencies ===*/
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 3001;
 
   app.use('/_api/auth', AuthAPI)
   app.use('/_api/site', SiteAPI)
+  app.use('/_api/users', UsersApi)
 })()
 
 app.listen(PORT, () => {

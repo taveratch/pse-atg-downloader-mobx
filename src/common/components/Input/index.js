@@ -13,9 +13,15 @@ class Input extends React.PureComponent {
   
   render() {
     return (
-      <div>
+      <div key={this.props.defaultValue}>
         <span>{this.props.label}</span>
-        <StyledInput className="form-control" type={this.props.type} name={this.props.name} placeholder={this.props.placeholder} onChange={this.props.onChange}/>
+        <StyledInput 
+          className="form-control" 
+          type={this.props.type} 
+          name={this.props.name} 
+          placeholder={this.props.placeholder} 
+          onChange={this.props.onChange}
+        />
       </div>
     )
   }

@@ -35,5 +35,15 @@ export default {
         password
       }
     })
+  },
+  signup: (email, password) => {
+    return ApiManager.fetch({
+      url: '/auth/signup',
+      method: 'POST',
+      body: {
+        email,
+        password
+      }
+    })
   }
 }

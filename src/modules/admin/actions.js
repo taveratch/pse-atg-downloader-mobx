@@ -13,5 +13,18 @@ export default {
       .then(res => {
         console.log(res)
       })
+  },
+  createUser: (email, password) => {
+    Api.signup(email, password)
+      .then(res => {
+        console.log(res)
+      })
+  },
+  getUsers: () => {
+    Api.getUsers()
+      .then(res => {
+        if(res.success)
+          stores.admin.users.setUsers(res.users)
+      })
   }
 }

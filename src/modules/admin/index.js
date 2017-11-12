@@ -4,6 +4,7 @@ import Dashboard from 'src/modules/admin/components/Dashboard'
 import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
 import SitesPage from 'src/modules/admin/pages/SitesPage'
+import UsersPage from 'src/modules/admin/pages/UsersPage'
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/sites',
     exact: true,
     component: SitesPage
+  },
+  {
+    path: '/users',
+    exact: true,
+    component: UsersPage
   }
 ]
 
