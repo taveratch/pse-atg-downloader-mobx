@@ -1,12 +1,12 @@
-import ErrorMessage from 'src/containers/app/ErrorMessage'
-import InventoryList from 'src/containers/app/inventory-list/InventoryList'
+import ErrorMessage from 'src/modules/app/components/ErrorMessage'
+import InventoryList from 'src/modules/app/components/InventoryList'
 import React from 'react'
 import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 import { getSites } from 'src/actions/site'
 import { observer } from 'mobx-react'
 import service from 'src/js/service'
-import vm from 'src/containers/app/viewmodel'
+import vm from 'src/modules/app/viewmodel'
 
 @observer
 class Wrapper extends React.Component {

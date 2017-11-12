@@ -1,10 +1,8 @@
-import { Route, Switch } from 'react-router-dom'
-
-import Admin from 'src/containers/admin/Admin'
+import Admin from 'src/modules/admin'
 import { AuthController } from 'src/controllers'
-import PrivateRoute from 'src/containers/PrivateRoute'
+import PrivateRoute from 'src/common/components/PrivateRoute'
 import React from 'react'
-import SignIn from 'src/containers/admin/signin/SignIn'
+import { Switch } from 'react-router-dom'
 import { authenticate } from 'src/services/auth'
 
 class Routes extends React.Component {
@@ -36,7 +34,6 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path='/admin/signin' component={SignIn} />
         <PrivateRoute exact path='/admin' redirect={'/admin/signin'} component={Admin} authed={this.state.authed} />
       </Switch>
     )

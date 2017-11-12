@@ -1,6 +1,6 @@
 import { AuthController } from 'src/controllers'
 import Button from 'src/common/components/Button'
-import Header from 'src/containers/signin/Header'
+import Header from 'src/modules/signin/components/Header'
 import React from 'react'
 import { connect } from 'react-redux'
 import { signin } from 'src/actions/auth'

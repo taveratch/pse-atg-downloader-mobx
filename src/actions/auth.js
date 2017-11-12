@@ -2,7 +2,7 @@ import { AUTH_ERROR, AUTH_SUCCESS, SIGNIN_ERROR, SIGNIN_SUCCESS } from 'src/cons
 
 import { AuthController } from 'src/controllers'
 import { authenticate as auth } from 'src/services/auth'
-import history from 'src/containers/history'
+import history from 'src/common/history'
 
 // import stores from 'src/stores'
 

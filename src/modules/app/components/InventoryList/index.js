@@ -1,5 +1,5 @@
-import Controls from './Controls'
-import DownloadButton from 'src/containers/app/inventory-list/DownloadButton'
+import Controls from 'src/modules/app/components/Controls'
+import DownloadButton from 'src/modules/app/components/DownloadButton'
 import React from 'react'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'

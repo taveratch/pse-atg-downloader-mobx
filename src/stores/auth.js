@@ -14,6 +14,11 @@ class Auth extends FetchedStore {
       return this.user !== null
     }
 
+    @computed get isAdmin() {
+      if(!this.user) return false
+      return this.user.is_admin
+    }
+
 }
 
 const auth = new Auth()
