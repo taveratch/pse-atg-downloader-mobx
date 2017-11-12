@@ -54,7 +54,13 @@ let options = {
 };
 
 app.use('/proxy', proxy(options));
-
+app.use('/_api/*', proxy({
+    target: config.apiHost,
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req, res) => {
+        proxyReq.headers = req.headers;
+    },
+}));
 app.listen(PORT, () => {
     console.log(`Proxy server is running on port ${PORT}`);
     if(production)

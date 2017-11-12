@@ -1,9 +1,18 @@
 import { AuthController } from 'src/controllers'
 
-const proxyPrefix = process.env['NODE_ENV'] === 'production' ? '/proxy?q=' : 'http://localhost:5000/proxy?q='
+const host = 'http://localhost:5000'
+const isProduction = process.env['NODE_ENV'] === 'production'
+// const proxyPrefix = process.env['NODE_ENV'] === 'production' ? '/proxy?q=' : 'http://localhost:5000/proxy?q='
 class ApiManager {
-  fetch(url, options) {
-    options.url = proxyPrefix + url
+  fetch(options) {
+    let proxyPrefix
+    if(options.external)
+      proxyPrefix = '/proxy?q='
+    else{
+      proxyPrefix = '/_api'
+      options.json = true
+    }
+    options.url = (isProduction ? '' : host) + proxyPrefix + options.url
     if (!options.headers) options.headers = {}
     if (!options.headers['Authorization'])
       options.headers['Authorization'] = AuthController.getToken()

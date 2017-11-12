@@ -3,7 +3,7 @@ import { action, observable } from 'mobx'
 import FetchedStore from 'src/stores/fetched-store'
 
 class Sites extends FetchedStore {
-    @observable sites = null;
+    @observable sites = [];
 
     @action.bound
     setSites(sites){

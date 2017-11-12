@@ -1,13 +1,9 @@
-import { GET_SITES, config } from 'src/constants'
-
-import ApiManager from 'src/services/api-manager'
+import Api from 'src/common/Api'
+import { GET_SITES } from 'src/constants'
 
 export const getSites = () => {
   return dispatch => {
-    let options = {
-      json: true
-    }
-    ApiManager.fetch(`${config.API_ENDPOINT}/site`, options)
+    Api.getSite()
       .then(res => {
         dispatch({
           type: GET_SITES,

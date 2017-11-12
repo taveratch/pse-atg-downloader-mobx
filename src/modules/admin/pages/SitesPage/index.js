@@ -1,23 +1,29 @@
-import Input from 'src/common/components/Input'
+import CreateSite from 'src/modules/admin/components/CreateSite'
+import PageTabs from 'src/common/components/PageTabs'
 import React from 'react'
+import SitesTable from 'src/modules/admin/components/SitesTable'
 
 class SitesPage extends React.PureComponent {
+
+  state = {
+    selectedIndex: 0
+  }
+
+  onSelectTab = (index) => {
+    this.setState({ selectedIndex: index })
+  }
+  
   render() {
     return (
       <div className='container'>
-        <h5><b>Create new site</b></h5>
-        <div className="row">
-          <div className="col-xs-12 col-md-5">
-            <Input label="Name" name="name" />
-          </div>
-
-          <div className="col-xs-12 col-md-5">
-            <Input label="Url" name="url" />
-          </div>
-          <div className="col-xs-12 col-md-2">
-            <Input label="port" name="port" type="number" />
-          </div>
-        </div>
+        <PageTabs
+          titles={['Create site', 'All sites']}
+          selectedIndex={this.state.selectedIndex}
+          onSelectTab={this.onSelectTab}
+        >
+          <CreateSite />
+          <SitesTable />
+        </PageTabs>
       </div>
     )
   }

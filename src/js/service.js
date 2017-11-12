@@ -13,9 +13,11 @@ let services = {
       let options = {
         headers: {
           'Authorization': 'Basic dXNlcjpwYXNz'
-        }
+        },
+        external: true,
+        url: urlValidator(url)
       }
-      ApiManager.fetch(urlValidator(url), options)
+      ApiManager.fetch(options)
         .then((res) => {
           resolve(res)
         })
@@ -49,9 +51,11 @@ export const downloadInventory = (url, { useHeader, downloadType }) => {
     let options = {
       headers: {
         'Authorization': 'Basic dXNlcjpwYXNz'
-      }
+      },
+      external: true,
+      url
     }
-    ApiManager.fetch(url, options)
+    ApiManager.fetch(options)
       .then((res) => {
         let formatted = fileFormatter(res, { useHeader, downloadType })
         resolve(formatted)
