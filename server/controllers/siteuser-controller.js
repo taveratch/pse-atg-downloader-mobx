@@ -2,7 +2,7 @@ import _ from 'lodash'
 import db from 'server/utils/database'
 
 class SiteuserController {
-  async get(userId) {
+  get(userId) {
     return new Promise((resolve, reject) => {
       db.siteusers.findAll(
         {
@@ -17,7 +17,7 @@ class SiteuserController {
     })
   }
 
-  async create(userId, siteId) {
+  create(userId, siteId) {
     return new Promise((resolve, reject) => {
       db.siteusers.create({ user_id: userId, site_id: siteId })
         .then(siteuser => {

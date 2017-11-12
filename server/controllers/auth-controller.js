@@ -6,7 +6,7 @@ const SECRET = 'fiowjf8dvn213s!k!dc!nopq~iod3123=='
 
 class AuthController {
 
-  async signin(email, password) {
+  signin(email, password) {
     return new Promise((resolve, reject) => {
       db.users.findOne({ where: { email, password } })
         .then(user => {
@@ -21,7 +21,7 @@ class AuthController {
     })
   }
 
-  async isExist(email) {
+  isExist(email) {
     return new Promise((resolve, reject) => {
       db.users.findOne({ where: { email: email } })
         .then(user => {
@@ -49,7 +49,7 @@ class AuthController {
     })
   }
 
-  async dropAll() {
+  dropAll() {
     return new Promise((resolve, reject) => {
       db.users.drop()
         .then(() => { resolve(200) })

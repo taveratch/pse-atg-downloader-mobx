@@ -6,7 +6,7 @@ class SiteController {
      * 
      * @param {Object} args = {name, url, port} 
      */
-  async create(args) {
+  create(args) {
     return new Promise((resolve, reject) => {
       db.sites.create(args)
         .then(site => {
@@ -16,7 +16,7 @@ class SiteController {
     })
   }
 
-  async getAll() {
+  getAll() {
     return new Promise((resolve, reject) => {
       db.sites.findAll()
         .then(sites => resolve(sites))

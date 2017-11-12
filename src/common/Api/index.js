@@ -36,14 +36,21 @@ export default {
       }
     })
   },
-  signup: (email, password) => {
+  signup: (email, password, siteId, isAdmin) => {
     return ApiManager.fetch({
       url: '/auth/signup',
       method: 'POST',
       body: {
         email,
-        password
+        password,
+        site_id: siteId,
+        is_admin: isAdmin
       }
+    })
+  },
+  getUsers: () => {
+    return ApiManager.fetch({
+      url: '/users'
     })
   }
 }

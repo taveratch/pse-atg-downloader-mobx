@@ -11,20 +11,24 @@ export default {
   createSite: (arg) => {
     Api.createSite(arg)
       .then(res => {
-        console.log(res)
+        if(!res.success)
+          stores.admin.sites.setError(res.error)
       })
   },
-  createUser: (email, password) => {
-    Api.signup(email, password)
+  createUser: (email, password, siteId, isAdmin) => {
+    Api.signup(email, password, siteId, isAdmin)
       .then(res => {
-        console.log(res)
+        stores.admin.createUser.setResponse(res)
+      })
+      .catch(res => {
+        stores.admin.createUser.setResponse(res)
       })
   },
   getUsers: () => {
     Api.getUsers()
       .then(res => {
         if(res.success)
-          stores.admin.users.setUsers(res.users)
+          stores.admin.users.setUsers(res.data)
       })
   }
 }

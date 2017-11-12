@@ -1,4 +1,6 @@
 import AuthController from 'server/controllers/auth-controller.js'
+import SiteUserController from 'server/controllers/siteuser-controller'
+import VerifyTokenAdmin from 'server/utils/verify-token-admin'
 import _ from 'lodash'
 import express from 'express'
 import sha512 from 'sha512'
@@ -22,7 +24,7 @@ auth.post('/authenticate', async (req, res) => {
       .catch((err) => {
         res.status(401).json({
           success: false,
-          message: 'Failed to authenticate token.',
+          error: 'Failed to authenticate token.',
           err: err
         })
       })
@@ -30,7 +32,7 @@ auth.post('/authenticate', async (req, res) => {
     /* return 403 status if there is no token in a request*/
     return res.status(403).send({
       success: false,
-      message: 'No token provided.'
+      error: 'No token provided.'
     })
   }
 })
@@ -40,7 +42,7 @@ auth.post('/authenticate', async (req, res) => {
 auth.post('/signin', async (req, res) => {
   /* Get parameter from a request */
   let { email } = req.body
-  let password = sha512(req.body.password).toString('hex') //use sha512 to hash the password before checking
+  let password = sha512(String(req.body.password)).toString('hex') //use sha512 to hash the password before checking
   try {
     let user = await AuthController.signin(email, password) //calling controller to get user from database
     /* If user exists, create a token */
@@ -53,7 +55,7 @@ auth.post('/signin', async (req, res) => {
   } catch (err) { /* Otherwise, send an error */
     res.status(401).send({
       success: false,
-      message: 'Incorrect username or password'
+      error: 'Incorrect username or password'
     })
   }
 })
@@ -62,10 +64,12 @@ auth.post('/signin', async (req, res) => {
   Route for signup.
   @return: a object that contains token and user.
 */
+auth.use('/signup', VerifyTokenAdmin)
 auth.post('/signup', async (req, res) => {
   /*Get parameters from a request */
-  let { email, is_admin } = req.body
-  let password = sha512(req.body.password).toString('hex') // hash pass with sha512
+  let { email, is_admin, site_id } = req.body
+  console.log('site_id', site_id)
+  let password = sha512(String(req.body.password)).toString('hex') // hash pass with sha512
   /* Call signup() from auth-controller. */
   try {
     if(email.trim().length === 0)
@@ -73,16 +77,18 @@ auth.post('/signup', async (req, res) => {
     await AuthController.signup(_.merge({ email, is_admin }, { password }))
     /*If able to create new user, then call signin from controller to get the user that has been created. */
     let user = await AuthController.signin(email, password)
+    if(site_id)
+      await SiteUserController.create(user.id, site_id)
     let token = AuthController.createToken(user)
-    res.status(200).send({
+    res.status(200).json({
       success: true,
       user: user,
       token: token
     })
   } catch (err) {
-    res.status(401).send({
+    res.status(400).json({
       success: false,
-      message: err.message
+      error: err
     })
   }
 })

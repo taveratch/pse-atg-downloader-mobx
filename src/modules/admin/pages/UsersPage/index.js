@@ -1,6 +1,7 @@
 import CreateUser from 'src/modules/admin/components/CreateUser'
 import PageTabs from 'src/common/components/PageTabs'
 import React from 'react'
+import UsersTable from 'src/modules/admin/components/UsersTable'
 
 class UsersPage extends React.PureComponent {
   state = {
@@ -20,7 +21,7 @@ class UsersPage extends React.PureComponent {
           onSelectTab={this.onSelectTab}
         >
           <CreateUser />
-          <div>users</div>
+          <UsersTable />
         </PageTabs>
       </div>
     )

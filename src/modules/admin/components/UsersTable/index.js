@@ -20,7 +20,7 @@ const style = {
 }
 
 @observer
-class SitesTable extends React.PureComponent {
+class UsersTable extends React.PureComponent {
 
   usersStore = stores.admin.users
 
@@ -40,10 +40,10 @@ class SitesTable extends React.PureComponent {
           </thead>
           <tbody>
             {
-              users.map((site, i) => {
+              users.map((user, i) => {
                 return (
                   <tr key={i}>
-                    <td className="pl-3 pr-3">{site.email}</td>
+                    <td className="pl-3 pr-3">{user.email}</td>
                   </tr>
                 )
               })
@@ -55,4 +55,4 @@ class SitesTable extends React.PureComponent {
   }
 }
 
-export default SitesTable
+export default UsersTable

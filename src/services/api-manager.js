@@ -27,7 +27,9 @@ class ApiManager {
             return resolve(res.json())
           return resolve(res.text())
         })
-        .catch(error => reject(error))
+        .catch(error => {
+          error.json().then(err => reject(err))
+        })
     })
   }
 }
