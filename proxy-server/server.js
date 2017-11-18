@@ -11,9 +11,6 @@ let url = require('url');
 let config = require('./config.json');
 
 let app = express();
-const PORT = 5000;
-
-const production = process.env.NODE_ENV === 'production';
 
 app.use(cors());
 
@@ -61,8 +58,5 @@ app.use('/_api/*', proxy({
         proxyReq.headers = req.headers;
     },
 }));
-app.listen(PORT, () => {
-    console.log(`Proxy server is running on port ${PORT}`);
-    if(production)
-        console.log('Production files are served');
-});
+
+export default app;

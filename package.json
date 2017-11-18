@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
-    "start": "NODE_ENV=production nodemon ./src/app.js",
-    "dev": "NODE_PATH=. concurrently \"npm run client\" \"npm run api-server\" \"npm run proxy-server\"",
-    "client": "node ./src/app.js",
-    "api-server": "cd server && npm run start",
+    "babel-node": "babel-node",
+    "start": "NODE_ENV=production nodemon --exec npm run babel-node -- ./src/app.js",
+    "dev": "NODE_PATH=. concurrently \"npm run client\" \"npm run proxy-server\"",
+    "client": "nodemon --exec npm run babel-node -- ./src/app.js",
     "proxy-server": "cd proxy-server && npm run start",
     "lint": "eslint --fix src/**"
   },

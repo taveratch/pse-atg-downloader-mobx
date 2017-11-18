@@ -3,6 +3,8 @@ const express = require('express')
 const port = (process.env.PORT || 8080)
 const app = express()
 const production = process.env.NODE_ENV === 'production'
+
+import proxy  from '../proxy-server/server'
 if (!production) {
   const webpack = require('webpack')
   const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -29,12 +31,16 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/public', publicPath)
 app.use('/stylesheet', express.static(path.join(__dirname, '../stylesheet')))
+
+if(production) {
+  app.use(proxy)
+  console.log('Production files are served')
+}
+
 app.use('*', function (_, res) { res.sendFile(indexPath) })
 
 app.listen(port)
 
-if(production) {
-  console.log('Production files are served')
-}
+
 
 console.log(`Listening at http://localhost:${port}`)
