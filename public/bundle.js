@@ -31021,7 +31021,7 @@
 	        proxyPrefix = '/_api';
 	        options.json = true;
 	      }
-	      options.url = (isProduction ? '' : host) + proxyPrefix + options.url;
+	      options.url = (isProduction ? 'http://192.168.1.11:8080' : host) + proxyPrefix + options.url;
 	      if (!options.headers) options.headers = {};
 	      if (!options.headers['Authorization']) options.headers['Authorization'] = _controllers.AuthController.getToken();
 	      options.headers['Content-Type'] = 'application/json';
@@ -55382,7 +55382,7 @@
 	  value: true
 	});
 	exports.default = {
-	  API_ENDPOINT: 'http://localhost:3001/_api'
+	  API_ENDPOINT: 'http://192.168.1.11:3001/_api'
 	};
 
 /***/ }),

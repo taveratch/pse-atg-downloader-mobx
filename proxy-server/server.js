@@ -8,7 +8,8 @@ let express = require('express');
 let proxy = require('http-proxy-middleware');
 let cors = require('cors');
 let url = require('url');
-let config = require('./config.json');
+
+import config from '../config';
 
 let app = express();
 
@@ -20,7 +21,7 @@ const getQuery = originalUrl => {
 };
 
 let options = {
-    target: config.host,
+    target: config.proxy,
     router: (req) => {
         let q = getQuery(req.originalUrl);
         let parsedUrl = url.parse(q);
@@ -52,7 +53,7 @@ let options = {
 
 app.use('/proxy', proxy(options));
 app.use('/_api/*', proxy({
-    target: config.apiHost,
+    target: config.api,
     changeOrigin: true,
     onProxyReq: (proxyReq, req, res) => {
         proxyReq.headers = req.headers;

@@ -1,10 +1,8 @@
 import app from './server';
+import config from '../config';
 
 const PORT = 5000;
-const production = process.env.NODE_ENV === 'production';
 
 app.listen(PORT, () => {
-    console.log(`Proxy server is running on port ${PORT}`);
-    if(production)
-        console.log('Production files are served');
+    console.log(`Proxy server is running on ${config.proxy}`);
 });

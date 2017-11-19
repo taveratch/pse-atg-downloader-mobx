@@ -20,7 +20,8 @@
         "ecmaVersion": 2017
     },
     "plugins": [
-        "react"
+        "react",
+        "json"
     ],
     "rules": {
         "indent": [
