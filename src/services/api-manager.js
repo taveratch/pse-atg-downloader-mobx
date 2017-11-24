@@ -1,7 +1,8 @@
 import { AuthController } from 'src/controllers'
 import config from 'config/index.js'
+import { isProduction } from 'src/services/env'
 
-const host = config.proxy
+const host = isProduction() ? '' : config.proxy
 
 class ApiManager {
   fetch(options) {
