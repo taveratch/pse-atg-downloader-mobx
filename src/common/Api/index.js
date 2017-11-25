@@ -17,13 +17,10 @@ export default {
       }
     })
   },
-  authUser: (token) => {
+  authUser: () => {
     return ApiManager.fetch({
       url:'/auth/authenticate',
-      method: 'POST',
-      body: {
-        token
-      }
+      method: 'POST'
     })
   },
   signin: (email, password) => {

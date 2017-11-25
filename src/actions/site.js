@@ -7,7 +7,7 @@ export const getSites = () => {
       .then(res => {
         dispatch({
           type: GET_SITES,
-          data: res.sites
+          data: res.data
         })
       })
   }
