@@ -70,5 +70,11 @@ export default {
         port: updatedSite.port,
       }
     })
+  },
+  deleteSite: (siteId) => {
+    return ApiManager.fetch({
+      method: 'DELETE',
+      url: `/site/${siteId}`
+    })
   }
 }

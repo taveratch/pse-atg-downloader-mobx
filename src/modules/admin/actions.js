@@ -55,5 +55,8 @@ export default {
         stores.admin.site._setMessage('ผิดพลาด')
         stores.admin.site._setSuccess(false)
       })
+  },
+  deleteSite: siteId => {
+    return Api.deleteSite(siteId)
   }
 } 

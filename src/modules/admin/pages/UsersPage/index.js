@@ -3,8 +3,15 @@ import CreateUser from 'src/modules/admin/components/CreateUser'
 import PageTabs from 'src/common/components/PageTabs'
 import React from 'react'
 import UsersTable from 'src/modules/admin/components/UsersTable'
+import { colors } from 'src/common/mixins'
+import { css } from 'styled-components'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
+
+const tabStyle = css`
+  border-bottom: 3px solid ${colors.green};
+  color: ${colors.black};
+`
 
 @observer
 class UsersPage extends React.PureComponent {
@@ -25,12 +32,13 @@ class UsersPage extends React.PureComponent {
     return (
       <div className='container'>
         <PageTabs
-          titles={['Create user', 'All users']}
+          titles={['ลูกค้าทั้งหมด', 'สร้างลูกค้าใหม่']}
           selectedIndex={this.state.selectedIndex}
           onSelectTab={this.onSelectTab}
+          activeStyle={tabStyle}
         >
-          <CreateUser />
           <UsersTable users={stores.admin.users.users} />
+          <CreateUser />
         </PageTabs>
       </div>
     )

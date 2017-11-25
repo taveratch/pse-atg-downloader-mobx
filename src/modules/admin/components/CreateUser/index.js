@@ -1,5 +1,5 @@
 import AdminActions from 'src/modules/admin/actions'
-import Button from 'src/common/components/Button'
+import Button from 'src/common/components/Buttons/Button'
 import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
 import React from 'react'
@@ -28,7 +28,7 @@ class CreateUser extends React.Component {
     password: '',
     siteId: null,
     isAdmin: false,
-    dropdownText: 'Choose site...'
+    dropdownText: 'เลือกหน่วยงาน ...'
   }
 
   componentDidMount() {
@@ -70,13 +70,13 @@ class CreateUser extends React.Component {
       <div className="col-xs-10 col-sm-7 col-md-7">
         { res.error && <ErrorMessage>{res.error}</ErrorMessage>}
         { res.success && <SuccessMessage>{`${res.user.email} has been created`}</SuccessMessage>}
-        <Input label="Email" name="email" onChange={this.handleChange} />
+        <Input label="อีเมลล์" name="email" onChange={this.handleChange} />
         <br />
         <Flex>
           <FlexItemFillWidth>
-            <Input label="Password" name="password" onChange={this.handleChange} />
+            <Input label="รหัสผ่าน" name="password" onChange={this.handleChange} />
           </FlexItemFillWidth>
-          <Button className='btn' onClick={this.generatePassword}>Generate</Button>
+          <Button className='btn' onClick={this.generatePassword}>สุ่ม</Button>
         </Flex>
         <br />
         <div className="dropdown w-100">
@@ -90,7 +90,7 @@ class CreateUser extends React.Component {
           </div>
         </div>
         <br />
-        <Button className='btn' onClick={this.onClick}>Create</Button>
+        <Button className='btn pl-5 pr-5' onClick={this.onClick}>สร้าง</Button>
       </div>
     )
   }

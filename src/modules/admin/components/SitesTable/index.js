@@ -46,9 +46,9 @@ class SitesTable extends React.PureComponent {
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">Name</th>
-              <th className="pl-3 pr-3">Url</th>
-              <th className="pl-3 pr-3">Port</th>
+              <th className="pl-3 pr-3">ชื่อหน่วยงาน</th>
+              <th className="pl-3 pr-3">ลิ้งค์</th>
+              <th className="pl-3 pr-3">พอร์ท</th>
             </tr>
           </thead>
           <tbody>

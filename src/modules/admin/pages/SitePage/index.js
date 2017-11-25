@@ -1,5 +1,6 @@
 import AdminActions from 'src/modules/admin/actions'
 import Button from 'src/common/components/Buttons/Button'
+import ConfirmModal from 'src/common/components/ConfirmModal'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
 import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
@@ -7,6 +8,7 @@ import React from 'react'
 import SuccessMessage from 'src/common/components/SuccessMessage'
 import UsersTable from 'src/modules/admin/components/UsersTable'
 import _ from 'lodash'
+import history from 'src/common/history'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
 
@@ -15,9 +17,9 @@ class SitePage extends React.PureComponent {
 
   constructor(props) {
     super(props)
-    const siteId = this.props.match.params.id
-    AdminActions.getSite(siteId)
-    AdminActions.getUsersBySiteId(siteId)
+    this.siteId = this.props.match.params.id
+    AdminActions.getSite(this.siteId)
+    AdminActions.getUsersBySiteId(this.siteId)
   }
 
   state = {
@@ -34,9 +36,13 @@ class SitePage extends React.PureComponent {
   }
 
   onSave = () => {
-    const siteId = this.props.match.params.id
     const withoutNull = _.pickBy(this.state, _.identity)
-    AdminActions.updateSite(siteId, withoutNull)
+    AdminActions.updateSite(this.siteId, withoutNull)
+  }
+
+  onDelete = async () => {
+    await AdminActions.deleteSite(this.siteId)
+    history.push('/admin/sites')
   }
 
   render() {
@@ -45,6 +51,13 @@ class SitePage extends React.PureComponent {
     if (!site) return null
     return (
       <div>
+        <ConfirmModal
+          id="delete-confirm-modal"
+          title={'ยืนยัน'} 
+          body={`ต้องการลบหน่วยงาน ${site.name} หรือไม่ ? \n (หน่วยงานนี้จะถูกลบออกจากลูกค้าทุกคน)`}  
+          yesButtonLabel={'ลบ'}
+          onYes={this.onDelete}
+        />
         <h5>
           <b>แก้ไข</b>
         </h5>
@@ -65,7 +78,7 @@ class SitePage extends React.PureComponent {
         <br />
         <div className="mb-3">
           <Button className="btn pl-5 pr-5" onClick={this.onSave}>บันทึก</Button>
-          <DangerButton className="btn ml-3 pl-5 pr-5" >ลบ</DangerButton>
+          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">ลบ</DangerButton>
         </div>
         {siteStore.success && siteStore.message && <SuccessMessage>{siteStore.message}</SuccessMessage>}
         {!siteStore.success && siteStore.message && <ErrorMessage>{siteStore.message}</ErrorMessage>}
