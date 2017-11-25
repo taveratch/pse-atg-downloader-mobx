@@ -52,7 +52,23 @@ export default {
   },
   getSite: siteId => {
     return ApiManager.fetch({
-      url: '/site/' + siteId
+      url: `/site/${siteId}`
+    })
+  },
+  getUsersBySiteId: siteId => {
+    return ApiManager.fetch({
+      url: `/site/${siteId}/users`
+    })
+  },
+  updateSite: (siteId, updatedSite) => {
+    return ApiManager.fetch({
+      method: 'PUT',
+      url: `/site/${siteId}`,
+      body: {
+        url: updatedSite.url,
+        name: updatedSite.name,
+        port: updatedSite.port,
+      }
     })
   }
 }

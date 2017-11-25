@@ -1,7 +1,4 @@
-import AdminActions from 'src/modules/admin/actions'
 import React from 'react'
-import { observer } from 'mobx-react'
-import stores from 'src/stores'
 
 const style = {
   thead: {
@@ -19,23 +16,15 @@ const style = {
   }
 }
 
-@observer
 class UsersTable extends React.PureComponent {
-
-  usersStore = stores.admin.users
-
-  componentDidMount() {
-    AdminActions.getUsers()
-  }
-
   render() {
-    const { users } = this.usersStore
+    const { users } = this.props
     return (
       <div>
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">Email</th>
+              <th className="pl-3 pr-3">อีเมลล์</th>
             </tr>
           </thead>
           <tbody>

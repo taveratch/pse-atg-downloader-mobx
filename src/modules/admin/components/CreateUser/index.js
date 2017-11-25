@@ -1,7 +1,9 @@
 import AdminActions from 'src/modules/admin/actions'
 import Button from 'src/common/components/Button'
+import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
 import React from 'react'
+import SuccessMessage from 'src/common/components/SuccessMessage'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
 import styled from 'styled-components'
@@ -17,14 +19,6 @@ const Flex = styled.div`
 const FlexItemFillWidth = styled.div`
   flex: 1;
   margin-right: 8px;
-`
-
-const ErrorMessage = styled.span`
-  color: red;
-`
-
-const SuccessMessage = styled.span`
-  color: green;
 `
 
 @observer
