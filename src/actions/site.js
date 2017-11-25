@@ -3,7 +3,7 @@ import { GET_SITES } from 'src/constants'
 
 export const getSites = () => {
   return dispatch => {
-    Api.getSite()
+    Api.getSites()
       .then(res => {
         dispatch({
           type: GET_SITES,

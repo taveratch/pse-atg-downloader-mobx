@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Dashboard from 'src/modules/admin/components/Dashboard'
 import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
+import SitePage from 'src/modules/admin/pages/SitePage'
 import SitesPage from 'src/modules/admin/pages/SitesPage'
 import UsersPage from 'src/modules/admin/pages/UsersPage'
 
@@ -21,6 +22,10 @@ const routes = [
     path: '/users',
     exact: true,
     component: UsersPage
+  },
+  {
+    path: '/sites/:id',
+    component: SitePage
   }
 ]
 

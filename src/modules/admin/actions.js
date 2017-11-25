@@ -2,16 +2,16 @@ import Api from 'src/common/Api'
 import stores from 'src/stores'
 export default {
   getSites: () => {
-    Api.getSite()
+    Api.getSites()
       .then(res => {
-        if(res.success) 
-          stores.admin.sites.setSites(res.sites)
-      }) 
+        if (res.success)
+          stores.admin.sites.setSites(res.data)
+      })
   },
   createSite: (arg) => {
     Api.createSite(arg)
       .then(res => {
-        if(!res.success)
+        if (!res.success)
           stores.admin.sites.setError(res.error)
       })
   },
@@ -27,8 +27,14 @@ export default {
   getUsers: () => {
     Api.getUsers()
       .then(res => {
-        if(res.success)
+        if (res.success)
           stores.admin.users.setUsers(res.data)
+      })
+  },
+  getSite: siteId => {
+    Api.getSite(siteId)
+      .then(res => {
+        stores.admin.sites.setSite(res.data)
       })
   }
 }

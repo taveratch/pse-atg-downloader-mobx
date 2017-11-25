@@ -1,12 +1,12 @@
 import ApiManager from 'src/services/api-manager'
 
 export default {
-  getSite: () => {
+  getSites: () => {
     return ApiManager.fetch({
       url: '/site'
     })
   },
-  createSite: ({name, url, port}) => {
+  createSite: ({ name, url, port }) => {
     return ApiManager.fetch({
       url: '/site/create',
       method: 'POST',
@@ -19,13 +19,13 @@ export default {
   },
   authUser: () => {
     return ApiManager.fetch({
-      url:'/auth/authenticate',
+      url: '/auth/authenticate',
       method: 'POST'
     })
   },
   signin: (email, password) => {
     return ApiManager.fetch({
-      url:'/auth/signin',
+      url: '/auth/signin',
       method: 'POST',
       body: {
         email,
@@ -48,6 +48,11 @@ export default {
   getUsers: () => {
     return ApiManager.fetch({
       url: '/users'
+    })
+  },
+  getSite: siteId => {
+    return ApiManager.fetch({
+      url: '/site/' + siteId
     })
   }
 }

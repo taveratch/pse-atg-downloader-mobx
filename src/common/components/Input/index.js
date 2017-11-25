@@ -8,7 +8,8 @@ class Input extends React.PureComponent {
 
   static defaultProps = {
     onChange: () => {},
-    type: 'text'
+    type: 'text',
+    defaultValue: ''
   }
   
   render() {
@@ -21,6 +22,7 @@ class Input extends React.PureComponent {
           name={this.props.name} 
           placeholder={this.props.placeholder} 
           onChange={this.props.onChange}
+          defaultValue={this.props.defaultValue}
         />
       </div>
     )
