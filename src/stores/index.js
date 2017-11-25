@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import adminCreateUser from 'src/stores/admin/create-user'
 import adminSite from 'src/stores/admin/site'
 import adminSites from 'src/stores/admin/sites'
+import adminUser from 'src/stores/admin/user'
 import adminUsers from 'src/stores/admin/users'
 import auth from 'src/stores/auth'
 import inventory from 'src/stores/inventory'
@@ -13,6 +13,6 @@ _.set(stores, 'inventory', inventory)
 _.set(stores, 'admin.sites', adminSites)
 _.set(stores, 'admin.site', adminSite)
 _.set(stores, 'admin.users', adminUsers)
-_.set(stores, 'admin.createUser', adminCreateUser)
+_.set(stores, 'admin.user', adminUser)
 
 export default stores
