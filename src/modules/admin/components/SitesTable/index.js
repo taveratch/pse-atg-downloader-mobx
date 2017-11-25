@@ -1,7 +1,13 @@
 import AdminActions from 'src/modules/admin/actions'
 import React from 'react'
+import history from 'src/common/history'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
+import styled from 'styled-components'
+
+const Tr = styled.tr`
+  cursor: pointer;
+`
 
 const style = {
   thead: {
@@ -28,6 +34,11 @@ class SitesTable extends React.PureComponent {
     AdminActions.getSites()
   }
   
+  onClick = (index) => {
+    const site = this.sitesStore.sites[index]
+    history.push(`/admin/sites/${site.id}`)
+  }
+
   render() {
     const {sites} = this.sitesStore
     return (
@@ -35,20 +46,20 @@ class SitesTable extends React.PureComponent {
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">Name</th>
-              <th className="pl-3 pr-3">Url</th>
-              <th className="pl-3 pr-3">Port</th>
+              <th className="pl-3 pr-3">ชื่อหน่วยงาน</th>
+              <th className="pl-3 pr-3">ลิ้งค์</th>
+              <th className="pl-3 pr-3">พอร์ท</th>
             </tr>
           </thead>
           <tbody>
             {
               sites.map((site, i) => {
                 return (
-                  <tr key={i}>
+                  <Tr key={i} onClick={() => { this.onClick(i)}}>
                     <td className="pl-3 pr-3">{site.name}</td>
                     <td className="pl-3 pr-3">{site.url}</td>
                     <td className="pl-3 pr-3">{site.port}</td>
-                  </tr>
+                  </Tr>
                 )
               })
             }

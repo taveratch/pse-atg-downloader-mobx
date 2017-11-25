@@ -3,18 +3,12 @@ import { action, observable } from 'mobx'
 import FetchedStore from 'src/stores/fetched-store'
 
 class Sites extends FetchedStore {
-    @observable sites = [];
-    @observable error = null
+  @observable sites = []
 
-    @action.bound
-    setSites(sites){
-      this.sites = sites
-    }
-
-    @action.bound
-    setError(errorMessage) {
-      this.error = errorMessage
-    }
+  @action.bound
+  setSites(sites) {
+    this.sites = sites
+  }
 }
 
 const sites = new Sites()

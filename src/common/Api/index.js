@@ -1,12 +1,12 @@
 import ApiManager from 'src/services/api-manager'
 
 export default {
-  getSite: () => {
+  getSites: () => {
     return ApiManager.fetch({
       url: '/site'
     })
   },
-  createSite: ({name, url, port}) => {
+  createSite: ({ name, url, port }) => {
     return ApiManager.fetch({
       url: '/site/create',
       method: 'POST',
@@ -17,18 +17,15 @@ export default {
       }
     })
   },
-  authUser: (token) => {
+  authUser: () => {
     return ApiManager.fetch({
-      url:'/auth/authenticate',
-      method: 'POST',
-      body: {
-        token
-      }
+      url: '/auth/authenticate',
+      method: 'POST'
     })
   },
   signin: (email, password) => {
     return ApiManager.fetch({
-      url:'/auth/signin',
+      url: '/auth/signin',
       method: 'POST',
       body: {
         email,
@@ -51,6 +48,33 @@ export default {
   getUsers: () => {
     return ApiManager.fetch({
       url: '/users'
+    })
+  },
+  getSite: siteId => {
+    return ApiManager.fetch({
+      url: `/site/${siteId}`
+    })
+  },
+  getUsersBySiteId: siteId => {
+    return ApiManager.fetch({
+      url: `/site/${siteId}/users`
+    })
+  },
+  updateSite: (siteId, updatedSite) => {
+    return ApiManager.fetch({
+      method: 'PUT',
+      url: `/site/${siteId}`,
+      body: {
+        url: updatedSite.url,
+        name: updatedSite.name,
+        port: updatedSite.port,
+      }
+    })
+  },
+  deleteSite: (siteId) => {
+    return ApiManager.fetch({
+      method: 'DELETE',
+      url: `/site/${siteId}`
     })
   }
 }
