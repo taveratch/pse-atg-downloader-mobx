@@ -32,7 +32,7 @@ class UsersPage extends React.PureComponent {
     return (
       <div className='container'>
         <PageTabs
-          titles={['ลูกค้าทั้งหมด', 'สร้างลูกค้าใหม่']}
+          titles={['ผู้ใช้งานทั้งหมด', 'สร้างผู้ใช้งานใหม่']}
           selectedIndex={this.state.selectedIndex}
           onSelectTab={this.onSelectTab}
           activeStyle={tabStyle}

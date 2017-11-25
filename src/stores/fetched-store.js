@@ -3,7 +3,7 @@ import { action, observable } from 'mobx'
 class FetchedStore {
   @observable fetching = false
   @observable success = true
-  @observable message = ''
+  @observable message = null
 
   @action.bound
   _setFetching(fetching) {
@@ -18,6 +18,13 @@ class FetchedStore {
   @action.bound
   _setMessage(message) {
     this.message = message
+  }
+
+  @action.bound
+  _reset() {
+    this.fetching = false
+    this.success = true
+    this.message = null
   }
 }
 

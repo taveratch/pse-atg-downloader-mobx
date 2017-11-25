@@ -1,4 +1,5 @@
-import AdminActions from 'src/modules/admin/actions'
+import AdminActions, { StoreActions } from 'src/modules/admin/actions'
+
 import Button from 'src/common/components/Buttons/Button'
 import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
@@ -32,9 +33,10 @@ class CreateUser extends React.Component {
   }
 
   componentDidMount() {
+    StoreActions.reset('user')
     AdminActions.getSites()
   }
-  
+
   handleChange = event => {
     const { name, value } = event.target
     this.setState({
@@ -44,6 +46,7 @@ class CreateUser extends React.Component {
 
   onClick = () => {
     AdminActions.createUser(this.state.email, this.state.password, this.state.siteId, this.state.isAdmin)
+      .then(() => AdminActions.getUsers())
   }
 
   generatePassword = () => {
@@ -65,11 +68,11 @@ class CreateUser extends React.Component {
 
   render() {
     const { sites } = stores.admin.sites
-    const { res } = stores.admin.createUser
+    const { user: userStore } = stores.admin
     return (
       <div className="col-xs-10 col-sm-7 col-md-7">
-        { res.error && <ErrorMessage>{res.error}</ErrorMessage>}
-        { res.success && <SuccessMessage>{`${res.user.email} has been created`}</SuccessMessage>}
+        {!userStore.success && userStore.message && <ErrorMessage>{userStore.message}</ErrorMessage>}
+        {userStore.success && userStore.message && <SuccessMessage>{userStore.message}</SuccessMessage>}
         <Input label="อีเมลล์" name="email" onChange={this.handleChange} />
         <br />
         <Flex>

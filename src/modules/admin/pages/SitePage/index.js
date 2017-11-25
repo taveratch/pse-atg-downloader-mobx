@@ -54,7 +54,7 @@ class SitePage extends React.PureComponent {
         <ConfirmModal
           id="delete-confirm-modal"
           title={'ยืนยัน'} 
-          body={`ต้องการลบหน่วยงาน ${site.name} หรือไม่ ? \n (หน่วยงานนี้จะถูกลบออกจากลูกค้าทุกคน)`}  
+          body={`ต้องการลบหน่วยงาน ${site.name} หรือไม่ ? \n (หน่วยงานนี้จะถูกลบออกจากผู้ใช้งานทุกคน)`}  
           yesButtonLabel={'ลบ'}
           onYes={this.onDelete}
         />
@@ -70,7 +70,7 @@ class SitePage extends React.PureComponent {
         <br />
         <h5>
           <b>
-            {`รายชื่อลูกค้าของ ${site.name}`}
+            {`รายชื่อผู้ใช้งานของ ${site.name}`}
           </b>
         </h5>
         <UsersTable users={users} />

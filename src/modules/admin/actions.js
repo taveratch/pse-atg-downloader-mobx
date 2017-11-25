@@ -2,14 +2,14 @@ import Api from 'src/common/Api'
 import stores from 'src/stores'
 export default {
   getSites: () => {
-    Api.getSites()
+    return Api.getSites()
       .then(res => {
         if (res.success)
           stores.admin.sites.setSites(res.data)
       })
   },
   createSite: (arg) => {
-    Api.createSite(arg)
+    return Api.createSite(arg)
       .then(res => {
         if (!res.success) {
           stores.admin.sites._setMessage(res.error)
@@ -18,35 +18,38 @@ export default {
       })
   },
   createUser: (email, password, siteId, isAdmin) => {
-    Api.signup(email, password, siteId, isAdmin)
+    return Api.signup(email, password, siteId, isAdmin)
       .then(res => {
-        stores.admin.createUser.setResponse(res)
+        stores.admin.user.setUser(res.data)
+        stores.admin.user._setSuccess(true)
+        stores.admin.user._setMessage(`ผู้ใช้งาน ${res.data.email} ถูกสร้างแล้ว`)
       })
       .catch(res => {
-        stores.admin.createUser.setResponse(res)
+        stores.admin.user._setSuccess(false)
+        stores.admin.user._setMessage(res.error)
       })
   },
   getUsers: () => {
-    Api.getUsers()
+    return Api.getUsers()
       .then(res => {
         if (res.success)
-          stores.admin.users.setUsers(res.data)
+          stores.admin.users.setUsers(res.data.reverse())
       })
   },
   getSite: siteId => {
-    Api.getSite(siteId)
+    return Api.getSite(siteId)
       .then(res => {
         stores.admin.site.setSite(res.data)
       })
   },
   getUsersBySiteId: (siteId) => {
-    Api.getUsersBySiteId(siteId)
+    return Api.getUsersBySiteId(siteId)
       .then(res => {
         stores.admin.site.setUsers(res.data)
       })
   },
   updateSite: (siteId, updatedSite) => {
-    Api.updateSite(siteId, updatedSite)
+    return Api.updateSite(siteId, updatedSite)
       .then(() => {
         stores.admin.site._setMessage('บันทึกเรียบร้อย')
         stores.admin.site._setSuccess(true)
@@ -59,4 +62,10 @@ export default {
   deleteSite: siteId => {
     return Api.deleteSite(siteId)
   }
-} 
+}
+
+export const StoreActions = {
+  reset: (storeName) => {
+    stores.admin[storeName]._reset()
+  }
+}
