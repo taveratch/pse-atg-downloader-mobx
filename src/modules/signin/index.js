@@ -34,7 +34,8 @@ class SignIn extends React.Component {
     this.setState(state)
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
+    e.preventDefault()
     let { email, password } = this.state
     SigninActions.signin(email, password)
   }
@@ -44,12 +45,14 @@ class SignIn extends React.Component {
       <Page className='h-100 w-100'>
         <div className='container d-flex align-items-center h-100 justify-content-center'>
           <LoginBox className='col-md-6 col-sm-10 col-xs-10 col-lg-6 p-0'>
-            <Header title='Sign in' />
+            <Header title='เข้าสู่ระบบ' />
             <div className='p-4'>
               {!authStore.success && <ErrorMessage>{authStore.message}</ErrorMessage>}
-              <input className='form-control' name='email' type='email' placeholder='Email address' onChange={this.handleChange.bind(this)} />
-              <input className='form-control mt-2' name='password' type='password' placeholder='Password' onChange={this.handleChange.bind(this)} />
-              <Button className='btn text-white mt-4 w-100' onClick={this.handleClick} >Sign in</Button>
+              <form onSubmit={this.handleClick}>
+                <input className='form-control' name='email' type='email' placeholder='อีเมลล์' onChange={this.handleChange.bind(this)} />
+                <input className='form-control mt-2' name='password' type='password' placeholder='รหัสผ่าน' onChange={this.handleChange.bind(this)} />
+                <Button className='btn text-white mt-4 w-100' onClick={this.handleClick} >เข้าสู่ระบบ</Button>
+              </form>
             </div>
           </LoginBox>
         </div>

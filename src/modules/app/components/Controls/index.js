@@ -3,7 +3,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { filterInventoryFromDate, getOnlyName } from 'src/js/utils'
 
 import $ from 'jquery'
-import Button from 'src/common/components/Button'
+import Button from 'src/common/components/Buttons/Button'
 import DatePicker from 'react-datepicker'
 import DownloadImg from 'src/assets/images/download-white.svg'
 import Dropdown from 'src/common/components/Dropdown'
@@ -15,13 +15,6 @@ import moment from 'moment'
 import { observer } from 'mobx-react'
 import service from 'src/js/service'
 import stores from 'src/stores'
-
-const style = {
-  buttonStyle: {
-    height: 38,
-    padding: '.3rem 1rem'
-  }
-}
 
 @observer
 class Controls extends React.Component {
@@ -91,10 +84,14 @@ class Controls extends React.Component {
   render() {
     return (
       <div className='d-flex align-items-end'>
-        <Button style={style.buttonStyle} className="btn align-self-end" onClick={this.downloadAll.bind(this)}>
-                    ดาวน์โหลดทั้งหมด
-          <img className='ml-2' src={DownloadImg} alt="" />
-        </Button>
+        <div>
+          <span>เริ่ม</span>
+          <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD MMM YYYY' className='form-control' selected={this.state.startDate} onChange={this.handleStartDateChange} />
+        </div>
+        <div className='ml-4'>
+          <span>ถึง</span>
+          <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD MMM YYYY' className='form-control' selected={this.state.endDate} onChange={this.handleEndDateChange} />
+        </div>
         <Dropdown 
           itemSelector={Selectors.getDownloadTypeLabel}
           items={this.downloadTypes}
@@ -103,19 +100,10 @@ class Controls extends React.Component {
           className="ml-4"
           onItemClick={this.changeDownloadType}
         />
-        <div className='ml-4'>
-          <div>
-            <span>เริ่ม</span>
-            <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD/MM/YYYY' className='form-control' selected={this.state.startDate} onChange={this.handleStartDateChange} />
-          </div>
-        </div>
-
-        <div className='ml-4'>
-          <div>
-            <span>ถึง</span>
-            <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD/MM/YYYY' className='form-control' selected={this.state.endDate} onChange={this.handleEndDateChange} />
-          </div>
-        </div>
+        <Button className="btn align-self-end ml-4" onClick={this.downloadAll.bind(this)}>
+                    ดาวน์โหลดทั้งหมด
+          <img className='ml-2' src={DownloadImg} alt="" />
+        </Button>
       </div>
     )
   }
