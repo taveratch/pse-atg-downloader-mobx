@@ -81,6 +81,25 @@ class UserPage extends React.PureComponent {
     this.userStore.deleteSite(site)
   }
 
+  createAddSiteSection = () => {
+    return (
+      <div>
+        <h5>
+          <b>เพิ่มหน่วยงาน</b>
+        </h5>
+        <div className="mb-5">
+          <Dropdown
+            itemSelector={Selectors.getSiteName}
+            id="dropdownSites"
+            items={removeDuplicateSite(toJS(this.sitesStore.sites), toJS(this.userStore.sites))}
+            onItemClick={this.onItemClick}
+            initialLabel="โปรดเลือกหน่วยงาน ..."
+          />
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const { user, sites } = this.userStore
     if (!user) return null
@@ -99,33 +118,22 @@ class UserPage extends React.PureComponent {
           </h5>
           <Input name="email" label="อีเมลล์" defaultValue={user.email} onChange={this.onChange} />
           <br />
-          <Input name="password" label="รหัสผ่าน" onChange={this.onChange} />
+          <Input name="password" label="รหัสผ่าน" onChange={this.onChange} placeholder='ว่างเพื่อใช้รหัสผ่านเดิม' />
           <br />
           <input type="checkbox" checked={this.state.isAdmin === null ? user.is_admin : this.state.isAdmin} id="isAdmin" name="isAdmin" value="isAdmin" onChange={this.onCheckboxChange} />
           <label className="ml-3" htmlFor="isAdmin">ผู้ดูแลระบบ</label>
         </div>
-        <h5>
-          <b>เพิ่มหน่วยงาน</b>
-        </h5>
-        <div className="mb-5">
-          <Dropdown 
-            itemSelector={Selectors.getSiteName}
-            id="dropdownSites"
-            items={removeDuplicateSite(toJS(this.sitesStore.sites), toJS(sites))}
-            onItemClick={this.onItemClick}
-            initialLabel="โปรดเลือกหน่วยงาน ..."
-          />
-        </div>
+        {!user.is_admin && this.createAddSiteSection()}
         <h5>
           <b>
             {`รายชื่อหน่วยงานทั้งหมดของ ${user.email}`}
           </b>
         </h5>
-        <SitesTable 
+        <SitesTable
           sites={sites}
-          showOption
+          showOption={!user.is_admin}
           optionText="ลบ"
-          onOptionClick={this.onDeleteSite}  
+          onOptionClick={this.onDeleteSite}
         />
         <br />
         <br />

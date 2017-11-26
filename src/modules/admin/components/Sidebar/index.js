@@ -36,7 +36,7 @@ class Sidebar extends React.PureComponent {
   render() {
     return (
       <StyledUl>
-        <List><Link to='/admin'>หน้าหลัก</Link></List>
+        {/* <List><Link to='/admin'>หน้าหลัก</Link></List> */}
         <List><Link to='/admin/sites'>หน่วยงาน</Link></List>
         <List><Link to='/admin/users'>ผู้ใช้งาน</Link></List>
       </StyledUl>

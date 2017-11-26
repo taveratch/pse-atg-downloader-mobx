@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 
-import Dashboard from 'src/modules/admin/components/Dashboard'
+// import Dashboard from 'src/modules/admin/components/Dashboard'
 import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
 import SitePage from 'src/modules/admin/pages/SitePage'
@@ -9,11 +9,6 @@ import UserPage from 'src/modules/admin/pages/UserPage'
 import UsersPage from 'src/modules/admin/pages/UsersPage'
 
 const routes = [
-  {
-    path: '/',
-    exact: true,
-    component: Dashboard
-  },
   {
     path: '/sites',
     exact: true,
@@ -51,6 +46,7 @@ class Admin extends React.PureComponent {
                   <Route key={index} path={match.url + route.path} exact={route.exact} component={route.component} />
                 ))
               }
+              <Route component={SitesPage} />
             </Switch>
           </div>
         </div>

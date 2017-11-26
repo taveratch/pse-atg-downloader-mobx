@@ -6,6 +6,10 @@ const Tr = styled.tr`
   cursor: pointer;
 `
 
+const AdminMessage = styled.span`
+  color: #E57373;
+`
+
 const style = {
   thead: {
     background: '#F7F7F7'
@@ -44,7 +48,10 @@ class UsersTable extends React.PureComponent {
               users.map((user, i) => {
                 return (
                   <Tr key={i} onClick={() => { this.onClick(i) }}>
-                    <td className="pl-3 pr-3">{user.email}</td>
+                    <td className="pl-3 pr-3">
+                      {user.email}
+                      {user.is_admin && <AdminMessage className="ml-3">(ผู้ดูแลระบบ)</AdminMessage>}
+                    </td>
                   </Tr>
                 )
               })

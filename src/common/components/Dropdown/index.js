@@ -12,9 +12,9 @@ const DropdownItem = styled.span`
 `
 
 export default props => {
-  const { itemSelector, id, items, onItemClick, initialLabel } = props
+  const { itemSelector, id, items, onItemClick, initialLabel, className } = props
   return (
-    <div className="dropdown">
+    <div className={`dropdown ${className}`}>
       <DropdownItem className="w-100 btn btn-secondary dropdown-toggle" id={id} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span>{initialLabel}</span>
       </DropdownItem>
