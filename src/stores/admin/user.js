@@ -15,6 +15,11 @@ class User extends FetchedStore {
   setSites(sites) {
     this.sites = sites
   }
+
+  @action.bound
+  addSite(site) {
+    this.sites.push(site)
+  }
 }
 
 const model = new User()

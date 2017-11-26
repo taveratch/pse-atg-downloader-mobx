@@ -3,14 +3,22 @@ import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 import Button from 'src/common/components/Buttons/Button'
 import ConfirmModal from 'src/common/components/ConfirmModal'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
+import Dropdown from 'src/common/components/Dropdown'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
+import Selectors from 'src/modules/admin/selectors'
 import SitesTable from 'src/modules/admin/components/SitesTable'
 import _ from 'lodash'
 import history from 'src/common/history'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
+import { toJS } from 'mobx'
+
+const removeDuplicateSite = (primary, secondary) => {
+  const _isEqual = (object, other) => object.id === other.id
+  return _.pullAllWith(primary, secondary, _isEqual)
+}
 
 @observer
 class UserPage extends React.PureComponent {
@@ -20,9 +28,11 @@ class UserPage extends React.PureComponent {
     this.userId = this.props.match.params.id
     AdminActions.getUser(this.userId)
     AdminActions.getSitesByUserId(this.userId)
+    AdminActions.getSites()
   }
 
   userStore = stores.admin.user
+  sitesStore = stores.admin.sites
 
   state = {
     email: null,
@@ -49,7 +59,9 @@ class UserPage extends React.PureComponent {
   onSave = () => {
     const _filterer = value => _.identity(value !== null)
     const withoutNull = _.pickBy(this.state, _filterer)
-    AdminActions.updateUser(this.userId, withoutNull)
+    // Merge current site ids with site ids from store (server)
+    const siteIds = [...this.state.siteIds, ..._.map(this.userStore.sites, 'id')]
+    AdminActions.updateUser(this.userId, { ...withoutNull, ...{ siteIds } })
   }
 
   onDelete = async () => {
@@ -59,6 +71,10 @@ class UserPage extends React.PureComponent {
 
   componentWillUnmount() {
     StoreActions.reset('user')
+  }
+
+  onItemClick = (index, site) => {
+    this.userStore.addSite(site)
   }
 
   render() {
@@ -74,17 +90,29 @@ class UserPage extends React.PureComponent {
           yesButtonLabel={'ลบ'}
           onYes={this.onDelete}
         />
+        <div className="mb-5">
+          <h5>
+            <b>แก้ไข</b>
+          </h5>
+          <Input name="email" label="อีเมลล์" defaultValue={user.email} onChange={this.onChange} />
+          <br />
+          <Input name="password" label="รหัสผ่าน" onChange={this.onChange} />
+          <br />
+          <input type="checkbox" checked={this.state.isAdmin === null ? user.is_admin : this.state.isAdmin} id="isAdmin" name="isAdmin" value="isAdmin" onChange={this.onCheckboxChange} />
+          <label className="ml-3" htmlFor="isAdmin">ผู้ดูแลระบบ</label>
+        </div>
         <h5>
-          <b>แก้ไข</b>
+          <b>เพิ่มหน่วยงาน</b>
         </h5>
-        <Input name="email" label="อีเมลล์" defaultValue={user.email} onChange={this.onChange} />
-        <br />
-        <Input name="password" label="รหัสผ่าน" onChange={this.onChange} />
-        <br />
-        <input type="checkbox" checked={this.state.isAdmin === null ? user.is_admin : this.state.isAdmin} id="isAdmin" name="isAdmin" value="isAdmin" onChange={this.onCheckboxChange} />
-        <label className="ml-3" htmlFor="isAdmin">ผู้ดูแลระบบ</label>
-        <br />
-        <br />
+        <div className="mb-5">
+          <Dropdown 
+            itemSelector={Selectors.getSiteName}
+            id="dropdownSites"
+            items={removeDuplicateSite(toJS(this.sitesStore.sites), toJS(sites))}
+            onItemClick={this.onItemClick}
+            initialLabel="โปรดเลือกหน่วยงาน ..."
+          />
+        </div>
         <h5>
           <b>
             {`รายชื่อหน่วยงานทั้งหมดของ ${user.email}`}

@@ -5,7 +5,7 @@ export default {
     return Api.getSites()
       .then(res => {
         if (res.success)
-          stores.admin.sites.setSites(res.data)
+          stores.admin.sites.setSites(res.data.reverse())
       })
   },
   createSite: (arg) => {
@@ -47,13 +47,13 @@ export default {
   getUsersBySiteId: (siteId) => {
     return Api.getUsersBySiteId(siteId)
       .then(res => {
-        stores.admin.site.setUsers(res.data)
+        stores.admin.site.setUsers(res.data.reverse())
       })
   },
   getSitesByUserId: (userId) => {
     return Api.getSitesByUserId(userId)
       .then(res => {
-        stores.admin.user.setSites(res.data)
+        stores.admin.user.setSites(res.data.reverse())
       })
   },
   updateSite: (siteId, updatedSite) => {
