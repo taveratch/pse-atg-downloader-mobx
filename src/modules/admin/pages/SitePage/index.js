@@ -1,11 +1,11 @@
-import AdminActions from 'src/modules/admin/actions'
+import AdminActions, {StoreActions} from 'src/modules/admin/actions'
+
 import Button from 'src/common/components/Buttons/Button'
 import ConfirmModal from 'src/common/components/ConfirmModal'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
-import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
+import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
-import SuccessMessage from 'src/common/components/SuccessMessage'
 import UsersTable from 'src/modules/admin/components/UsersTable'
 import _ from 'lodash'
 import history from 'src/common/history'
@@ -45,6 +45,10 @@ class SitePage extends React.PureComponent {
     history.push('/admin/sites')
   }
 
+  componentWillUnmount() {
+    StoreActions.reset('site')
+  }
+
   render() {
     const { site: siteStore } = stores.admin
     const { site, users } = stores.admin.site
@@ -80,8 +84,7 @@ class SitePage extends React.PureComponent {
           <Button className="btn pl-5 pr-5" onClick={this.onSave}>บันทึก</Button>
           <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">ลบ</DangerButton>
         </div>
-        {siteStore.success && siteStore.message && <SuccessMessage>{siteStore.message}</SuccessMessage>}
-        {!siteStore.success && siteStore.message && <ErrorMessage>{siteStore.message}</ErrorMessage>}
+        <NoticeMessage store={siteStore}/>
       </div>
     )
   }

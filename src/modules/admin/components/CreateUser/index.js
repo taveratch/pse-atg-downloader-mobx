@@ -1,10 +1,9 @@
 import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Buttons/Button'
-import ErrorMessage from 'src/common/components/ErrorMessage'
 import Input from 'src/common/components/Input'
+import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
-import SuccessMessage from 'src/common/components/SuccessMessage'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
 import styled from 'styled-components'
@@ -22,6 +21,11 @@ const FlexItemFillWidth = styled.div`
   margin-right: 8px;
 `
 
+const DropdownItem = styled.span`
+  white-space: normal;
+  cursor: pointer;
+`
+
 @observer
 class CreateUser extends React.Component {
   state = {
@@ -33,8 +37,11 @@ class CreateUser extends React.Component {
   }
 
   componentDidMount() {
-    StoreActions.reset('user')
     AdminActions.getSites()
+  }
+
+  componentWillUnmount() {
+    StoreActions.reset('user')
   }
 
   handleChange = event => {
@@ -70,9 +77,8 @@ class CreateUser extends React.Component {
     const { sites } = stores.admin.sites
     const { user: userStore } = stores.admin
     return (
-      <div className="col-xs-10 col-sm-7 col-md-7">
-        {!userStore.success && userStore.message && <ErrorMessage>{userStore.message}</ErrorMessage>}
-        {userStore.success && userStore.message && <SuccessMessage>{userStore.message}</SuccessMessage>}
+      <div className="col-xs-12 col-sm-12 col-md-7">
+        <NoticeMessage store={userStore} />
         <Input label="อีเมลล์" name="email" onChange={this.handleChange} />
         <br />
         <Flex>
@@ -88,7 +94,7 @@ class CreateUser extends React.Component {
           </a>
           <div className="w-100 dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuLink">
             {
-              sites.map((site, i) => <span key={i} className='dropdown-item' onClick={this.changeSite.bind(this, site)}>{site.name}</span>)
+              sites.map((site, i) => <DropdownItem key={i} className='dropdown-item' onClick={this.changeSite.bind(this, site)}>{site.name}</DropdownItem>)
             }
           </div>
         </div>
