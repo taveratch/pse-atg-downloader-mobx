@@ -1,8 +1,14 @@
 import { action, computed, observable } from 'mobx'
 
+import { downloadTypes } from 'src/constants'
+
 class Inventory {
 
   @observable downloadingList = new Map()
+  @observable downloadType = {
+    label: 'ทุก 1 นาที',
+    type: downloadTypes.EVERY
+  }
 
   @action.bound
   addDownloadQueue(name) {
@@ -36,6 +42,11 @@ class Inventory {
       downloading: false,
       error: true
     })
+  }
+
+  @action.bound
+  setDownloadType(type) {
+    this.downloadType = type
   }
 }
 
