@@ -1,7 +1,14 @@
-import AdminActions from 'src/modules/admin/actions'
 import React from 'react'
-import { observer } from 'mobx-react'
-import stores from 'src/stores'
+import history from 'src/common/history'
+import styled from 'styled-components'
+
+const Tr = styled.tr`
+  cursor: pointer;
+`
+
+const AdminMessage = styled.span`
+  color: #E57373;
+`
 
 const style = {
   thead: {
@@ -19,32 +26,33 @@ const style = {
   }
 }
 
-@observer
 class UsersTable extends React.PureComponent {
 
-  usersStore = stores.admin.users
-
-  componentDidMount() {
-    AdminActions.getUsers()
+  onClick = (index) => {
+    const user = this.props.users[index]
+    history.push(`/admin/users/${user.id}`)
   }
-
+  
   render() {
-    const { users } = this.usersStore
+    const { users } = this.props
     return (
       <div>
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">Email</th>
+              <th className="pl-3 pr-3">อีเมลล์</th>
             </tr>
           </thead>
           <tbody>
             {
               users.map((user, i) => {
                 return (
-                  <tr key={i}>
-                    <td className="pl-3 pr-3">{user.email}</td>
-                  </tr>
+                  <Tr key={i} onClick={() => { this.onClick(i) }}>
+                    <td className="pl-3 pr-3">
+                      {user.email}
+                      {user.is_admin && <AdminMessage className="ml-3">(ผู้ดูแลระบบ)</AdminMessage>}
+                    </td>
+                  </Tr>
                 )
               })
             }

@@ -1,10 +1,10 @@
-import { AuthController } from 'src/controllers'
 import Button from 'src/common/components/Button'
+import ErrorMessage from 'src/common/components/ErrorMessage'
 import Header from 'src/modules/signin/components/Header'
 import React from 'react'
-import { connect } from 'react-redux'
-import { signin } from 'src/actions/auth'
-import stores from 'src/stores'
+import SigninActions from 'src/modules/signin/actions'
+import authStore from 'src/stores/auth'
+import { observer } from 'mobx-react'
 import styled from 'styled-components'
 
 const Page = styled.div`
@@ -17,6 +17,7 @@ const LoginBox = styled.div`
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.04), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
 `
 
+@observer
 class SignIn extends React.Component {
 
   constructor(props) {
@@ -35,10 +36,7 @@ class SignIn extends React.Component {
 
   handleClick = () => {
     let { email, password } = this.state
-    AuthController.signin(email, password)
-      .then((res) => {
-        stores.auth.setUser(res.user)
-      })
+    SigninActions.signin(email, password)
   }
 
   render() {
@@ -48,6 +46,7 @@ class SignIn extends React.Component {
           <LoginBox className='col-md-6 col-sm-10 col-xs-10 col-lg-6 p-0'>
             <Header title='Sign in' />
             <div className='p-4'>
+              {!authStore.success && <ErrorMessage>{authStore.message}</ErrorMessage>}
               <input className='form-control' name='email' type='email' placeholder='Email address' onChange={this.handleChange.bind(this)} />
               <input className='form-control mt-2' name='password' type='password' placeholder='Password' onChange={this.handleChange.bind(this)} />
               <Button className='btn text-white mt-4 w-100' onClick={this.handleClick} >Sign in</Button>
@@ -59,4 +58,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default connect(null, { signin })(SignIn)
+export default SignIn

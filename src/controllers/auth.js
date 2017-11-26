@@ -1,5 +1,6 @@
+import { authenticate as authService, signin as signinService } from 'src/services/auth'
+
 import cookie from 'js-cookie'
-import { signin as signinService } from 'src/services/auth'
 
 class Auth {
 
@@ -20,8 +21,8 @@ class Auth {
     return new Promise((resolve, reject) => {
       signinService(email, password)
         .then(res => {
-          if(res.success) {
-            this.saveToken(res.token)
+          if (res.success) {
+            this.saveToken(res.data.token)
             resolve(res)
           }
         })
@@ -30,6 +31,10 @@ class Auth {
           reject(error)
         })
     })
+  }
+
+  authenticate() {
+    return authService()
   }
 }
 

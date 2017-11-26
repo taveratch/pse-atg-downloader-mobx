@@ -14,8 +14,9 @@ const style = {
 }
 class DownloadButton extends React.Component {
 
+  inventoryStore = stores.inventory
 
-  download(fileName, text) {
+  download = (fileName, text) => {
     var element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
     element.setAttribute('download', fileName)
@@ -25,10 +26,10 @@ class DownloadButton extends React.Component {
     document.body.removeChild(element)
   }
 
-  onClick() {
+  onClick = () => {
     let { url, name } = this.props
     stores.inventory.addDownloadQueue(name)
-    downloadInventory(url, { useHeader: true })
+    downloadInventory(url, { useHeader: true, downloadType: this.inventoryStore.downloadType.type })
       .then(res => {
         this.download(name, res)
         stores.inventory.removeDownloadQueue(name)
@@ -38,7 +39,7 @@ class DownloadButton extends React.Component {
 
   render() {
     return (
-      <div style={style.container} className='d-flex justify-content-center align-items-center' onClick={this.onClick.bind(this)}>
+      <div style={style.container} className='d-flex justify-content-center align-items-center' onClick={this.onClick}>
         <img src={DownloadImg} alt="" />
       </div>
     )

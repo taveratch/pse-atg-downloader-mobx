@@ -21,6 +21,10 @@ const List = styled.li`
     text-decoration: none;
     color: inherit;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
 `
 
@@ -32,9 +36,9 @@ class Sidebar extends React.PureComponent {
   render() {
     return (
       <StyledUl>
-        <List><Link to='/admin'>Dashboard</Link></List>
-        <List><Link to='/admin/sites'>Sites</Link></List>
-        <List><Link to='/admin/users'>Users</Link></List>
+        {/* <List><Link to='/admin'>หน้าหลัก</Link></List> */}
+        <List><Link to='/admin/sites'>หน่วยงาน</Link></List>
+        <List><Link to='/admin/users'>ผู้ใช้งาน</Link></List>
       </StyledUl>
     )
   }

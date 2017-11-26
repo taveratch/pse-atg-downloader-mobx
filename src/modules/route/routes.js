@@ -1,14 +1,13 @@
 import { Route, Router, Switch } from 'react-router-dom'
 
 import Admin from 'src/modules/admin'
-import { AuthController } from 'src/controllers'
+import CommonActions from 'src/common/actions'
 import NotFound from 'src/common/components/NotFound'
 import PrivateRoute from 'src/common/components/PrivateRoute'
 import React from 'react'
 import RedirectWithCondition from 'src/common/components/RedirectWithCondition'
 import SignIn from 'src/modules/signin'
 import Wrapper from 'src/modules/app'
-import { authenticate } from 'src/services/auth'
 import { connect } from 'react-redux'
 import history from 'src/common/history'
 import { observer } from 'mobx-react'
@@ -25,11 +24,8 @@ class Routes extends React.Component {
   }
 
   componentDidMount() {
-    authenticate(AuthController.getToken())
-      .then(res => {
-        if (res.success) {
-          stores.auth.setUser(res.user)
-        }
+    CommonActions.authenticate()
+      .then(() => {
         this.setState({ loading: false })
       })
       .catch(() => {
@@ -38,14 +34,14 @@ class Routes extends React.Component {
   }
 
   render() {
-    if(this.state.loading) return <span>loading</span>
+    if (this.state.loading) return <span>loading</span>
     return (
       <Router history={history}>
         <Switch>
           <RedirectWithCondition exact path='/signin' redirect='/' component={SignIn} shouldRedirect={stores.auth.isSignedIn} />
           <PrivateRoute exact path='/' redirect='/signin' component={Wrapper} authed={stores.auth.isSignedIn} />
           <PrivateRoute path='/admin' redirect='/' component={Admin} authed={stores.auth.isSignedIn && stores.auth.isAdmin} />
-          <Route path='*' component={NotFound}/>
+          <Route path='*' component={NotFound} />
         </Switch>
       </Router>
     )

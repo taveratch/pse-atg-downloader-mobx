@@ -1,6 +1,8 @@
+import Dropdown from 'src/common/components/Dropdown'
 import ErrorMessage from 'src/modules/app/components/ErrorMessage'
 import InventoryList from 'src/modules/app/components/InventoryList'
 import React from 'react'
+import Selectors from 'src/modules/app/selectors'
 import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 import { getSites } from 'src/actions/site'
@@ -27,16 +29,20 @@ class Wrapper extends React.Component {
     this.setState(vm(this.state, action))
   }
 
-  read(url) {
+  read = (index, site) => {
+    const { url: siteUrl, port, name } = site
+    const url = `${siteUrl}:${port}`
     this.setState({
-      selectedItem: url
+      selectedItem: name,
+      inventories: []
     })
     service.getInventoryList(url)
       .then((res) => {
         cookie.set('url', url)
         this.dispatch({ type: 'load_inventory', data: res, url: service.urlValidator(url) })
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         this.dispatch({ type: 'error' })
       })
   }
@@ -82,28 +88,25 @@ class Wrapper extends React.Component {
   render() {
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
-        <h1><b>Search</b></h1>
+        <h1><b>หน่วยงาน</b></h1>
         <div className='d-flex'>
-          <div className="dropdown w-100">
-            <button className="w-100 btn btn-secondary text-left" type="button" data-toggle="dropdown">
-              {this.state.selectedItem}
-            </button>
-            <div className="dropdown-menu w-100">
-              {
-                this.props.sites.map((site, index) => (
-                  <button key={index} onClick={this.read.bind(this, `${site.url}:${site.port}`)} className="dropdown-item w-100" type="button">{`${site.url}:${site.port}`}</button>
-                ))
-              }
-            </div>
-          </div>
+          <Dropdown
+            itemSelector={Selectors.getSiteName}
+            id="dropdownSite"
+            className="w-100"
+            items={this.props.sites}
+            onItemClick={this.read}
+            initialLabel={this.state.selectedItem}
+          />
         </div>
         {this.state.error && <ErrorMessage />}
+        <br />
         <br />
         {this.state.inventories.length !== 0 && <InventoryList inventories={this.state.inventories} />}
         <footer className="footer mt-auto">
           <div className="container">
             <span>
-              This software is a property of Padungsilpa Group.<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
+              โปรแกรมนี้เป็นทรัพย์สินของ บริษัท ผดุงศิลป์วิศวการ จำกัด<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
             </span>
           </div>
         </footer>

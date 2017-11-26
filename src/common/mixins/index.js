@@ -43,6 +43,7 @@ export const colors = {
   gray50: '#fafafa',
   focused: '#64B5F6',
   green: '#47C1BF',
+  red: '#F44336',
   orangeAccent: '#FF672B',
   cookingAccent: '#f2c212',
   error: '#e21a00',

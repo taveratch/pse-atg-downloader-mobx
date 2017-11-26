@@ -13,3 +13,9 @@ export const LOADING = 'LOADING'
 export const GET_SITES = 'GET_SITES'
 
 export const config = Config
+
+export const downloadTypes = {
+  DAILY: 2,
+  HOURLY: 1,
+  EVERY: 3
+}
