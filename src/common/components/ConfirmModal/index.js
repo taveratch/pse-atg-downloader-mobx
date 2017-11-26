@@ -17,7 +17,7 @@ export default props => (
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-dismiss="modal">ปิด</button>
-            <Button type="button" className="btn" onClick={props.onYes}>{props.yesButtonLabel}</Button>
+            <Button type="button" className="btn" data-dismiss="modal" onClick={props.onYes}>{props.yesButtonLabel}</Button>
           </div>
         </div>
       </div>

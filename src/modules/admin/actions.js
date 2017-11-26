@@ -11,10 +11,12 @@ export default {
   createSite: (arg) => {
     return Api.createSite(arg)
       .then(res => {
-        if (!res.success) {
-          stores.admin.sites._setMessage(res.error)
-          stores.admin.sites._setSuccess(res.success)
-        }
+        stores.admin.site._setSuccess(true)
+        stores.admin.site._setMessage(`หน่วยงาน ${res.data.name} ถูกสร้างแล้ว`)
+      })
+      .catch(err => {
+        stores.admin.site._setMessage(err.error)
+        stores.admin.site._setSuccess(err.success)
       })
   },
   createUser: (email, password, siteId, isAdmin) => {
