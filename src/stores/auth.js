@@ -19,6 +19,10 @@ class Auth extends FetchedStore {
       return this.user.is_admin
     }
 
+    reset() {
+      this.user = null
+    }
+
 }
 
 const auth = new Auth()

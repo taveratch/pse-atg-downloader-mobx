@@ -34,7 +34,7 @@ class Admin extends React.PureComponent {
     const { match } = this.props
     return (
       <div className='p-3'>
-        <h1><b>Administrator</b></h1>
+        <h1><b>ผู้ดูแลระบบ</b></h1>
         <div className='row mt-4'>
           <div className='col-3'>
             <Sidebar />

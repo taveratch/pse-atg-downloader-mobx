@@ -5,7 +5,7 @@ export default {
   signin: (email, password) => {
     AuthController.signin(email, password)
       .then((res) => {
-        stores.auth.setUser(res.user)
+        stores.auth.setUser(res.data)
       })
       .catch(err => {
         stores.auth._setSuccess(false)
