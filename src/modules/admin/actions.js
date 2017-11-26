@@ -5,7 +5,7 @@ export default {
     return Api.getSites()
       .then(res => {
         if (res.success)
-          stores.admin.sites.setSites(res.data)
+          stores.admin.sites.setSites(res.data.reverse())
       })
   },
   createSite: (arg) => {
@@ -47,7 +47,13 @@ export default {
   getUsersBySiteId: (siteId) => {
     return Api.getUsersBySiteId(siteId)
       .then(res => {
-        stores.admin.site.setUsers(res.data)
+        stores.admin.site.setUsers(res.data.reverse())
+      })
+  },
+  getSitesByUserId: (userId) => {
+    return Api.getSitesByUserId(userId)
+      .then(res => {
+        stores.admin.user.setSites(res.data.reverse())
       })
   },
   updateSite: (siteId, updatedSite) => {
@@ -63,6 +69,26 @@ export default {
   },
   deleteSite: siteId => {
     return Api.deleteSite(siteId)
+  },
+  getUser: userId => {
+    return Api.getUser(userId)
+      .then((res) => {
+        stores.admin.user.setUser(res.data)
+      })
+  },
+  updateUser: (userId, updatedUser) => {
+    return Api.updateUser(userId, updatedUser)
+      .then(() => {
+        stores.admin.user._setMessage('บันทึกเรียบร้อย')
+        stores.admin.user._setSuccess(true)
+      })
+      .catch(res => {
+        stores.admin.user._setMessage(res.error)
+        stores.admin.user._setSuccess(false)
+      })
+  },
+  deleteUser: userId => {
+    return Api.deleteUser(userId)
   }
 }
 

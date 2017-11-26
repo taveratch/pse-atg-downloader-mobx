@@ -60,6 +60,11 @@ export default {
       url: `/site/${siteId}/users`
     })
   },
+  getSitesByUserId: userId => {
+    return ApiManager.fetch({
+      url: `/users/${userId}/sites`
+    })
+  },
   updateSite: (siteId, updatedSite) => {
     return ApiManager.fetch({
       method: 'PUT',
@@ -76,5 +81,28 @@ export default {
       method: 'DELETE',
       url: `/site/${siteId}`
     })
-  }
+  },
+  getUser: userId => {
+    return ApiManager.fetch({
+      url: `/users/${userId}`
+    })
+  },
+  updateUser: (userId, updatedUser) => {
+    return ApiManager.fetch({
+      method: 'PUT',
+      url: `/users/${userId}`,
+      body: {
+        email: updatedUser.email,
+        password: updatedUser.password,
+        is_admin: updatedUser.isAdmin,
+        site_ids: updatedUser.siteIds
+      }
+    })
+  },
+  deleteUser: (userId) => {
+    return ApiManager.fetch({
+      method: 'DELETE',
+      url: `/users/${userId}`
+    })
+  },
 }

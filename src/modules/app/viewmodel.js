@@ -11,7 +11,7 @@ let vm = (state, action) => {
       downloading: false,
       downloadAllButtonDisabled: true,
       isLocal: false,
-      selectedItem: 'Please choose site'
+      selectedItem: 'โปรดเลือกหน่วยงาน ...'
     }
   case 'load_inventory':
     state.error = false

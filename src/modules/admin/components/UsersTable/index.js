@@ -1,4 +1,14 @@
 import React from 'react'
+import history from 'src/common/history'
+import styled from 'styled-components'
+
+const Tr = styled.tr`
+  cursor: pointer;
+`
+
+const AdminMessage = styled.span`
+  color: #E57373;
+`
 
 const style = {
   thead: {
@@ -17,6 +27,12 @@ const style = {
 }
 
 class UsersTable extends React.PureComponent {
+
+  onClick = (index) => {
+    const user = this.props.users[index]
+    history.push(`/admin/users/${user.id}`)
+  }
+  
   render() {
     const { users } = this.props
     return (
@@ -31,9 +47,12 @@ class UsersTable extends React.PureComponent {
             {
               users.map((user, i) => {
                 return (
-                  <tr key={i}>
-                    <td className="pl-3 pr-3">{user.email}</td>
-                  </tr>
+                  <Tr key={i} onClick={() => { this.onClick(i) }}>
+                    <td className="pl-3 pr-3">
+                      {user.email}
+                      {user.is_admin && <AdminMessage className="ml-3">(ผู้ดูแลระบบ)</AdminMessage>}
+                    </td>
+                  </Tr>
                 )
               })
             }
