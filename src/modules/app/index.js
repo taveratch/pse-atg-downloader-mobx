@@ -41,7 +41,8 @@ class Wrapper extends React.Component {
         cookie.set('url', url)
         this.dispatch({ type: 'load_inventory', data: res, url: service.urlValidator(url) })
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         this.dispatch({ type: 'error' })
       })
   }
@@ -87,7 +88,7 @@ class Wrapper extends React.Component {
   render() {
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
-        <h1><b>Search</b></h1>
+        <h1><b>หน่วยงาน</b></h1>
         <div className='d-flex'>
           <Dropdown
             itemSelector={Selectors.getSiteName}
@@ -100,11 +101,12 @@ class Wrapper extends React.Component {
         </div>
         {this.state.error && <ErrorMessage />}
         <br />
+        <br />
         {this.state.inventories.length !== 0 && <InventoryList inventories={this.state.inventories} />}
         <footer className="footer mt-auto">
           <div className="container">
             <span>
-              This software is a property of Padungsilpa Group.<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
+              โปรแกรมนี้เป็นทรัพย์สินของ บริษัท ผดุงศิลป์วิศวการ จำกัด<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
             </span>
           </div>
         </footer>

@@ -1,3 +1,4 @@
 export default {
-  getSiteName: site => site.name
+  getSiteName: site => site.name,
+  getDownloadTypeLabel: type => type.label
 }
