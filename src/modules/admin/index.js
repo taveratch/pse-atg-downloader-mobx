@@ -5,6 +5,7 @@ import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
 import SitePage from 'src/modules/admin/pages/SitePage'
 import SitesPage from 'src/modules/admin/pages/SitesPage'
+import UserPage from 'src/modules/admin/pages/UserPage'
 import UsersPage from 'src/modules/admin/pages/UsersPage'
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/sites/:id',
     component: SitePage
+  },
+  {
+    path: '/users/:id',
+    component: UserPage
   }
 ]
 

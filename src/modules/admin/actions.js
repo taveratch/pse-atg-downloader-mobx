@@ -50,6 +50,12 @@ export default {
         stores.admin.site.setUsers(res.data)
       })
   },
+  getSitesByUserId: (userId) => {
+    return Api.getSitesByUserId(userId)
+      .then(res => {
+        stores.admin.user.setSites(res.data)
+      })
+  },
   updateSite: (siteId, updatedSite) => {
     return Api.updateSite(siteId, updatedSite)
       .then(() => {
@@ -63,6 +69,26 @@ export default {
   },
   deleteSite: siteId => {
     return Api.deleteSite(siteId)
+  },
+  getUser: userId => {
+    return Api.getUser(userId)
+      .then((res) => {
+        stores.admin.user.setUser(res.data)
+      })
+  },
+  updateUser: (userId, updatedUser) => {
+    return Api.updateUser(userId, updatedUser)
+      .then(() => {
+        stores.admin.user._setMessage('บันทึกเรียบร้อย')
+        stores.admin.user._setSuccess(true)
+      })
+      .catch(res => {
+        stores.admin.user._setMessage(res.error)
+        stores.admin.user._setSuccess(false)
+      })
+  },
+  deleteUser: userId => {
+    return Api.deleteUser(userId)
   }
 }
 
