@@ -77,10 +77,13 @@ class UserPage extends React.PureComponent {
     this.userStore.addSite(site)
   }
 
+  onDeleteSite = (index, site) => {
+    this.userStore.deleteSite(site)
+  }
+
   render() {
     const { user, sites } = this.userStore
     if (!user) return null
-    console.log(this.state)
     return (
       <div>
         <ConfirmModal
@@ -118,7 +121,12 @@ class UserPage extends React.PureComponent {
             {`รายชื่อหน่วยงานทั้งหมดของ ${user.email}`}
           </b>
         </h5>
-        <SitesTable sites={sites} />
+        <SitesTable 
+          sites={sites}
+          showOption
+          optionText="ลบ"
+          onOptionClick={this.onDeleteSite}  
+        />
         <br />
         <br />
         <div className="mb-3">
