@@ -6,9 +6,7 @@ import ErrorMessage from 'src/modules/app/components/ErrorMessage'
 import InventoryList from 'src/modules/app/components/InventoryList'
 import React from 'react'
 import Selectors from 'src/modules/app/selectors'
-import { connect } from 'react-redux'
 import cookie from 'js-cookie'
-import { getSites } from 'src/actions/site'
 import { observer } from 'mobx-react'
 import service from 'src/js/service'
 import stores from 'src/stores'
@@ -32,7 +30,7 @@ class Wrapper extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getSites()
+    AppActions.getSites()
   }
 
   dispatch(action) {
@@ -104,20 +102,21 @@ class Wrapper extends React.Component {
   }
 
   render() {
+    const { sites } = stores.sites
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
         <TopRight>
           {stores.auth.user.is_admin && <DefaultButton className="btn" onClick={this.goToAdmin}>ผู้ดูแลระบบ</DefaultButton>}
           <DangerButton className="btn ml-3" onClick={this.signout}>ออกจากระบบ</DangerButton>
         </TopRight>
-        
+
         <h1><b>หน่วยงาน</b></h1>
         <div className='d-flex'>
           <Dropdown
             itemSelector={Selectors.getSiteName}
             id="dropdownSite"
             className="w-100"
-            items={this.props.sites}
+            items={sites}
             onItemClick={this.read}
             initialLabel={this.state.selectedItem}
           />
@@ -138,8 +137,4 @@ class Wrapper extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  sites: state.site.sites
-})
-
-export default connect(mapStateToProps, { getSites })(Wrapper)
+export default Wrapper
