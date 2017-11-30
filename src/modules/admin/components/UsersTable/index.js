@@ -1,3 +1,4 @@
+import I18n from 'src/common/I18n'
 import React from 'react'
 import history from 'src/common/history'
 import styled from 'styled-components'
@@ -40,7 +41,7 @@ class UsersTable extends React.PureComponent {
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">อีเมลล์</th>
+              <th className="pl-3 pr-3">{I18n.t('common.email')}</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +51,7 @@ class UsersTable extends React.PureComponent {
                   <Tr key={i} onClick={() => { this.onClick(i) }}>
                     <td className="pl-3 pr-3">
                       {user.email}
-                      {user.is_admin && <AdminMessage className="ml-3">(ผู้ดูแลระบบ)</AdminMessage>}
+                      {user.is_admin && <AdminMessage className="ml-3">{`(${I18n.t('admin.administrator')})`}</AdminMessage>}
                     </td>
                   </Tr>
                 )

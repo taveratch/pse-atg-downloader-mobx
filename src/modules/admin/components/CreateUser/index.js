@@ -2,6 +2,7 @@ import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Buttons/Button'
 import Dropdown from 'src/common/components/Dropdown'
+import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
@@ -30,7 +31,7 @@ class CreateUser extends React.Component {
     password: '',
     siteId: null,
     isAdmin: false,
-    dropdownText: 'เลือกหน่วยงาน ...'
+    dropdownText: I18n.t('admin.please.choose.site')
   }
 
   componentDidMount() {
@@ -76,13 +77,13 @@ class CreateUser extends React.Component {
     return (
       <div className="col-xs-12 col-sm-12 col-md-7">
         <NoticeMessage store={userStore} />
-        <Input label="อีเมลล์" name="email" onChange={this.handleChange} />
+        <Input label={I18n.t('common.email')} name="email" onChange={this.handleChange} />
         <br />
         <Flex>
           <FlexItemFillWidth>
-            <Input label="รหัสผ่าน" name="password" onChange={this.handleChange} />
+            <Input label={I18n.t('common.password')} name="password" onChange={this.handleChange} />
           </FlexItemFillWidth>
-          <Button className='btn' onClick={this.generatePassword}>สุ่ม</Button>
+          <Button className='btn' onClick={this.generatePassword}>{I18n.t('admin.auto.generate')}</Button>
         </Flex>
         <br />
         <Dropdown 
@@ -93,7 +94,7 @@ class CreateUser extends React.Component {
           initialLabel={this.state.dropdownText}
         />
         <br />
-        <Button className='btn pl-5 pr-5' onClick={this.onClick}>สร้าง</Button>
+        <Button className='btn pl-5 pr-5' onClick={this.onClick}>{I18n.t('common.create')}</Button>
       </div>
     )
   }

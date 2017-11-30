@@ -1,5 +1,6 @@
 import AdminActions from 'src/modules/admin/actions'
 import CreateUser from 'src/modules/admin/components/CreateUser'
+import I18n from 'src/common/I18n'
 import PageTabs from 'src/common/components/PageTabs'
 import React from 'react'
 import UsersTable from 'src/modules/admin/components/UsersTable'
@@ -32,7 +33,7 @@ class UsersPage extends React.PureComponent {
     return (
       <div className='container'>
         <PageTabs
-          titles={[`ผู้ใช้งานทั้งหมด (${stores.admin.users.users.length})`, 'สร้างผู้ใช้งานใหม่']}
+          titles={[`${I18n.t('admin.all.users')} (${stores.admin.users.users.length})`, I18n.t('admin.create.new.user')]}
           selectedIndex={this.state.selectedIndex}
           onSelectTab={this.onSelectTab}
           activeStyle={tabStyle}

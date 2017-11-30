@@ -1,5 +1,8 @@
+import I18n from 'src/common/I18n'
 import _ from 'lodash'
 import moment from 'moment'
+
+moment.locale(I18n.getLocale())
 
 let vm = (state, action) => {
   switch (action.type) {
@@ -11,7 +14,7 @@ let vm = (state, action) => {
       downloading: false,
       downloadAllButtonDisabled: true,
       isLocal: false,
-      selectedItem: 'โปรดเลือกหน่วยงาน ...'
+      selectedItem: I18n.t('app.please.choose.site')
     }
   case 'load_inventory':
     state.error = false

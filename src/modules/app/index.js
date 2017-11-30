@@ -3,6 +3,7 @@ import DangerButton from 'src/common/components/Buttons/DangerButton'
 import DefaultButton from 'src/common/components/Buttons/DefaultButton'
 import Dropdown from 'src/common/components/Dropdown'
 import ErrorMessage from 'src/modules/app/components/ErrorMessage'
+import I18n from 'src/common/I18n'
 import InventoryList from 'src/modules/app/components/InventoryList'
 import React from 'react'
 import Selectors from 'src/modules/app/selectors'
@@ -106,11 +107,11 @@ class Wrapper extends React.Component {
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
         <TopRight>
-          {stores.auth.user.is_admin && <DefaultButton className="btn" onClick={this.goToAdmin}>ผู้ดูแลระบบ</DefaultButton>}
-          <DangerButton className="btn ml-3" onClick={this.signout}>ออกจากระบบ</DangerButton>
+          {stores.auth.user.is_admin && <DefaultButton className="btn" onClick={this.goToAdmin}>{I18n.t('admin.administrator')}</DefaultButton>}
+          <DangerButton className="btn ml-3" onClick={this.signout}>{I18n.t('app.signout')}</DangerButton>
         </TopRight>
 
-        <h1><b>หน่วยงาน</b></h1>
+        <h1><b>{I18n.t('app.site')}</b></h1>
         <div className='d-flex'>
           <Dropdown
             itemSelector={Selectors.getSiteName}
@@ -128,7 +129,7 @@ class Wrapper extends React.Component {
         <footer className="footer mt-auto">
           <div className="container">
             <span>
-              โปรแกรมนี้เป็นทรัพย์สินของ บริษัท ผดุงศิลป์วิศวการ จำกัด<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
+              {I18n.t('app.copyright.1')}<br></br>{I18n.t('app.copyright.2')}
             </span>
           </div>
         </footer>
