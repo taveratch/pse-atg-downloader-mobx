@@ -33,7 +33,11 @@ class ApiManager {
           return resolve(res.text())
         })
         .catch(error => {
-          error.json().then(err => reject(err))
+          try {
+            error.json().then(err => reject(err))
+          } catch (err) {
+            error.text().then(err => reject(err))
+          }
         })
     })
   }

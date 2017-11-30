@@ -1,5 +1,7 @@
 import Api from 'src/common/Api'
+import history from 'src/common/history'
 import stores from 'src/stores'
+
 export default {
   getSites: () => {
     return Api.getSites()
@@ -89,6 +91,9 @@ export default {
   },
   deleteUser: userId => {
     return Api.deleteUser(userId)
+  },
+  goToDownloadPage: () => {
+    history.push('/')
   }
 }
 

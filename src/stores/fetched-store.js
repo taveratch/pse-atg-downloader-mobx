@@ -13,11 +13,13 @@ class FetchedStore {
   @action.bound
   _setSuccess(success) {
     this.success = success
+    this.fetching = false
   }
 
   @action.bound
   _setMessage(message) {
     this.message = message
+    this.fetching = false
   }
 
   @action.bound

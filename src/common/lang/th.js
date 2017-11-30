@@ -6,5 +6,7 @@ export default {
   'common.remove': 'ลบ',
   'common.create': 'สร้าง',
   'common.confirmation': 'ยืนยัน',
-  'common.close': 'ปิด'
+  'common.close': 'ปิด',
+  'common.back': 'กลับ',
+  'common.please.wait': 'กรุณารอสักครู่'
 }
