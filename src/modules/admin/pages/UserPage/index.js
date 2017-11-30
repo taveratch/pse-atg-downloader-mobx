@@ -4,6 +4,7 @@ import Button from 'src/common/components/Buttons/Button'
 import ConfirmModal from 'src/common/components/ConfirmModal'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
 import Dropdown from 'src/common/components/Dropdown'
+import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
@@ -85,7 +86,7 @@ class UserPage extends React.PureComponent {
     return (
       <div>
         <h5>
-          <b>เพิ่มหน่วยงาน</b>
+          <b>{I18n.t('admin.add.site')}</b>
         </h5>
         <div className="mb-5">
           <Dropdown
@@ -93,7 +94,7 @@ class UserPage extends React.PureComponent {
             id="dropdownSites"
             items={removeDuplicateSite(toJS(this.sitesStore.sites), toJS(this.userStore.sites))}
             onItemClick={this.onItemClick}
-            initialLabel="โปรดเลือกหน่วยงาน ..."
+            initialLabel={I18n.t('admin.please.choose.site')}
           />
         </div>
       </div>
@@ -107,39 +108,39 @@ class UserPage extends React.PureComponent {
       <div>
         <ConfirmModal
           id="delete-confirm-modal"
-          title={'ยืนยัน'}
-          body={`ต้องการลบผู้ใช้งาน ${user.email} หรือไม่ ?`}
+          title={I18n.t('common.confirmation')}
+          body={I18n.t('admin.remove.user.dialog.message', { userName: user.email })}
           yesButtonLabel={'ลบ'}
           onYes={this.onDelete}
         />
         <div className="mb-5">
           <h5>
-            <b>แก้ไข</b>
+            <b>{I18n.t('common.edit')}</b>
           </h5>
-          <Input name="email" label="อีเมลล์" defaultValue={user.email} onChange={this.onChange} />
+          <Input name="email" label={I18n.t('common.email')} defaultValue={user.email} onChange={this.onChange} />
           <br />
-          <Input name="password" label="รหัสผ่าน" onChange={this.onChange} placeholder='ว่างเพื่อใช้รหัสผ่านเดิม' />
+          <Input name="password" label={I18n.t('common.password')} onChange={this.onChange} placeholder={I18n.t('admin.blank.password.for.nothing')} />
           <br />
           <input type="checkbox" checked={this.state.isAdmin === null ? user.is_admin : this.state.isAdmin} id="isAdmin" name="isAdmin" value="isAdmin" onChange={this.onCheckboxChange} />
-          <label className="ml-3" htmlFor="isAdmin">ผู้ดูแลระบบ</label>
+          <label className="ml-3" htmlFor="isAdmin">{I18n.t('admin.administrator')}</label>
         </div>
         {!user.is_admin && this.createAddSiteSection()}
         <h5>
           <b>
-            {`รายชื่อหน่วยงานทั้งหมดของ ${user.email}`}
+            {`${I18n.t('admin.sites.of')} ${user.email}`}
           </b>
         </h5>
         <SitesTable
           sites={sites}
           showOption={!user.is_admin}
-          optionText="ลบ"
+          optionText={I18n.t('common.remove')}
           onOptionClick={this.onDeleteSite}
         />
         <br />
         <br />
         <div className="mb-3">
-          <Button className="btn pl-5 pr-5" onClick={this.onSave}>บันทึก</Button>
-          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">ลบ</DangerButton>
+          <Button className="btn pl-5 pr-5" onClick={this.onSave}>{I18n.t('common.save')}</Button>
+          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>
         </div>
         <NoticeMessage store={this.userStore} />
       </div>

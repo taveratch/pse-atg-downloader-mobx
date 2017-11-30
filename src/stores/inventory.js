@@ -1,14 +1,12 @@
 import { action, computed, observable } from 'mobx'
 
 import { downloadTypes } from 'src/constants'
+import { downloadTypesObj } from 'src/modules/app/components/Controls/download-types'
 
 class Inventory {
 
   @observable downloadingList = new Map()
-  @observable downloadType = {
-    label: 'ทุก 1 นาที',
-    type: downloadTypes.EVERY
-  }
+  @observable downloadType = downloadTypesObj()[downloadTypes.EVERY]
 
   @action.bound
   addDownloadQueue(name) {

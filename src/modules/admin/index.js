@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 
+import I18n from 'src/common/I18n'
 // import Dashboard from 'src/modules/admin/components/Dashboard'
 import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
@@ -34,7 +35,7 @@ class Admin extends React.PureComponent {
     const { match } = this.props
     return (
       <div className='p-3'>
-        <h1><b>ผู้ดูแลระบบ</b></h1>
+        <h1><b>{I18n.t('admin.administrator')}</b></h1>
         <div className='row mt-4'>
           <div className='col-3'>
             <Sidebar />

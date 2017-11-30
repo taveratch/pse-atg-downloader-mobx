@@ -1,4 +1,5 @@
 import Button from 'src/common/components/Buttons/Button'
+import I18n from 'src/common/I18n'
 import React from 'react'
 
 export default props => (
@@ -16,7 +17,7 @@ export default props => (
             {props.body}
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            <button type="button" className="btn btn-secondary" data-dismiss="modal">{I18n.t('common.close')}</button>
             <Button type="button" className="btn" data-dismiss="modal" onClick={props.onYes}>{props.yesButtonLabel}</Button>
           </div>
         </div>
