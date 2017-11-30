@@ -1,6 +1,6 @@
 
 const KEY = 'locale'
-const DEFAULT_LOCALE = 'en'
+const DEFAULT_LOCALE = 'th'
 const SUPPORTED_LOCALES = ['en', 'th']
 
 class Locale {

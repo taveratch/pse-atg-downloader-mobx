@@ -1,3 +1,4 @@
+import FetchedStore from 'src/stores/fetched-store'
 import _ from 'lodash'
 import adminSite from 'src/stores/admin/site'
 import adminSites from 'src/stores/admin/sites'
@@ -16,5 +17,6 @@ _.set(stores, 'admin.sites', adminSites)
 _.set(stores, 'admin.site', adminSite)
 _.set(stores, 'admin.users', adminUsers)
 _.set(stores, 'admin.user', adminUser)
+_.set(stores, 'app', new FetchedStore())
 
 export default stores
