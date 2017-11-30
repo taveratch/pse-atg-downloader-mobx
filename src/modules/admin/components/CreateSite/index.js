@@ -1,6 +1,7 @@
 import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Button'
+import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
@@ -30,13 +31,13 @@ class CreateSite extends React.PureComponent {
     return (
       <div className="col-xs-12 col-sm-12 col-md-7">
         <NoticeMessage store={stores.admin.site} />
-        <Input label="ชื่อหน่วยงาน" name="name" onChange={this.handleChange} />
+        <Input label={I18n.t('admin.site.name')} name="name" onChange={this.handleChange} />
         <br />
-        <Input label="ลิ้งค์" name="url" onChange={this.handleChange} />
+        <Input label={I18n.t('admin.site.url')} name="url" onChange={this.handleChange} />
         <br />
-        <Input label="พอร์ท" name="port" type="number" onChange={this.handleChange} />
+        <Input label={I18n.t('admin.site.port')} name="port" type="number" onChange={this.handleChange} />
         <br />
-        <Button className='btn pl-5 pr-5' onClick={this.onClick}>สร้าง</Button>
+        <Button className='btn pl-5 pr-5' onClick={this.onClick}>{I18n.t('common.create')}</Button>
       </div>
     )
   }

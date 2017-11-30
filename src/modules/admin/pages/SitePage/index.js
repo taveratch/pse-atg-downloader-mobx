@@ -1,8 +1,9 @@
-import AdminActions, {StoreActions} from 'src/modules/admin/actions'
+import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Buttons/Button'
 import ConfirmModal from 'src/common/components/ConfirmModal'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
+import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
 import React from 'react'
@@ -57,34 +58,34 @@ class SitePage extends React.PureComponent {
       <div>
         <ConfirmModal
           id="delete-confirm-modal"
-          title={'ยืนยัน'} 
-          body={`ต้องการลบหน่วยงาน ${site.name} หรือไม่ ? \n (หน่วยงานนี้จะถูกลบออกจากผู้ใช้งานทุกคน)`}  
-          yesButtonLabel={'ลบ'}
+          title={I18n.t('common.confirmation')}
+          body={I18n.t('admin.remove.site.dialog.message', { siteName: site.name })}
+          yesButtonLabel={I18n.t('common.remove')}
           onYes={this.onDelete}
         />
         <h5>
-          <b>แก้ไข</b>
+          <b>{I18n.t('common.edit')}</b>
         </h5>
-        <Input name="name" label="ชื่อหน่วยงาน" defaultValue={site.name} onChange={this.onChange} />
+        <Input name="name" label={I18n.t('admin.site.name')} defaultValue={site.name} onChange={this.onChange} />
         <br />
-        <Input name="url" label="ลิ้งค์" defaultValue={site.url} onChange={this.onChange} />
+        <Input name="url" label={I18n.t('admin.site.url')} defaultValue={site.url} onChange={this.onChange} />
         <br />
-        <Input type="number" name="port" label="พอร์ท" defaultValue={site.port} onChange={this.onChange} />
+        <Input type="number" name="port" label={I18n.t('admin.site.port')} defaultValue={site.port} onChange={this.onChange} />
         <br />
         <br />
         <h5>
           <b>
-            {`รายชื่อผู้ใช้งานของ ${site.name}`}
+            {`${I18n.t('admin.users.of')} ${site.name}`}
           </b>
         </h5>
         <UsersTable users={users} />
         <br />
         <br />
         <div className="mb-3">
-          <Button className="btn pl-5 pr-5" onClick={this.onSave}>บันทึก</Button>
-          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">ลบ</DangerButton>
+          <Button className="btn pl-5 pr-5" onClick={this.onSave}>{I18n.t('common.save')}</Button>
+          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>
         </div>
-        <NoticeMessage store={siteStore}/>
+        <NoticeMessage store={siteStore} />
       </div>
     )
   }

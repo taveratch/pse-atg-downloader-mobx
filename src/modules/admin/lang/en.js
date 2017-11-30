@@ -1,0 +1,22 @@
+export default {
+  'admin.administrator': 'Administrator',
+  'admin.sites': 'Sites',
+  'admin.users': 'Users',
+  'admin.all.sites': 'All sites',
+  'admin.create.new.site': 'Create new site',
+  'admin.number.of.sites': 'Number of sites',
+  'admin.site.name': 'Site name',
+  'admin.site.url': 'Url',
+  'admin.site.port': 'Port',
+  'admin.create': 'Create',
+  'admin.all.users': 'All users',
+  'admin.create.new.user': 'Create new user',
+  'admin.please.choose.site': 'Please choose site ...',
+  'admin.auto.generate': 'Auto generate',
+  'admin.users.of': 'Users of',
+  'admin.remove.site.dialog.message': 'Do you want to remove {siteName} ? (This site will be removed from every users)',
+  'admin.remove.user.dialog.message': 'Do you want to remove {userName} ?',
+  'admin.add.site': 'Add site',
+  'admin.blank.password.for.nothing': 'Leave blank to use the current password',
+  'admin.sites.of': 'Sites of'
+}

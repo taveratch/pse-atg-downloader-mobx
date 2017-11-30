@@ -1,5 +1,6 @@
 import AdminActions from 'src/modules/admin/actions'
 import CreateSite from 'src/modules/admin/components/CreateSite'
+import I18n from 'src/common/I18n'
 import PageTabs from 'src/common/components/PageTabs'
 import React from 'react'
 import SitesTable from 'src/modules/admin/components/SitesTable'
@@ -35,7 +36,7 @@ class SitesPage extends React.PureComponent {
     return (
       <div className='container'>
         <PageTabs
-          titles={[`หน่วยงานทั้งหมด (${sites.length})`, 'สร้างหน่วยงานใหม่']}
+          titles={[`${I18n.t('admin.all.sites')} (${sites.length})`, I18n.t('admin.create.new.site')]}
           selectedIndex={this.state.selectedIndex}
           onSelectTab={this.onSelectTab}
           activeStyle={tabStyle}

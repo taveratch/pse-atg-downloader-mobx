@@ -1,7 +1,5 @@
 const path = require('path')
 const express = require('express')
-
-const BUNDLE_DIR = path.join(__dirname, '../bundle')
 module.exports = {
   app: function () {
     const app = express()

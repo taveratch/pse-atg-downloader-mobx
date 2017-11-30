@@ -1,4 +1,5 @@
 import DangerButton from 'src/common/components/Buttons/DangerButton'
+import I18n from 'src/common/I18n'
 import React from 'react'
 import history from 'src/common/history'
 import { observer } from 'mobx-react'
@@ -28,7 +29,6 @@ const style = {
 class SitesTable extends React.PureComponent {
 
   onClick = (index) => {
-    console.log('xxxxx')
     const site = this.props.sites[index]
     history.push(`/admin/sites/${site.id}`)
   }
@@ -37,13 +37,13 @@ class SitesTable extends React.PureComponent {
     const { sites, showOption, optionText, onOptionClick } = this.props
     return (
       <div>
-        <div className="mb-2 mt-4"><b>{`จำนวนหน่วยงาน : ${sites.length}`}</b></div>
+        <div className="mb-2 mt-4"><b>{`${I18n.t('admin.number.of.sites')} : ${sites.length}`}</b></div>
         <table className='w-100'>
           <thead style={style.thead}>
             <tr>
-              <th className="pl-3 pr-3">ชื่อหน่วยงาน</th>
-              <th className="pl-3 pr-3">ลิ้งค์</th>
-              <th className="pl-3 pr-3">พอร์ท</th>
+              <th className="pl-3 pr-3">{I18n.t('admin.site.name')}</th>
+              <th className="pl-3 pr-3">{I18n.t('admin.site.url')}</th>
+              <th className="pl-3 pr-3">{I18n.t('admin.site.port')}</th>
               {showOption && <th className="pl-3 pr-3"></th>}
             </tr>
           </thead>

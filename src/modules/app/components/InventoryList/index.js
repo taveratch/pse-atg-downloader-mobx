@@ -1,11 +1,10 @@
 import Controls from 'src/modules/app/components/Controls'
 import DownloadButton from 'src/modules/app/components/DownloadButton'
+import I18n from 'src/common/I18n'
 import React from 'react'
 import moment from 'moment'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
-
-moment.locale('th')
 
 const style = {
   thead: {
@@ -33,14 +32,14 @@ class InventoryList extends React.Component {
     const downloadingList = stores.inventory.getDownloadingList
     return (
       <div>
-        <h1><b>ไฟล์</b></h1>
+        <h1><b>{I18n.t('app.inventories')}</b></h1>
         <Controls inventories={inventories} />
         <br />
         <table className='w-100'>
           <thead style={style.thead}>
             <tr className='pt-4 pb-4'>
-              <th className='text-right pr-5'>วันที่</th>
-              <th className='pl-5'>ดาวน์โหลด</th>
+              <th className='text-right pr-5'>{I18n.t('app.date')}</th>
+              <th className='pl-5'>{I18n.t('app.download')}</th>
               <th></th>
             </tr>
           </thead>

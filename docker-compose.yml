@@ -2,11 +2,9 @@ version: '2'
 
 services:
   react:
-    image: node:8.6.0-slim
-    container_name: react
-    volumes:
-      - './:/app'
-    working_dir: '/app'
-    command: sh -c 'npm install; npm run build; npm start;'
+    image: taweesoft/pse-atg-react
+    container_name: pse-atg-react
     ports:
       - '8080:8080'
+    environment:
+      API: https://atg.padungsilpa.group

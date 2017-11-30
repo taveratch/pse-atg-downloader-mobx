@@ -7,10 +7,11 @@ import Button from 'src/common/components/Buttons/Button'
 import DatePicker from 'react-datepicker'
 import DownloadImg from 'src/assets/images/download-white.svg'
 import Dropdown from 'src/common/components/Dropdown'
+import I18n from 'src/common/I18n'
 import React from 'react'
 import Selectors from 'src/modules/app/selectors'
 import _ from 'lodash'
-import { downloadTypes } from 'src/constants'
+import downloadTypes from 'src/modules/app/components/Controls/download-types'
 import moment from 'moment'
 import { observer } from 'mobx-react'
 import service from 'src/js/service'
@@ -21,27 +22,13 @@ class Controls extends React.Component {
 
   constructor(props) {
     super(props)
-    this.downloadTypes = [
-      {
-        label: 'ทุก 1 นาที',
-        type: downloadTypes.EVERY
-      },
-      {
-        label: 'ทุก 1 ชั่วโมง',
-        type: downloadTypes.HOURLY
-      },
-      {
-        label: 'ทุก 1 วัน',
-        type: downloadTypes.DAILY
-      }
-    ]
+    this.downloadTypes = downloadTypes()
     this.minDate = moment(_.first(props.inventories).date)
     this.maxDate = moment(_.last(props.inventories).date)
     this.state = {
       startDate: moment(_.first(props.inventories).date),
       endDate: moment(_.last(props.inventories).date)
     }
-
   }
 
   inventoryStore = stores.inventory
@@ -85,11 +72,11 @@ class Controls extends React.Component {
     return (
       <div className='d-flex align-items-end'>
         <div>
-          <span>เริ่ม</span>
+          <span>{I18n.t('app.from')}</span>
           <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD MMM YYYY' className='form-control' selected={this.state.startDate} onChange={this.handleStartDateChange} />
         </div>
         <div className='ml-4'>
-          <span>ถึง</span>
+          <span>{I18n.t('app.to')}</span>
           <DatePicker minDate={this.minDate} maxDate={this.maxDate} dateFormat='DD MMM YYYY' className='form-control' selected={this.state.endDate} onChange={this.handleEndDateChange} />
         </div>
         <Dropdown 
@@ -101,7 +88,7 @@ class Controls extends React.Component {
           onItemClick={this.changeDownloadType}
         />
         <Button className="btn align-self-end ml-4" onClick={this.downloadAll.bind(this)}>
-                    ดาวน์โหลดทั้งหมด
+          {I18n.t('app.download.all')}
           <img className='ml-2' src={DownloadImg} alt="" />
         </Button>
       </div>

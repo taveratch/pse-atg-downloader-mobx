@@ -1,3 +1,4 @@
+import I18n from 'src/common/I18n'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import styled from 'styled-components'
@@ -36,9 +37,8 @@ class Sidebar extends React.PureComponent {
   render() {
     return (
       <StyledUl>
-        {/* <List><Link to='/admin'>หน้าหลัก</Link></List> */}
-        <List><Link to='/admin/sites'>หน่วยงาน</Link></List>
-        <List><Link to='/admin/users'>ผู้ใช้งาน</Link></List>
+        <List><Link to='/admin/sites'>{I18n.t('admin.sites')}</Link></List>
+        <List><Link to='/admin/users'>{I18n.t('admin.users')}</Link></List>
       </StyledUl>
     )
   }

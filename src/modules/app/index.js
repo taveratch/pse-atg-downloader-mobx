@@ -3,21 +3,18 @@ import DangerButton from 'src/common/components/Buttons/DangerButton'
 import DefaultButton from 'src/common/components/Buttons/DefaultButton'
 import Dropdown from 'src/common/components/Dropdown'
 import ErrorMessage from 'src/modules/app/components/ErrorMessage'
+import I18n from 'src/common/I18n'
 import InventoryList from 'src/modules/app/components/InventoryList'
+import LanguageSwitcher from 'src/common/components/LanguageSwitcher'
+import LoadingSpinner from 'src/common/components/LoadingSpinner'
 import React from 'react'
 import Selectors from 'src/modules/app/selectors'
+import { TopRightContainer } from 'src/common/components/Styled'
 import cookie from 'js-cookie'
 import { observer } from 'mobx-react'
 import service from 'src/js/service'
 import stores from 'src/stores'
-import styled from 'styled-components'
 import vm from 'src/modules/app/viewmodel'
-
-const TopRight = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`
 
 @observer
 class Wrapper extends React.Component {
@@ -44,12 +41,15 @@ class Wrapper extends React.Component {
       selectedItem: name,
       inventories: []
     })
+    stores.app._setFetching(true)
     service.getInventoryList(url)
       .then((res) => {
+        stores.app._setSuccess(true)
         cookie.set('url', url)
         this.dispatch({ type: 'load_inventory', data: res, url: service.urlValidator(url) })
       })
       .catch((err) => {
+        stores.app._setSuccess(false)
         console.log(err)
         this.dispatch({ type: 'error' })
       })
@@ -105,12 +105,13 @@ class Wrapper extends React.Component {
     const { sites } = stores.sites
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
-        <TopRight>
-          {stores.auth.user.is_admin && <DefaultButton className="btn" onClick={this.goToAdmin}>ผู้ดูแลระบบ</DefaultButton>}
-          <DangerButton className="btn ml-3" onClick={this.signout}>ออกจากระบบ</DangerButton>
-        </TopRight>
+        <TopRightContainer>
+          <LanguageSwitcher className="d-inline"/>
+          {stores.auth.user.is_admin && <DefaultButton className="btn ml-3" onClick={this.goToAdmin}>{I18n.t('admin.administrator')}</DefaultButton>}
+          <DangerButton className="btn ml-3" onClick={this.signout}>{I18n.t('app.signout')}</DangerButton>
+        </TopRightContainer>
 
-        <h1><b>หน่วยงาน</b></h1>
+        <h1><b>{I18n.t('app.site')}</b></h1>
         <div className='d-flex'>
           <Dropdown
             itemSelector={Selectors.getSiteName}
@@ -124,11 +125,12 @@ class Wrapper extends React.Component {
         {this.state.error && <ErrorMessage />}
         <br />
         <br />
+        {stores.app.fetching && <LoadingSpinner /> }
         {this.state.inventories.length !== 0 && <InventoryList inventories={this.state.inventories} />}
         <footer className="footer mt-auto">
           <div className="container">
             <span>
-              โปรแกรมนี้เป็นทรัพย์สินของ บริษัท ผดุงศิลป์วิศวการ จำกัด<br></br>© Copyright 2017 PADUNGSILPA GROUP All right reserved.
+              {I18n.t('app.copyright.1')}<br></br>{I18n.t('app.copyright.2')}
             </span>
           </div>
         </footer>
