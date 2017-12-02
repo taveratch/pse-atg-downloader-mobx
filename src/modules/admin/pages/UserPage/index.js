@@ -36,32 +36,40 @@ class UserPage extends React.PureComponent {
   sitesStore = stores.admin.sites
 
   state = {
-    email: null,
-    password: null,
-    isAdmin: null,
-    siteIds: []
+    user: {
+      email: null,
+      password: null,
+      is_admin: null,
+      firstname: null,
+      lastname: null,
+      tel: null,
+      siteIds: []
+    }
+  }
+
+  updateUserState = (key, value) => {
+    this.setState({
+      user: { ...this.state.user, ...{ [key]: value } }
+    })
   }
 
   onChange = (event) => {
     console.log(event.target.name)
     const { name, value } = event.target
-    this.setState({
-      [name]: value
-    })
+    this.updateUserState(name, value)
   }
 
   onCheckboxChange = event => {
     const { name, checked } = event.target
-    this.setState({
-      [name]: checked
-    })
+    this.updateUserState(name, checked)
   }
 
   onSave = () => {
     const _filterer = value => _.identity(value !== null)
-    const withoutNull = _.pickBy(this.state, _filterer)
+    console.log(this.state.user)
+    const withoutNull = _.pickBy(this.state.user, _filterer)
     // Merge current site ids with site ids from store (server)
-    const siteIds = [...this.state.siteIds, ..._.map(this.userStore.sites, 'id')]
+    const siteIds = [...this.state.user.siteIds, ..._.map(this.userStore.sites, 'id')]
     AdminActions.updateUser(this.userId, { ...withoutNull, ...{ siteIds } })
   }
 
@@ -102,6 +110,7 @@ class UserPage extends React.PureComponent {
   }
 
   render() {
+    console.log(this.state.user)
     const { user, sites } = this.userStore
     if (!user) return null
     return (
@@ -110,7 +119,7 @@ class UserPage extends React.PureComponent {
           id="delete-confirm-modal"
           title={I18n.t('common.confirmation')}
           body={I18n.t('admin.remove.user.dialog.message', { userName: user.email })}
-          yesButtonLabel={'ลบ'}
+          yesButtonLabel={I18n.t('common.remove')}
           onYes={this.onDelete}
         />
         <div className="mb-5">
@@ -121,8 +130,14 @@ class UserPage extends React.PureComponent {
           <br />
           <Input name="password" label={I18n.t('common.password')} onChange={this.onChange} placeholder={I18n.t('admin.blank.password.for.nothing')} />
           <br />
-          <input type="checkbox" checked={this.state.isAdmin === null ? user.is_admin : this.state.isAdmin} id="isAdmin" name="isAdmin" value="isAdmin" onChange={this.onCheckboxChange} />
-          <label className="ml-3" htmlFor="isAdmin">{I18n.t('admin.administrator')}</label>
+          <Input label={I18n.t('common.firstname')} name="firstname" defaultValue={user.firstname} onChange={this.onChange} />
+          <br />
+          <Input label={I18n.t('common.lastname')} name="lastname" defaultValue={user.lastname} onChange={this.onChange} />
+          <br />
+          <Input label={I18n.t('common.tel')} name="tel" defaultValue={user.tel} onChange={this.onChange} />
+          <br />
+          <input type="checkbox" checked={this.state.user.is_admin === null ? user.is_admin : this.state.user.is_admin} id="is_admin" name="is_admin" value="is_admin" onChange={this.onCheckboxChange} />
+          <label className="ml-3" htmlFor="is_admin">{I18n.t('admin.administrator')}</label>
         </div>
         {!user.is_admin && this.createAddSiteSection()}
         <h5>
