@@ -33,15 +33,19 @@ export default {
       }
     })
   },
-  signup: (email, password, siteId, isAdmin) => {
+  signup: (user) => {
+    console.log(user)
     return ApiManager.fetch({
       url: '/auth/signup',
       method: 'POST',
       body: {
-        email,
-        password,
-        site_id: siteId,
-        is_admin: isAdmin
+        email: user.email,
+        password: user.password,
+        site_id: user.site_id,
+        is_admin: user.is_admin,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        tel: user.tel
       }
     })
   },
@@ -94,7 +98,10 @@ export default {
       body: {
         email: updatedUser.email,
         password: updatedUser.password,
-        is_admin: updatedUser.isAdmin,
+        is_admin: updatedUser.is_admin,
+        firstname: updatedUser.firstname,
+        lastname: updatedUser.lastname,
+        tel: updatedUser.tel,
         site_ids: updatedUser.siteIds
       }
     })

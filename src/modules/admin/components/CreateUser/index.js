@@ -27,10 +27,12 @@ const FlexItemFillWidth = styled.div`
 @observer
 class CreateUser extends React.Component {
   state = {
-    email: '',
-    password: '',
-    siteId: null,
-    isAdmin: false,
+    user: {
+      email: '',
+      password: '',
+      site_id: null,
+      is_admin: false,
+    },
     dropdownText: I18n.t('admin.please.choose.site')
   }
 
@@ -45,12 +47,12 @@ class CreateUser extends React.Component {
   handleChange = event => {
     const { name, value } = event.target
     this.setState({
-      [name]: value
+      user: { ...this.state.user, ...{ [name]: value } }
     })
   }
 
   onClick = () => {
-    AdminActions.createUser(this.state.email, this.state.password, this.state.siteId, this.state.isAdmin)
+    AdminActions.createUser(this.state.user)
       .then(() => AdminActions.getUsers())
   }
 
@@ -66,7 +68,7 @@ class CreateUser extends React.Component {
 
   changeSite = (index, site) => {
     this.setState({
-      siteId: site.id,
+      user: { ...this.state.user, ...{ site_id: site.id }},
       dropdownText: site.name
     })
   }
@@ -86,7 +88,13 @@ class CreateUser extends React.Component {
           <Button className='btn' onClick={this.generatePassword}>{I18n.t('admin.auto.generate')}</Button>
         </Flex>
         <br />
-        <Dropdown 
+        <Input label={I18n.t('common.firstname')} name="firstname" onChange={this.handleChange} />
+        <br />
+        <Input label={I18n.t('common.lastname')} name="lastname" onChange={this.handleChange} />
+        <br />
+        <Input label={I18n.t('common.tel')} name="tel" onChange={this.handleChange} />
+        <br />
+        <Dropdown
           itemSelector={Selectors.getSiteName}
           id="dropdownSites"
           items={sites}

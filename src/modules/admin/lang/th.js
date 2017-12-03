@@ -18,5 +18,7 @@ export default {
   'admin.remove.user.dialog.message': 'ต้องการลบผู้ใช้งาน {userName} หรือไม่ ?',
   'admin.add.site': 'เพิ่มหน่วยงาน',
   'admin.blank.password.for.nothing': 'ว่างเพื่อใช้รหัสผ่านเดิม',
-  'admin.sites.of': 'รายชื่อหน่วยงานทั้งหมดของ'
+  'admin.sites.of': 'รายชื่อหน่วยงานทั้งหมดของ',
+  'admin.site.has.been.created': 'หน่วยงาน {siteName} ถูกสร้างเรียบร้อยแล้ว',
+  'admin.user.has.been.created': 'ผู้ใช้งาน {name} ถูกสร้างเรียบร้อยแล้ว'
 }
