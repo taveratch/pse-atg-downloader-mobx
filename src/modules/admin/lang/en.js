@@ -18,5 +18,7 @@ export default {
   'admin.remove.user.dialog.message': 'Do you want to remove {userName} ?',
   'admin.add.site': 'Add site',
   'admin.blank.password.for.nothing': 'Leave blank to use the current password',
-  'admin.sites.of': 'Sites of'
+  'admin.sites.of': 'Sites of',
+  'admin.site.has.been.created': 'Site {siteName} has been created.',
+  'admin.user.has.been.created': 'User {name} has been created.'
 }

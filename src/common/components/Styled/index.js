@@ -5,3 +5,9 @@ export const TopRightContainer = styled.div`
   top: 10px;
   right: 10px;
 `
+
+export const TopLeftContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`

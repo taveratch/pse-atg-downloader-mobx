@@ -1,4 +1,5 @@
 import Api from 'src/common/Api'
+import I18n from 'src/common/I18n'
 import history from 'src/common/history'
 import stores from 'src/stores'
 
@@ -14,19 +15,19 @@ export default {
     return Api.createSite(arg)
       .then(res => {
         stores.admin.site._setSuccess(true)
-        stores.admin.site._setMessage(`หน่วยงาน ${res.data.name} ถูกสร้างแล้ว`)
+        stores.admin.site._setMessage(I18n.t('admin.site.has.been.created', { siteName: res.data.name }))
       })
       .catch(err => {
         stores.admin.site._setMessage(err.error)
         stores.admin.site._setSuccess(err.success)
       })
   },
-  createUser: (email, password, siteId, isAdmin) => {
-    return Api.signup(email, password, siteId, isAdmin)
+  createUser: (user) => {
+    return Api.signup(user)
       .then(res => {
         stores.admin.user.setUser(res.data)
         stores.admin.user._setSuccess(true)
-        stores.admin.user._setMessage(`ผู้ใช้งาน ${res.data.email} ถูกสร้างแล้ว`)
+        stores.admin.user._setMessage(I18n.t('admin.user.has.been.created', { name: `${res.data.firstname} ${res.data.lastname}` }))
       })
       .catch(res => {
         stores.admin.user._setSuccess(false)
@@ -61,11 +62,11 @@ export default {
   updateSite: (siteId, updatedSite) => {
     return Api.updateSite(siteId, updatedSite)
       .then(() => {
-        stores.admin.site._setMessage('บันทึกเรียบร้อย')
+        stores.admin.site._setMessage(I18n.t('common.saved'))
         stores.admin.site._setSuccess(true)
       })
       .catch(() => {
-        stores.admin.site._setMessage('ผิดพลาด')
+        stores.admin.site._setMessage(I18n.t('common.error'))
         stores.admin.site._setSuccess(false)
       })
   },
@@ -79,9 +80,10 @@ export default {
       })
   },
   updateUser: (userId, updatedUser) => {
+    console.log(updatedUser)
     return Api.updateUser(userId, updatedUser)
       .then(() => {
-        stores.admin.user._setMessage('บันทึกเรียบร้อย')
+        stores.admin.user._setMessage(I18n.t('common.saved'))
         stores.admin.user._setSuccess(true)
       })
       .catch(res => {
