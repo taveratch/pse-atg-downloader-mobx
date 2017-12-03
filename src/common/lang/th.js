@@ -13,5 +13,6 @@ export default {
   'common.please.wait': 'กรุณารอสักครู่',
   'common.firstname': 'ชื่อ',
   'common.lastname': 'นามสกุล',
-  'common.tel': 'เบอร์โทรศัพท์'
+  'common.tel': 'เบอร์โทรศัพท์',
+  'common.welcome': 'ยินดีต้อนรับ'
 }

@@ -13,5 +13,6 @@ export default {
   'common.please.wait': 'Please wait',
   'common.firstname': 'Firstname',
   'common.lastname': 'Lastname',
-  'common.tel': 'Phone number'
+  'common.tel': 'Phone number',
+  'common.welcome': 'Welcome'
 }
