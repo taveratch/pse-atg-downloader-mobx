@@ -26,6 +26,7 @@ class Auth extends FetchedStore {
 
   reset() {
     this.user = null
+    tokenManager.set('')
   }
 
   signin() {
@@ -41,7 +42,7 @@ class Auth extends FetchedStore {
         this.handleError(err)
       })
   }
-
+  
   verifyToken() {
     this.checkingToken = true
     return Api.authUser()
