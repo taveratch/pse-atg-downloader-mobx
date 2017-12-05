@@ -1,7 +1,5 @@
 import DownloadImg from 'src/assets/images/download.svg'
 import React from 'react'
-import { downloadInventory } from 'src/js/service'
-import stores from 'src/stores'
 
 const style = {
   container: {
@@ -14,27 +12,8 @@ const style = {
 }
 class DownloadButton extends React.Component {
 
-  inventoryStore = stores.inventory
-
-  download = (fileName, text) => {
-    var element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-    element.setAttribute('download', fileName)
-    element.style.display = 'none'
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
-  }
-
   onClick = () => {
-    let { url, name } = this.props
-    stores.inventory.addDownloadQueue(name)
-    downloadInventory(url, { useHeader: true, downloadType: this.inventoryStore.downloadType.type })
-      .then(res => {
-        this.download(name, res)
-        stores.inventory.removeDownloadQueue(name)
-      })
-      .catch(() => stores.inventory.setError(name))
+    this.props.download(this.props.inventory)
   }
 
   render() {
