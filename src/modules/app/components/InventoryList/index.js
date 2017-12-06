@@ -51,7 +51,7 @@ class InventoryList extends React.Component {
                     <td className='text-right pr-5'>{moment(inventory.dateStr, 'DD/MM/YYYY').format('D MMMM YYYY')}</td>
                     <td className='pl-5 pr-3'>
                       <div className='d-flex'>
-                        <DownloadButton url={inventory.url} name={inventory.name} />
+                        <DownloadButton download={this.props.download} inventory={inventory}/>
                         {
                           downloadingList.has(inventory.name) &&
                           (

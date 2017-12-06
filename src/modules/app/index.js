@@ -1,3 +1,6 @@
+/*eslint no-unused-vars: "off"*/
+import { inject, observer } from 'mobx-react'
+
 import AppActions from 'src/modules/app/actions'
 import DangerButton from 'src/common/components/Buttons/DangerButton'
 import DefaultButton from 'src/common/components/Buttons/DefaultButton'
@@ -10,24 +13,20 @@ import LoadingSpinner from 'src/common/components/LoadingSpinner'
 import React from 'react'
 import Selectors from 'src/modules/app/selectors'
 import { TopRightContainer } from 'src/common/components/Styled'
-import cookie from 'js-cookie'
-import { observer } from 'mobx-react'
-import service from 'src/js/service'
-import stores from 'src/stores'
+import createDownloadLink from 'src/utils/create-download-link'
 import vm from 'src/modules/app/viewmodel'
 
+@inject('stores')
 @observer
-class Wrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    /* binding functions */
-    this.dispatch = this.dispatch.bind(this)
-    /* set initial state */
-    this.state = vm({}, { type: 'init' })
-  }
+class Wrapper extends React.PureComponent {
+
+  downloadPageStore = this.props.stores.downloadPage
+  sitesStore = this.props.stores.sites
+  authStore = this.props.stores.auth
+  inventoryStore = this.props.stores.inventory
 
   componentDidMount() {
-    AppActions.getSites()
+    this.sitesStore.getSites()
   }
 
   dispatch(action) {
@@ -35,33 +34,16 @@ class Wrapper extends React.Component {
   }
 
   read = (index, site) => {
-    const { url: siteUrl, port, name } = site
-    const url = `${siteUrl}:${port}`
-    this.setState({
-      selectedItem: name,
-      inventories: []
-    })
-    stores.app._setFetching(true)
-    service.getInventoryList(url)
-      .then((res) => {
-        stores.app._setSuccess(true)
-        cookie.set('url', url)
-        this.dispatch({ type: 'load_inventory', data: res, url: service.urlValidator(url) })
-      })
-      .catch((err) => {
-        stores.app._setSuccess(false)
-        console.log(err)
-        this.dispatch({ type: 'error' })
-      })
+    this.downloadPageStore.setSelectedSite(site)
+    this.downloadPageStore.fetchInventoryList(site)
   }
 
-  download(url) {
-    service.downloadInventory(url)
-  }
-
-  downloadAll() {
-    this.dispatch({ type: 'start_downloading_all_inventory' })
-    service.downloadAllInventories(this.state.inventories, this.dispatch)
+  download = (inventory) => {
+    const downloadType = this.inventoryStore.downloadType
+    this.downloadPageStore.downloadInventory(inventory, { downloadType })
+      .then(res => {
+        createDownloadLink(inventory.name, res)
+      })
   }
 
   signout = () => {
@@ -102,13 +84,13 @@ class Wrapper extends React.Component {
   }
 
   render() {
-    const { sites } = stores.sites
+    const { sites } = this.sitesStore
     return (
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
         <TopRightContainer>
-          <LanguageSwitcher className="d-inline"/>
-          <b className="ml-3">{`${stores.auth.user.firstname} ${stores.auth.user.lastname}`}</b>
-          {stores.auth.user.is_admin && <DefaultButton className="btn ml-3" onClick={this.goToAdmin}>{I18n.t('admin.administrator')}</DefaultButton>}
+          <LanguageSwitcher className="d-inline" />
+          <b className="ml-3">{`${this.authStore.user.firstname} ${this.authStore.user.lastname}`}</b>
+          {this.authStore.user.is_admin && <DefaultButton className="btn ml-3" onClick={this.goToAdmin}>{I18n.t('admin.administrator')}</DefaultButton>}
           <DangerButton className="btn ml-3" onClick={this.signout}>{I18n.t('app.signout')}</DangerButton>
         </TopRightContainer>
         <h1><b>{I18n.t('app.site')}</b></h1>
@@ -119,14 +101,14 @@ class Wrapper extends React.Component {
             className="w-100"
             items={sites}
             onItemClick={this.read}
-            initialLabel={this.state.selectedItem}
+            initialLabel={this.downloadPageStore.selectedSite.name}
           />
         </div>
-        {this.state.error && <ErrorMessage />}
+        {this.downloadPageStore.message && <ErrorMessage />}
         <br />
         <br />
-        {stores.app.fetching && <LoadingSpinner /> }
-        {this.state.inventories.length !== 0 && <InventoryList inventories={this.state.inventories} />}
+        {this.downloadPageStore.fetching && <LoadingSpinner />}
+        {this.downloadPageStore.hasInventoryList && <InventoryList download={this.download} inventories={this.downloadPageStore.inventoryList} />}
         <footer className="footer mt-auto">
           <div className="container">
             <span>
@@ -140,3 +122,5 @@ class Wrapper extends React.Component {
 }
 
 export default Wrapper
+
+

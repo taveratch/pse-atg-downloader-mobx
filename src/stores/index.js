@@ -1,3 +1,4 @@
+import DownloadPage from 'src/stores/download-page'
 import FetchedStore from 'src/stores/fetched-store'
 import _ from 'lodash'
 import adminSite from 'src/stores/admin/site'
@@ -10,9 +11,10 @@ import sites from 'src/stores/sites'
 
 const stores = {}
 
-_.set(stores, 'auth', auth)
+_.set(stores, 'auth', new auth())
 _.set(stores, 'inventory', inventory)
 _.set(stores, 'sites', sites)
+_.set(stores, 'downloadPage', new DownloadPage())
 _.set(stores, 'admin.sites', adminSites)
 _.set(stores, 'admin.site', adminSite)
 _.set(stores, 'admin.users', adminUsers)

@@ -34,7 +34,6 @@ export default {
     })
   },
   signup: (user) => {
-    console.log(user)
     return ApiManager.fetch({
       url: '/auth/signup',
       method: 'POST',
@@ -112,4 +111,22 @@ export default {
       url: `/users/${userId}`
     })
   },
+  getInventoryList: (url, port) => {
+    return ApiManager.fetch({
+      external: true,
+      url: `${url}:${port}/inventory/filesrecord.txt`,
+      headers: {
+        'Authorization': 'Basic dXNlcjpwYXNz'
+      }
+    })
+  },
+  downloadInventory: (site, inventory) => {
+    return ApiManager.fetch({
+      external: true,
+      url: `${site.url}:${site.port}/Inventory/${inventory.name}`,
+      headers: {
+        'Authorization': 'Basic dXNlcjpwYXNz'
+      }
+    })
+  }
 }
