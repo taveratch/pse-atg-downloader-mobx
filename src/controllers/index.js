@@ -1,1 +1,0 @@
-export * from 'src/controllers/auth.js'

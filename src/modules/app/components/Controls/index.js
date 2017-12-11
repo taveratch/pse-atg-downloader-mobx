@@ -1,6 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { filterInventoryFromDate, getOnlyName } from 'src/js/utils'
+import { inject, observer } from 'mobx-react'
 
 import $ from 'jquery'
 import Button from 'src/common/components/Buttons/Button'
@@ -13,12 +14,13 @@ import Selectors from 'src/modules/app/selectors'
 import _ from 'lodash'
 import downloadTypes from 'src/modules/app/components/Controls/download-types'
 import moment from 'moment'
-import { observer } from 'mobx-react'
-import service from 'src/js/service'
-import stores from 'src/stores'
 
+@inject('stores')
 @observer
 class Controls extends React.Component {
+
+  downloadPageStore = this.props.stores.downloadPage
+  inventoryStore = this.props.stores.inventory
 
   constructor(props) {
     super(props)
@@ -31,8 +33,6 @@ class Controls extends React.Component {
     }
   }
 
-  inventoryStore = stores.inventory
-
   changeDownloadType = (index, type) => {
     this.inventoryStore.setDownloadType(type)
   }
@@ -44,16 +44,16 @@ class Controls extends React.Component {
     const { startDate, endDate } = this.state
     const filteredInventories = filterInventoryFromDate(inventories, startDate, endDate)
     const onlyName = getOnlyName(filteredInventories)
-    stores.inventory.setDownloadingList(onlyName)
+    this.inventoryStore.setDownloadingList(onlyName)
 
     const callback = (inventory, success) => {
       if(success)
-        stores.inventory.removeDownloadQueue(inventory.name)
+        this.inventoryStore.removeDownloadQueue(inventory.name)
       else
-        stores.inventory.setError(inventory.name)
+        this.inventoryStore.setError(inventory.name)
     }
     
-    service.downloadAllInventories(filteredInventories, callback, downloadType.type)
+    this.downloadPageStore.downloadAllInventories(filteredInventories, callback, downloadType.type)
   }
 
   handleStartDateChange = (date) => {

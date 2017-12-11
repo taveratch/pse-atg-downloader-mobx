@@ -1,7 +1,7 @@
-import { Route, Router, Switch } from 'react-router-dom'
+import {Route, Router, Switch} from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 
 import Admin from 'src/modules/admin'
-import CommonActions from 'src/common/actions'
 import I18n from 'src/common/I18n'
 import NotFound from 'src/common/components/NotFound'
 import PrivateRoute from 'src/common/components/PrivateRoute'
@@ -9,13 +9,10 @@ import React from 'react'
 import RedirectWithCondition from 'src/common/components/RedirectWithCondition'
 import SignIn from 'src/modules/signin'
 import Wrapper from 'src/modules/app'
-import { connect } from 'react-redux'
 import history from 'src/common/history'
 import locale from 'src/common/locale'
 import moment from 'moment'
-import { observer } from 'mobx-react'
 import qs from 'query-string'
-import stores from 'src/stores'
 
 const initI18n = () => {
   let localeFromParams = qs.parse(history.location.search).locale
@@ -31,36 +28,26 @@ const initI18n = () => {
   I18n.init(localeFromParams)
 }
 
+@inject('stores')
 @observer
 class Routes extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      loading: true
-    }
     initI18n()
+    this.authStore = this.props.stores.auth
+    this.authStore.verifyToken()
     moment.locale(I18n.getLocale())
   }
 
-  componentDidMount() {
-    CommonActions.authenticate()
-      .then(() => {
-        this.setState({ loading: false })
-      })
-      .catch(() => {
-        this.setState({ loading: false })
-      })
-  }
-
   render() {
-    if (this.state.loading) return <span>loading</span>
+    if (this.authStore.checkingToken) return <span>loading</span>
     return (
       <Router history={history}>
         <Switch>
-          <RedirectWithCondition exact path='/signin' redirect='/' component={SignIn} shouldRedirect={stores.auth.isSignedIn} />
-          <PrivateRoute exact path='/' redirect='/signin' component={Wrapper} authed={stores.auth.isSignedIn} />
-          <PrivateRoute path='/admin' redirect='/' component={Admin} authed={stores.auth.isSignedIn && stores.auth.isAdmin} />
+          <RedirectWithCondition exact path='/signin' redirect='/' component={SignIn} shouldRedirect={this.authStore.isSignedIn} />
+          <PrivateRoute exact path='/' redirect='/signin' component={Wrapper} authed={this.authStore.isSignedIn} />
+          <PrivateRoute path='/admin' redirect='/' component={Admin} authed={this.authStore.isAdmin} />
           <Route path='*' component={NotFound} />
         </Switch>
       </Router>
@@ -68,8 +55,6 @@ class Routes extends React.Component {
   }
 }
 
-const mapState = ({ auth }) => ({
-  isSignedIn: auth.isSuccess
-})
+export default Routes
 
-export default connect(mapState)(Routes)
+

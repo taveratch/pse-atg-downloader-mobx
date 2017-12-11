@@ -1,8 +1,8 @@
-import { AuthController } from 'src/controllers'
 import config from 'config/index.js'
 import { isProduction } from 'src/services/env'
 import locale from 'src/common/locale'
 import qs from 'query-string'
+import tokenManager from 'src/utils/token-manager'
 
 const host = isProduction() ? '' : config.proxy
 
@@ -20,7 +20,7 @@ class ApiManager {
       options.url += '&' + qs.stringify(options.q)
     if (!options.headers) options.headers = {}
     if (!options.headers['Authorization'])
-      options.headers['Authorization'] = AuthController.getToken()
+      options.headers['Authorization'] = tokenManager.get()
     options.headers['Content-Type'] = 'application/json'
     if (options.body)
       options.body = JSON.stringify(options.body)
