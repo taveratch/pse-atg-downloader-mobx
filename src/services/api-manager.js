@@ -1,21 +1,18 @@
 import config from 'config/index.js'
-import { isProduction } from 'src/services/env'
 import locale from 'src/common/locale'
 import qs from 'query-string'
 import tokenManager from 'src/utils/token-manager'
 
-const host = isProduction() ? process.env.API : config.proxy
-
 class ApiManager {
   fetch(options) {
-    let proxyPrefix
+    let url = ''
     if (options.external)
-      proxyPrefix = '/proxy?q='
+      url = options.url
     else {
-      proxyPrefix = '/_api'
+      url = config.api + '/_api' + options.url
       options.json = true
     }
-    options.url = host + proxyPrefix + options.url + `?locale=${locale.get()}`
+    options.url = config.proxy + '/proxy?q=' + url + `?locale=${locale.get()}`
     if (options.q)
       options.url += '&' + qs.stringify(options.q)
     if (!options.headers) options.headers = {}
