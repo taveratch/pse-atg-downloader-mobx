@@ -4,7 +4,7 @@ import { isProduction } from 'src/services/env'
 import locale from 'src/common/locale'
 import qs from 'query-string'
 
-const host = isProduction() ? '' : config.proxy
+const host = isProduction() ? process.env.API : config.proxy
 
 class ApiManager {
   fetch(options) {

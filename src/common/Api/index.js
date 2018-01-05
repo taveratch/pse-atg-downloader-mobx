@@ -34,7 +34,6 @@ export default {
     })
   },
   signup: (user) => {
-    console.log(user)
     return ApiManager.fetch({
       url: '/auth/signup',
       method: 'POST',
