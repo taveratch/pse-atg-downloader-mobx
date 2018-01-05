@@ -4,7 +4,7 @@ import locale from 'src/common/locale'
 import qs from 'query-string'
 import tokenManager from 'src/utils/token-manager'
 
-const host = isProduction() ? '' : config.proxy
+const host = isProduction() ? process.env.API : config.proxy
 
 class ApiManager {
   fetch(options) {
