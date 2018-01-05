@@ -11,7 +11,8 @@
     "client:live": "nodemon --exec npm run babel-node -- ./src/app.js",
     "client": "babel-node ./src/app.js",
     "proxy-server": "cd proxy-server && npm run start",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "build-start": "npm run build && npm run start"
   },
   "author": "",
   "license": "ISC",
