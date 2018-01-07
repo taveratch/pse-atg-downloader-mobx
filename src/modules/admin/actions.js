@@ -80,7 +80,6 @@ export default {
       })
   },
   updateUser: (userId, updatedUser) => {
-    console.log(updatedUser)
     return Api.updateUser(userId, updatedUser)
       .then(() => {
         stores.admin.user._setMessage(I18n.t('common.saved'))

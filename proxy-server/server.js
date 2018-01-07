@@ -21,7 +21,7 @@ const getQuery = originalUrl => {
 };
 
 let options = {
-    target: config.proxy,
+    target: 'http://localhost',
     router: (req) => {
         let q = getQuery(req.originalUrl);
         let parsedUrl = url.parse(q);

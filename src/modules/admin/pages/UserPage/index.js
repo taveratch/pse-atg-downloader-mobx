@@ -54,7 +54,6 @@ class UserPage extends React.PureComponent {
   }
 
   onChange = (event) => {
-    console.log(event.target.name)
     const { name, value } = event.target
     this.updateUserState(name, value)
   }
@@ -66,7 +65,6 @@ class UserPage extends React.PureComponent {
 
   onSave = () => {
     const _filterer = value => _.identity(value !== null)
-    console.log(this.state.user)
     const withoutNull = _.pickBy(this.state.user, _filterer)
     // Merge current site ids with site ids from store (server)
     const siteIds = [...this.state.user.siteIds, ..._.map(this.userStore.sites, 'id')]
@@ -110,7 +108,6 @@ class UserPage extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state.user)
     const { user, sites } = this.userStore
     if (!user) return null
     return (
