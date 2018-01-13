@@ -11,8 +11,8 @@ export default {
   'common.close': 'Close',
   'common.back': 'Back',
   'common.please.wait': 'Please wait',
-  'common.firstname': 'Firstname',
-  'common.lastname': 'Lastname',
+  'common.name': 'Name',
   'common.tel': 'Phone number',
+  'common.serial.number': 'ATG Console\'s serial number',
   'common.welcome': 'Welcome'
 }

@@ -40,8 +40,7 @@ class UserPage extends React.PureComponent {
       email: null,
       password: null,
       is_admin: null,
-      firstname: null,
-      lastname: null,
+      name: null,
       tel: null,
       siteIds: []
     }
@@ -127,9 +126,7 @@ class UserPage extends React.PureComponent {
           <br />
           <Input name="password" label={I18n.t('common.password')} onChange={this.onChange} placeholder={I18n.t('admin.blank.password.for.nothing')} />
           <br />
-          <Input label={I18n.t('common.firstname')} name="firstname" defaultValue={user.firstname} onChange={this.onChange} />
-          <br />
-          <Input label={I18n.t('common.lastname')} name="lastname" defaultValue={user.lastname} onChange={this.onChange} />
+          <Input label={I18n.t('common.name')} name="name" defaultValue={user.name} onChange={this.onChange} />
           <br />
           <Input label={I18n.t('common.tel')} name="tel" defaultValue={user.tel} onChange={this.onChange} />
           <br />

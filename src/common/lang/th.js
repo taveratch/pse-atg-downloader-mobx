@@ -11,8 +11,8 @@ export default {
   'common.close': 'ปิด',
   'common.back': 'กลับ',
   'common.please.wait': 'กรุณารอสักครู่',
-  'common.firstname': 'ชื่อ',
-  'common.lastname': 'นามสกุล',
+  'common.name': 'ชื่อ - นามสกุล',
   'common.tel': 'เบอร์โทรศัพท์',
-  'common.welcome': 'ยินดีต้อนรับ'
+  'common.welcome': 'ยินดีต้อนรับ',
+  'common.serial.number': 'หมายเลขเครื่อง ATG Console'
 }

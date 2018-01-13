@@ -88,9 +88,7 @@ class CreateUser extends React.Component {
           <Button className='btn' onClick={this.generatePassword}>{I18n.t('admin.auto.generate')}</Button>
         </Flex>
         <br />
-        <Input label={I18n.t('common.firstname')} name="firstname" onChange={this.handleChange} />
-        <br />
-        <Input label={I18n.t('common.lastname')} name="lastname" onChange={this.handleChange} />
+        <Input label={I18n.t('common.name')} name="name" onChange={this.handleChange} />
         <br />
         <Input label={I18n.t('common.tel')} name="tel" onChange={this.handleChange} />
         <br />

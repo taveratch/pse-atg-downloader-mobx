@@ -41,11 +41,9 @@ export default {
       body: {
         email: user.email,
         password: user.password,
-        site_id: user.site_id,
-        is_admin: user.is_admin,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        tel: user.tel
+        name: user.name,
+        tel: user.tel,
+        serial_number: user.serial_number
       }
     })
   },
@@ -100,8 +98,7 @@ export default {
         email: updatedUser.email,
         password: updatedUser.password,
         is_admin: updatedUser.is_admin,
-        firstname: updatedUser.firstname,
-        lastname: updatedUser.lastname,
+        name: updatedUser.name,
         tel: updatedUser.tel,
         site_ids: updatedUser.siteIds
       }

@@ -9,6 +9,14 @@ class Auth extends FetchedStore {
   @observable checkingToken = true
   @observable email = '';
   @observable password = '';
+  @observable signupState = {
+    email: '',
+    name: '',
+    password: '',
+    tel: '',
+    serial_number: ''
+  }
+  @observable signupPassed = false
 
   @action.bound
   setUser(user) {
@@ -42,6 +50,17 @@ class Auth extends FetchedStore {
         this.handleError(err)
       })
   }
+
+  signup() {
+    this._setFetching(true)
+    return Api.signup(this.signupState)
+      .then(() => {
+        this.signupPassed = true
+      })
+      .catch(err => {
+        this.handleError(err)
+      })
+  }
   
   verifyToken() {
     this.checkingToken = true
@@ -57,6 +76,7 @@ class Auth extends FetchedStore {
   }
 
   handleError(err) {
+    this._setFetching(false)
     this.reset()
     this._setSuccess(err.success)
     this._setMessage(err.error)
