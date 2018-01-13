@@ -10,13 +10,15 @@ const message = {
     ...require('src/modules/signin/lang/en').default,
     ...require('src/modules/signup/lang/en').default,
     ...require('src/modules/app/lang/en').default,
+    ...require('src/modules/verify/lang/en').default,
   },
   'th': {
     ...require('src/common/lang/th').default,
     ...require('src/modules/admin/lang/th').default,
     ...require('src/modules/signin/lang/th').default,
     ...require('src/modules/signup/lang/th').default,
-    ...require('src/modules/app/lang/th').default
+    ...require('src/modules/app/lang/th').default,
+    ...require('src/modules/verify/lang/th').default
   }
 }
 

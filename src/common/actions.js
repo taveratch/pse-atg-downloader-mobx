@@ -14,6 +14,7 @@ export default {
 
 export const StoreActions = {
   reset: (storeName) => {
-    stores[storeName]._reset()
+    console.log(stores[storeName])
+    stores[storeName].__reset()
   }
 }

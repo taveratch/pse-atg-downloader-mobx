@@ -127,5 +127,15 @@ export default {
         'Authorization': 'Basic dXNlcjpwYXNz'
       }
     })
+  },
+  verify: (userId, token) => {
+    return ApiManager.fetch({
+      method: 'POST',
+      url: '/verify',
+      body: {
+        userId,
+        token
+      }
+    })
   }
 }

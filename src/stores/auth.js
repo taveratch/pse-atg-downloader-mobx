@@ -2,21 +2,25 @@ import { action, computed, observable } from 'mobx'
 
 import Api from 'src/common/Api'
 import FetchedStore from 'src/stores/fetched-store'
+import _ from 'lodash'
 import tokenManager from 'src/utils/token-manager'
+
+const signupState = {
+  email: '',
+  name: '',
+  password: '',
+  tel: '',
+  serial_number: ''
+}
 
 class Auth extends FetchedStore {
   @observable user = null;
   @observable checkingToken = true
   @observable email = '';
   @observable password = '';
-  @observable signupState = {
-    email: '',
-    name: '',
-    password: '',
-    tel: '',
-    serial_number: ''
-  }
+  @observable signupState = _.cloneDeep(signupState)
   @observable signupPassed = false
+  @observable verifyPassed = false
 
   @action.bound
   setUser(user) {
@@ -80,6 +84,16 @@ class Auth extends FetchedStore {
     this.reset()
     this._setSuccess(err.success)
     this._setMessage(err.error)
+  }
+
+  __reset() {
+    this._reset()
+    this.signupPassed = false
+    this.signupState = _.cloneDeep(signupState)
+    this.email = ''
+    this.password = ''
+    this.user = null
+    this.verifyPassed = false
   }
 
 }
