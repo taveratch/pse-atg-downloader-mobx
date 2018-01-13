@@ -6,14 +6,15 @@ export default {
       url: '/site'
     })
   },
-  createSite: ({ name, url, port }) => {
+  createSite: ({ name, url, port, serial_number }) => {
     return ApiManager.fetch({
       url: '/site/create',
       method: 'POST',
       body: {
         name,
         url,
-        port
+        port,
+        serial_number
       }
     })
   },
@@ -76,6 +77,7 @@ export default {
         url: updatedSite.url,
         name: updatedSite.name,
         port: updatedSite.port,
+        serial_number: updatedSite.serial_number
       }
     })
   },

@@ -6,6 +6,7 @@ export default {
   'admin.create.new.site': 'สร้างหน่วยงานใหม่',
   'admin.number.of.sites': 'จำนวนหน่วยงาน',
   'admin.site.name': 'ชื่อหน่วยงาน',
+  'admin.site.serial.number': 'หมายเลขเครื่อง',
   'admin.site.url': 'ลิ้งค์',
   'admin.site.port': 'พอร์ท',
   'admin.create': 'สร้าง',

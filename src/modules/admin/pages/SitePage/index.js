@@ -68,6 +68,8 @@ class SitePage extends React.PureComponent {
         </h5>
         <Input name="name" label={I18n.t('admin.site.name')} defaultValue={site.name} onChange={this.onChange} />
         <br />
+        <Input name="serial_number" label={I18n.t('admin.site.serial.number')} defaultValue={site.serial_number} onChange={this.onChange} />
+        <br />
         <Input name="url" label={I18n.t('admin.site.url')} defaultValue={site.url} onChange={this.onChange} />
         <br />
         <Input type="number" name="port" label={I18n.t('admin.site.port')} defaultValue={site.port} onChange={this.onChange} />
