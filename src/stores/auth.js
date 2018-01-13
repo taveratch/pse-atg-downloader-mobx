@@ -96,6 +96,18 @@ class Auth extends FetchedStore {
     this.verifyPassed = false
   }
 
+  verify(userId, token) {
+    this._setFetching(true)
+    return Api.verify(userId, token)
+      .then(res => {
+        this._setFetching(false)
+        this._setSuccess(res.success)
+        this.user = res.data
+      })
+      .catch(err => {
+        this.handleError(err)
+      })
+  }
 }
 
 export default Auth

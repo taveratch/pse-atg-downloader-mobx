@@ -9,6 +9,7 @@ import React from 'react'
 import RedirectWithCondition from 'src/common/components/RedirectWithCondition'
 import SignIn from 'src/modules/signin'
 import SignUp from 'src/modules/signup'
+import Verify from 'src/modules/verify'
 import Wrapper from 'src/modules/app'
 import history from 'src/common/history'
 import locale from 'src/common/locale'
@@ -48,6 +49,7 @@ class Routes extends React.Component {
         <Switch>
           <RedirectWithCondition exact path='/signin' redirect='/' component={SignIn} shouldRedirect={this.authStore.isSignedIn} />
           <Route exact path='/signup' component={SignUp} />
+          <Route exact path='/verify' component={Verify} />
           <PrivateRoute exact path='/' redirect='/signin' component={Wrapper} authed={this.authStore.isSignedIn} />
           <PrivateRoute path='/admin' redirect='/' component={Admin} authed={this.authStore.isAdmin} />
           <Route path='*' component={NotFound} />

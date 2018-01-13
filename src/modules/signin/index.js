@@ -7,6 +7,7 @@ import I18n from 'src/common/I18n'
 import { Link } from 'react-router-dom'
 import LoadingSpinner from 'src/common/components/LoadingSpinner'
 import React from 'react'
+import { StoreActions } from 'src/common/actions'
 import styled from 'styled-components'
 
 const Page = styled.div`
@@ -25,6 +26,10 @@ class SignIn extends React.Component {
 
   authStore = this.props.stores.auth
 
+  componentWillUnmount() {
+    StoreActions.reset('auth')
+  }
+  
   handleChange(event) {
     const { name, value } = event.target
     this.authStore[name] = value
