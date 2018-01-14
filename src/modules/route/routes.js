@@ -44,7 +44,6 @@ class Routes extends React.Component {
 
   render() {
     if (this.authStore.checkingToken) return <span>loading</span>
-    console.log(this.authStore.isSignedIn)
     return (
       <Router history={history}>
         <Switch>

@@ -32,7 +32,6 @@ class SignUp extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('unmounted')
     StoreActions.reset('auth')
   }
 
