@@ -14,5 +14,9 @@ export default {
   'common.name': 'Name',
   'common.tel': 'Phone number',
   'common.serial.number': 'ATG Console\'s serial number',
-  'common.welcome': 'Welcome'
+  'common.welcome': 'Welcome',
+  'common.or': 'or',
+  'common.status': 'Status',
+  'common.active': 'Actived',
+  'common.inactive': 'Inactive'
 }

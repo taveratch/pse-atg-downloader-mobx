@@ -14,5 +14,9 @@ export default {
   'common.name': 'ชื่อ - นามสกุล',
   'common.tel': 'เบอร์โทรศัพท์',
   'common.welcome': 'ยินดีต้อนรับ',
-  'common.serial.number': 'หมายเลขเครื่อง ATG Console'
+  'common.serial.number': 'หมายเลขเครื่อง ATG Console',
+  'common.or': 'หรือ',
+  'common.status': 'สถานะ',
+  'common.active': 'อนุมัติแล้ว',
+  'common.inactive': 'รอการอนุมัติ'
 }

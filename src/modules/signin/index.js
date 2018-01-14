@@ -53,7 +53,7 @@ class SignIn extends React.Component {
                 <input className='form-control mt-2' name='password' type='password' placeholder={I18n.t('common.password')} onChange={this.handleChange.bind(this)} />
                 <Button className='btn text-white mt-4 w-100' >{I18n.t('signin.signin')}</Button>
               </form>
-              <div>
+              <div className="text-center">
                 <Link to='/signup'>{I18n.t('signin.go.to.signup.description')}</Link>
               </div>
               {this.authStore.fetching && <LoadingSpinner />}

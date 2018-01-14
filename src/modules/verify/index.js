@@ -39,7 +39,7 @@ class Verify extends React.Component {
     return (
       <div>
         <div>{I18n.t('verify.message', { email: this.authStore.user.email })}</div>
-        <Link to="/signin">{I18n.t('signin.signin')}</Link>
+        <Link to="/signin" className="d-block text-center">{I18n.t('signin.signin')}</Link>
       </div>
     )
   }
@@ -49,9 +49,9 @@ class Verify extends React.Component {
       <Page className='h-100 w-100'>
         <div className='container d-flex align-items-center h-100 justify-content-center'>
           <LoginBox className='col-md-6 col-sm-10 col-xs-10 col-lg-6 p-0'>
-            <Header title={I18n.t('signup.signup')} />
-            <div className="p-4">
-              {!this.authStore.success && <ErrorMessage>{this.authStore.message}</ErrorMessage>}
+            <Header title={I18n.t('verify.title')} />
+            <div className="pl-4 pr-4 pb-4">
+              {!this.authStore.success && <ErrorMessage className="text-center mb-0">{this.authStore.message}</ErrorMessage>}
               {this.authStore.fetching && <LoadingSpinner />}
               {this.authStore.user && this.renderVerifyMessage()}
             </div>

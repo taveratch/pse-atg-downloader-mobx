@@ -45,7 +45,7 @@ class SignUp extends React.Component {
     return (
       <div className='p-4'>
         {!this.authStore.success && <ErrorMessage>{this.authStore.message}</ErrorMessage>}
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} className="mb-0">
           <input className='form-control' name='name' placeholder={I18n.t('common.name')} onChange={this.handleChange} required />
           <input className='form-control mt-2' name='email' type='email' placeholder={I18n.t('common.email')} onChange={this.handleChange.bind(this)} required />
           <input className='form-control mt-2' name='password' type='password' placeholder={I18n.t('common.password')} onChange={this.handleChange.bind(this)} required/>
@@ -56,7 +56,7 @@ class SignUp extends React.Component {
             <label className="form-check-label ml-2" htmlFor="agreement">{I18n.t('signup.agreement')}</label>
           </div>
           <Button className='btn text-white mt-4 mb-2 w-100' >{I18n.t('signup.signup')}</Button>
-          <Link to='/signin'>{I18n.t('common.back')}</Link>
+          <Link to='/signin' className="d-block text-center">{`${I18n.t('common.or')} ${I18n.t('signin.signin')}`}</Link>
         </form>
         {this.authStore.fetching && <LoadingSpinner />}
       </div>
@@ -67,7 +67,7 @@ class SignUp extends React.Component {
     return (
       <div className="p-4">
         <div>{I18n.t('signup.email.verification.message', {email: this.authStore.signupState.email})}</div>
-        <Link to="/signin">{I18n.t('signup.back.to.signin')}</Link>
+        <Link to="/signin" className="d-block text-center">{I18n.t('signup.back.to.signin')}</Link>
       </div>
     )
   }

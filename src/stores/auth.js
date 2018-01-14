@@ -92,7 +92,6 @@ class Auth extends FetchedStore {
     this.signupState = _.cloneDeep(signupState)
     this.email = ''
     this.password = ''
-    this.user = null
     this.verifyPassed = false
   }
 
