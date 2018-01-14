@@ -18,5 +18,8 @@ export default {
   'common.or': 'or',
   'common.status': 'Status',
   'common.active': 'Actived',
-  'common.inactive': 'Inactive'
+  'common.inactive': 'Inactive',
+  'common.email.verified': 'Email Verification',
+  'common.verified': 'Verified',
+  'common.not.verified': 'Unverified'
 }

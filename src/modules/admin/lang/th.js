@@ -21,5 +21,8 @@ export default {
   'admin.blank.password.for.nothing': 'ว่างเพื่อใช้รหัสผ่านเดิม',
   'admin.sites.of': 'รายชื่อหน่วยงานทั้งหมดของ',
   'admin.site.has.been.created': 'หน่วยงาน {siteName} ถูกสร้างเรียบร้อยแล้ว',
-  'admin.user.has.been.created': 'ผู้ใช้งาน {name} ถูกสร้างเรียบร้อยแล้ว'
+  'admin.user.has.been.created': 'ผู้ใช้งาน {name} ถูกสร้างเรียบร้อยแล้ว',
+  'admin.active': 'อนุมัติ',
+  'admin.notify.active': 'ส่งอีเมลแจ้งเตือนผู้ใช้งาน',
+  'admin.active.unverified.message': 'ต้องยืนยันอีเมลก่อน'
 }

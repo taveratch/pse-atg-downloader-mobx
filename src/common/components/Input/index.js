@@ -23,6 +23,7 @@ class Input extends React.PureComponent {
           placeholder={this.props.placeholder} 
           onChange={this.props.onChange}
           defaultValue={this.props.defaultValue}
+          disabled={this.props.disabled}
         />
       </div>
     )

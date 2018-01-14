@@ -100,7 +100,9 @@ export default {
         is_admin: updatedUser.is_admin,
         name: updatedUser.name,
         tel: updatedUser.tel,
-        site_ids: updatedUser.siteIds
+        site_ids: updatedUser.siteIds,
+        active: updatedUser.active,
+        notify_active: updatedUser.notify_active
       }
     })
   },

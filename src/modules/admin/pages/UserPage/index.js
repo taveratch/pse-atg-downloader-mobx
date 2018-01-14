@@ -15,11 +15,16 @@ import history from 'src/common/history'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
 import { toJS } from 'mobx'
+import styled from 'styled-components'
 
 const removeDuplicateSite = (primary, secondary) => {
   const _isEqual = (object, other) => object.id === other.id
   return _.pullAllWith(primary, secondary, _isEqual)
 }
+
+const Red = styled.span`
+  color: #E57373;
+`
 
 @observer
 class UserPage extends React.PureComponent {
@@ -42,7 +47,9 @@ class UserPage extends React.PureComponent {
       is_admin: null,
       name: null,
       tel: null,
-      siteIds: []
+      siteIds: [],
+      active: null,
+      notify_active: true
     }
   }
 
@@ -122,7 +129,7 @@ class UserPage extends React.PureComponent {
           <h5>
             <b>{I18n.t('common.edit')}</b>
           </h5>
-          <Input name="email" label={I18n.t('common.email')} defaultValue={user.email} onChange={this.onChange} />
+          <Input name="email" disabled label={I18n.t('common.email')} defaultValue={user.email} onChange={this.onChange} />
           <br />
           <Input name="password" label={I18n.t('common.password')} onChange={this.onChange} placeholder={I18n.t('admin.blank.password.for.nothing')} />
           <br />
@@ -130,8 +137,25 @@ class UserPage extends React.PureComponent {
           <br />
           <Input label={I18n.t('common.tel')} name="tel" defaultValue={user.tel} onChange={this.onChange} />
           <br />
-          <input type="checkbox" checked={this.state.user.is_admin === null ? user.is_admin : this.state.user.is_admin} id="is_admin" name="is_admin" value="is_admin" onChange={this.onCheckboxChange} />
-          <label className="ml-3" htmlFor="is_admin">{I18n.t('admin.administrator')}</label>
+          <input type="checkbox" disabled={!user.verified} checked={this.state.user.is_admin === null ? user.is_admin : this.state.user.is_admin} id="is_admin" name="is_admin" value="is_admin" onChange={this.onCheckboxChange} />
+          <label className="ml-3" htmlFor="is_admin">
+            {I18n.t('admin.administrator')}
+            {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
+          </label>
+          <br />
+          <input type="checkbox" disabled={!user.verified} checked={this.state.user.active === null ? user.active : this.state.user.active} id="active" name="active" value="active" onChange={this.onCheckboxChange} />
+          <label className="ml-3" htmlFor="active">
+            {I18n.t('admin.active')}
+            {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
+          </label>
+          {
+            this.state.user.active !== null && (
+              <div className="ml-3">
+                <input type="checkbox" id="notify_active" checked={this.state.user.notify_active} name="notify_active" value="notify_active" onChange={this.onCheckboxChange} />
+                <label className="ml-3" htmlFor="notify_active">{I18n.t('admin.notify.active')}</label>
+              </div>
+            )
+          }
         </div>
         {!user.is_admin && this.createAddSiteSection()}
         <h5>

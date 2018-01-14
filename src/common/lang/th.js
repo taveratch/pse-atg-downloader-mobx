@@ -18,5 +18,8 @@ export default {
   'common.or': 'หรือ',
   'common.status': 'สถานะ',
   'common.active': 'อนุมัติแล้ว',
-  'common.inactive': 'รอการอนุมัติ'
+  'common.inactive': 'รอการอนุมัติ',
+  'common.email.verified': 'ยืนยันอีเมล',
+  'common.verified': 'ยืนยันเรียบร้อย',
+  'common.not.verified': 'ยังไม่ยืนยัน'
 }

@@ -52,6 +52,7 @@ class UsersTable extends React.PureComponent {
             <tr>
               <th className="pl-3 pr-3">{I18n.t('common.email')}</th>
               <th className="pl-3 pr-3">{I18n.t('common.status')}</th>
+              <th className="pl-3 pr-3">{I18n.t('common.email.verified')}</th>
             </tr>
           </thead>
           <tbody>
@@ -67,6 +68,11 @@ class UsersTable extends React.PureComponent {
                       {user.active ?
                         <Active>{I18n.t('common.active')}</Active> :
                         <Inactive>{I18n.t('common.inactive')}</Inactive> }
+                    </td>
+                    <td className="pl-3 pr-3">
+                      {user.verified ?
+                        <Active>{I18n.t('common.verified')}</Active> :
+                        <Inactive>{I18n.t('common.not.verified')}</Inactive> }
                     </td>
                   </Tr>
                 )

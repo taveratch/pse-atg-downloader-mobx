@@ -30,8 +30,10 @@ class CreateUser extends React.Component {
     user: {
       email: '',
       password: '',
-      site_id: null,
       is_admin: false,
+      tel: '',
+      serial_number: '',
+      name: ''
     },
     dropdownText: I18n.t('admin.please.choose.site')
   }
@@ -68,7 +70,7 @@ class CreateUser extends React.Component {
 
   changeSite = (index, site) => {
     this.setState({
-      user: { ...this.state.user, ...{ site_id: site.id }},
+      user: { ...this.state.user, ...{ serial_number: site.serial_number }},
       dropdownText: site.name
     })
   }

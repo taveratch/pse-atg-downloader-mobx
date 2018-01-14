@@ -21,5 +21,8 @@ export default {
   'admin.blank.password.for.nothing': 'Leave blank to use the current password',
   'admin.sites.of': 'Sites of',
   'admin.site.has.been.created': 'Site {siteName} has been created.',
-  'admin.user.has.been.created': 'User {name} has been created.'
+  'admin.user.has.been.created': 'User {name} has been created.',
+  'admin.active': 'Active',
+  'admin.notify.active': 'Notify user via email.',
+  'admin.active.unverified.message': 'The account need to be verified first.'
 }
