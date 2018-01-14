@@ -89,7 +89,7 @@ class Wrapper extends React.PureComponent {
       <div className='p-5 d-flex flex-column' style={{ minHeight: '100vh' }}>
         <TopRightContainer>
           <LanguageSwitcher className="d-inline" />
-          <b className="ml-3">{`${this.authStore.user.firstname} ${this.authStore.user.lastname}`}</b>
+          <b className="ml-3">{`${this.authStore.user.name}`}</b>
           {this.authStore.user.is_admin && <DefaultButton className="btn ml-3" onClick={this.goToAdmin}>{I18n.t('admin.administrator')}</DefaultButton>}
           <DangerButton className="btn ml-3" onClick={this.signout}>{I18n.t('app.signout')}</DangerButton>
         </TopRightContainer>

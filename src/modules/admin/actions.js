@@ -27,7 +27,7 @@ export default {
       .then(res => {
         stores.admin.user.setUser(res.data)
         stores.admin.user._setSuccess(true)
-        stores.admin.user._setMessage(I18n.t('admin.user.has.been.created', { name: `${res.data.firstname} ${res.data.lastname}` }))
+        stores.admin.user._setMessage(I18n.t('admin.user.has.been.created', { name: `${res.data.name}` }))
       })
       .catch(res => {
         stores.admin.user._setSuccess(false)
