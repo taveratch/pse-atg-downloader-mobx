@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: pse-atg-react-staging
+  labels: 
+    name: pse-atg-react-staging
+    app: pse-atg-react-staging
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: pse-atg-react-staging
+        app: pse-atg-react-staging
+    spec:
+      containers:
+        - name: pse-atg-react-staging
+          image: gcr.io/pse-atg/pse-atg-react:staging
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: API
+            value: "http://atg-api-staging.padungsilpa.group"
