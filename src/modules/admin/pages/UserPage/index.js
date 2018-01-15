@@ -48,7 +48,6 @@ class UserPage extends React.PureComponent {
     user: {
       email: null,
       password: null,
-      is_admin: null,
       name: null,
       tel: null,
       siteIds: [],
@@ -88,14 +87,14 @@ class UserPage extends React.PureComponent {
   }
 
   onSave = () => {
-    if(this.authStore.user.privilege >= PRIVILEGE.ADMIN) {
+    if(this.isCUAdmin()) {
       const _filterer = value => _.identity(value !== null)
       const withoutNull = _.pickBy(this.state.user, _filterer)
       // Merge current site ids with site ids from store (server)
       const siteIds = [...this.state.user.siteIds, ..._.map(this.userStore.sites, 'id')]
       AdminActions.updateUser(this.userId, { ...withoutNull, ...{ siteIds } })
     }
-    if(this.authStore.user.privilege >= PRIVILEGE.STAFF) { 
+    if(this.authStore.isStaff) { 
       AdminActions.activateUser(this.userStore.user.id, this.state.active)
     }
   }
@@ -159,6 +158,25 @@ class UserPage extends React.PureComponent {
     )
   }
 
+  createActiveCheckBox = () => {
+    if(this.authStore.isStaff && !this.authStore.isAdmin && this.userStore.user.privilege >= PRIVILEGE.ADMIN) return null
+    const { user } = this.userStore
+    return (
+      <div>
+        <br />
+        <input type="checkbox" disabled={!user.verified} checked={this.state.active.active === null ? user.active : this.state.active.active} id="active" name="active" value="active" onChange={this.onActiveCheckboxChange} />
+        <label className="ml-3" htmlFor="active">
+          {I18n.t('admin.active')}
+          {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
+        </label>
+      </div>
+    )
+  }
+
+  isCUAdmin = () => {
+    return this.authStore.isAdmin
+  }
+
   render() {
     const { user, sites } = this.userStore
     if (!user) return null
@@ -182,13 +200,8 @@ class UserPage extends React.PureComponent {
           <Input label={I18n.t('common.name')} name="name" defaultValue={user.name} onChange={this.onChange} />
           <br />
           <Input label={I18n.t('common.tel')} name="tel" defaultValue={user.tel} onChange={this.onChange} />
-          {this.authStore.user.privilege >= PRIVILEGE.ADMIN && this.createPrivilegesDropdown()}
-          <br />
-          <input type="checkbox" disabled={!user.verified} checked={this.state.active.active === null ? user.active : this.state.active.active} id="active" name="active" value="active" onChange={this.onActiveCheckboxChange} />
-          <label className="ml-3" htmlFor="active">
-            {I18n.t('admin.active')}
-            {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
-          </label>
+          {this.isCUAdmin() && this.createPrivilegesDropdown()}
+          {this.createActiveCheckBox()}
           {
             this.state.active.active !== null && (
               <div className="ml-3">
@@ -199,7 +212,7 @@ class UserPage extends React.PureComponent {
           }
         </div>
         
-        {this.authStore.user.privilege >= PRIVILEGE.ADMIN && user.privilege <= PRIVILEGE.STAFF && this.createAddSiteSection()}
+        {this.isCUAdmin() && user.privilege <= PRIVILEGE.STAFF && this.createAddSiteSection()}
         <h5>
           <b>
             {`${I18n.t('admin.sites.of')} ${user.email}`}
@@ -207,7 +220,7 @@ class UserPage extends React.PureComponent {
         </h5>
         <SitesTable
           sites={sites}
-          showOption={!user.is_admin}
+          showOption={!user.is_admin && this.authStore.user.privilege >= PRIVILEGE.ADMIN}
           optionText={I18n.t('common.remove')}
           onOptionClick={this.onDeleteSite}
         />
@@ -215,7 +228,7 @@ class UserPage extends React.PureComponent {
         <br />
         <div className="mb-3">
           <Button className="btn pl-5 pr-5" onClick={this.onSave}>{I18n.t('common.save')}</Button>
-          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>
+          {this.isCUAdmin() && <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>}
         </div>
         <NoticeMessage store={this.userStore} />
       </div>

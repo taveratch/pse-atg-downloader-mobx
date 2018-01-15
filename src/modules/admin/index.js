@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/sites/:id',
     component: SitePage,
-    privilege: PRIVILEGE.STAFF
+    privilege: PRIVILEGE.ADMIN
   },
   {
     path: '/users/:id',
