@@ -51,7 +51,7 @@ class Routes extends React.Component {
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/verify' component={Verify} />
           <PrivateRoute exact path='/' redirect='/signin' component={Wrapper} authed={this.authStore.isSignedIn} />
-          <PrivateRoute path='/admin' redirect='/' component={Admin} authed={this.authStore.isAdmin} />
+          <PrivateRoute path='/admin' redirect='/' component={Admin} authed={this.authStore.isStaff} />
           <Route path='*' component={NotFound} />
         </Switch>
       </Router>

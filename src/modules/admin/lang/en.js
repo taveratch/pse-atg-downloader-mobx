@@ -24,5 +24,7 @@ export default {
   'admin.user.has.been.created': 'User {name} has been created.',
   'admin.active': 'Active',
   'admin.notify.active': 'Notify user via email',
-  'admin.active.unverified.message': 'The account need to be verified first'
+  'admin.active.unverified.message': 'The account need to be verified first',
+  'admin.privilege': 'Privilege',
+  'admin.staff': 'Staff'
 }

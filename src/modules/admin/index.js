@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 
 import AdminActions from 'src/modules/admin/actions'
 import AppActions from 'src/modules/app/actions'
@@ -6,6 +7,8 @@ import DangerButton from 'src/common/components/Buttons/DangerButton'
 import DefaultButton from 'src/common/components/Buttons/DefaultButton'
 import I18n from 'src/common/I18n'
 import LanguageSwitcher from 'src/common/components/LanguageSwitcher'
+import { PRIVILEGE } from 'src/constants'
+import PrivateRoute from 'src/common/components/PrivateRoute'
 // import Dashboard from 'src/modules/admin/components/Dashboard'
 import React from 'react'
 import Sidebar from 'src/modules/admin/components/Sidebar'
@@ -19,24 +22,32 @@ const routes = [
   {
     path: '/sites',
     exact: true,
-    component: SitesPage
+    component: SitesPage,
+    privilege: PRIVILEGE.ADMIN
   },
   {
     path: '/users',
     exact: true,
-    component: UsersPage
+    component: UsersPage,
+    privilege: PRIVILEGE.STAFF
   },
   {
     path: '/sites/:id',
-    component: SitePage
+    component: SitePage,
+    privilege: PRIVILEGE.STAFF
   },
   {
     path: '/users/:id',
-    component: UserPage
+    component: UserPage,
+    privilege: PRIVILEGE.STAFF
   }
 ]
 
+@inject('stores')
+@observer
 class Admin extends React.PureComponent {
+
+  authStore = this.props.stores.auth
 
   signout = () => {
     AppActions.signout()
@@ -58,16 +69,16 @@ class Admin extends React.PureComponent {
         <h1><b>{I18n.t('admin.administrator')}</b></h1>
         <div className='row mt-4'>
           <div className='col-3'>
-            <Sidebar />
+            <Sidebar isAdmin={this.authStore.isAdmin}/>
           </div>
           <div className='col-9'>
             <Switch>
               {
                 routes.map((route, index) => (
-                  <Route key={index} path={match.url + route.path} exact={route.exact} component={route.component} />
+                  <PrivateRoute key={index} path={match.url + route.path} exact={route.exact} redirect='/admin' component={route.component} authed={this.authStore.user.privilege >= route.privilege} />
                 ))
               }
-              <Route component={SitesPage} />
+              <Route component={UsersPage} />
             </Switch>
           </div>
         </div>

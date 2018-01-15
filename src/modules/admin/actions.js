@@ -95,6 +95,23 @@ export default {
   },
   goToDownloadPage: () => {
     history.push('/')
+  },
+  getPrivileges: () => {
+    return Api.getPrivileges()
+      .then(res => {
+        stores.admin.users.setPrivileges(res.data)
+      })
+  },
+  activateUser: (userId, params) => { //{ active: true, notify_active: true}
+    return Api.activateUser(userId, params)
+      .then(() => {
+        stores.admin.user._setMessage(I18n.t('common.saved'))
+        stores.admin.user._setSuccess(true)
+      })
+      .catch(res => {
+        stores.admin.user._setMessage(res.error)
+        stores.admin.user._setSuccess(false)
+      })
   }
 }
 

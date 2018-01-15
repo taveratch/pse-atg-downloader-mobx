@@ -97,7 +97,7 @@ export default {
       body: {
         email: updatedUser.email,
         password: updatedUser.password,
-        is_admin: updatedUser.is_admin,
+        privilege: updatedUser.privilege,
         name: updatedUser.name,
         tel: updatedUser.tel,
         site_ids: updatedUser.siteIds,
@@ -137,6 +137,21 @@ export default {
       body: {
         userId,
         token
+      }
+    })
+  },
+  getPrivileges: () => {
+    return ApiManager.fetch({
+      url: '/users/privileges'
+    })
+  },
+  activateUser: (userId, params) => {
+    return ApiManager.fetch({
+      method: 'POST',
+      url: `/users/${userId}/active`,
+      body: {
+        active: params.active,
+        notify_active: params.notify_active
       }
     })
   }

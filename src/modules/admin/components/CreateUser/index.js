@@ -2,6 +2,7 @@ import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Buttons/Button'
 import Dropdown from 'src/common/components/Dropdown'
+import { PRIVILEGE } from 'src/constants'
 import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
@@ -30,7 +31,7 @@ class CreateUser extends React.Component {
     user: {
       email: '',
       password: '',
-      is_admin: false,
+      privilege: PRIVILEGE.USER,
       tel: '',
       serial_number: '',
       name: ''
