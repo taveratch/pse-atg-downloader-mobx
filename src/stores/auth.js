@@ -3,6 +3,7 @@ import { action, computed, observable } from 'mobx'
 import Api from 'src/common/Api'
 import FetchedStore from 'src/stores/fetched-store'
 import _ from 'lodash'
+import { PRIVILEGE } from 'src/constants'
 import tokenManager from 'src/utils/token-manager'
 
 const signupState = {
@@ -33,7 +34,12 @@ class Auth extends FetchedStore {
 
   @computed get isAdmin() {
     if (!this.user) return false
-    return this.user.is_admin
+    return this.user.privilege === PRIVILEGE.ADMIN
+  }
+
+  @computed get isStaff() {
+    if (!this.user) return false
+    return this.user.privilege >= PRIVILEGE.STAFF
   }
 
   reset() {
@@ -80,6 +86,7 @@ class Auth extends FetchedStore {
   }
 
   handleError(err) {
+    console.log(err)
     this._setFetching(false)
     this.reset()
     this._setSuccess(err.success)

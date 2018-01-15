@@ -35,9 +35,10 @@ const StyledUl = styled.ul`
 
 class Sidebar extends React.PureComponent {
   render() {
+    console.log(this.props.user)
     return (
       <StyledUl>
-        <List><Link to='/admin/sites'>{I18n.t('admin.sites')}</Link></List>
+        {this.props.isAdmin && <List><Link to='/admin/sites'>{I18n.t('admin.sites')}</Link></List>}
         <List><Link to='/admin/users'>{I18n.t('admin.users')}</Link></List>
       </StyledUl>
     )

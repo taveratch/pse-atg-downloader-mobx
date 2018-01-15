@@ -7,6 +7,7 @@ import Dropdown from 'src/common/components/Dropdown'
 import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
+import { PRIVILEGE } from 'src/constants'
 import React from 'react'
 import Selectors from 'src/modules/admin/selectors'
 import SitesTable from 'src/modules/admin/components/SitesTable'
@@ -14,8 +15,8 @@ import _ from 'lodash'
 import history from 'src/common/history'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
-import { toJS } from 'mobx'
 import styled from 'styled-components'
+import { toJS } from 'mobx'
 
 const removeDuplicateSite = (primary, secondary) => {
   const _isEqual = (object, other) => object.id === other.id
@@ -35,19 +36,24 @@ class UserPage extends React.PureComponent {
     AdminActions.getUser(this.userId)
     AdminActions.getSitesByUserId(this.userId)
     AdminActions.getSites()
+    AdminActions.getPrivileges()
   }
 
   userStore = stores.admin.user
+  usersStore = stores.admin.users
   sitesStore = stores.admin.sites
+  authStore = stores.auth
 
   state = {
     user: {
       email: null,
       password: null,
-      is_admin: null,
       name: null,
       tel: null,
       siteIds: [],
+      privilege: null
+    },
+    active: {
       active: null,
       notify_active: true
     }
@@ -56,6 +62,12 @@ class UserPage extends React.PureComponent {
   updateUserState = (key, value) => {
     this.setState({
       user: { ...this.state.user, ...{ [key]: value } }
+    })
+  }
+
+  updateActiveState = (key, value) => {
+    this.setState({
+      active: { ...this.state.active, ...{ [key]: value } }
     })
   }
 
@@ -69,12 +81,22 @@ class UserPage extends React.PureComponent {
     this.updateUserState(name, checked)
   }
 
+  onActiveCheckboxChange = event => {
+    const { name, checked } = event.target
+    this.updateActiveState(name, checked)
+  }
+
   onSave = () => {
-    const _filterer = value => _.identity(value !== null)
-    const withoutNull = _.pickBy(this.state.user, _filterer)
-    // Merge current site ids with site ids from store (server)
-    const siteIds = [...this.state.user.siteIds, ..._.map(this.userStore.sites, 'id')]
-    AdminActions.updateUser(this.userId, { ...withoutNull, ...{ siteIds } })
+    if(this.isCUAdmin()) {
+      const _filterer = value => _.identity(value !== null)
+      const withoutNull = _.pickBy(this.state.user, _filterer)
+      // Merge current site ids with site ids from store (server)
+      const siteIds = [...this.state.user.siteIds, ..._.map(this.userStore.sites, 'id')]
+      AdminActions.updateUser(this.userId, { ...withoutNull, ...{ siteIds } })
+    }
+    if(this.authStore.isStaff) { 
+      AdminActions.activateUser(this.userStore.user.id, this.state.active)
+    }
   }
 
   onDelete = async () => {
@@ -88,6 +110,10 @@ class UserPage extends React.PureComponent {
 
   onItemClick = (index, site) => {
     this.userStore.addSite(site)
+  }
+
+  onPrivilegeItemClick = (index, privilege) => {
+    this.updateUserState('privilege', privilege.id)
   }
 
   onDeleteSite = (index, site) => {
@@ -113,6 +139,44 @@ class UserPage extends React.PureComponent {
     )
   }
 
+  createPrivilegesDropdown = () => {
+    const privileges = toJS(this.usersStore.privileges)
+    const currentPrivilege = this.state.user.privilege !== null ? this.state.user.privilege : this.userStore.user.privilege
+    const userPrivilege = _.find(privileges, privilege => privilege.id === currentPrivilege)
+    return (
+      <div>
+        <br />
+        <span>{I18n.t('admin.privilege')}</span>
+        <Dropdown
+          itemSelector={Selectors.getPrivilegeName}
+          id="dropdown_privileges"
+          items={privileges}
+          onItemClick={this.onPrivilegeItemClick}
+          initialLabel={userPrivilege ? userPrivilege.name : I18n.t('admin.privilege')}
+        />
+      </div>
+    )
+  }
+
+  createActiveCheckBox = () => {
+    if(this.authStore.isStaff && !this.authStore.isAdmin && this.userStore.user.privilege >= PRIVILEGE.ADMIN) return null
+    const { user } = this.userStore
+    return (
+      <div>
+        <br />
+        <input type="checkbox" disabled={!user.verified} checked={this.state.active.active === null ? user.active : this.state.active.active} id="active" name="active" value="active" onChange={this.onActiveCheckboxChange} />
+        <label className="ml-3" htmlFor="active">
+          {I18n.t('admin.active')}
+          {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
+        </label>
+      </div>
+    )
+  }
+
+  isCUAdmin = () => {
+    return this.authStore.isAdmin
+  }
+
   render() {
     const { user, sites } = this.userStore
     if (!user) return null
@@ -136,28 +200,19 @@ class UserPage extends React.PureComponent {
           <Input label={I18n.t('common.name')} name="name" defaultValue={user.name} onChange={this.onChange} />
           <br />
           <Input label={I18n.t('common.tel')} name="tel" defaultValue={user.tel} onChange={this.onChange} />
-          <br />
-          <input type="checkbox" disabled={!user.verified} checked={this.state.user.is_admin === null ? user.is_admin : this.state.user.is_admin} id="is_admin" name="is_admin" value="is_admin" onChange={this.onCheckboxChange} />
-          <label className="ml-3" htmlFor="is_admin">
-            {I18n.t('admin.administrator')}
-            {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
-          </label>
-          <br />
-          <input type="checkbox" disabled={!user.verified} checked={this.state.user.active === null ? user.active : this.state.user.active} id="active" name="active" value="active" onChange={this.onCheckboxChange} />
-          <label className="ml-3" htmlFor="active">
-            {I18n.t('admin.active')}
-            {!user.verified && <Red>{` (${I18n.t('admin.active.unverified.message')})`}</Red>}
-          </label>
+          {this.isCUAdmin() && this.createPrivilegesDropdown()}
+          {this.createActiveCheckBox()}
           {
-            this.state.user.active !== null && (
+            this.state.active.active !== null && (
               <div className="ml-3">
-                <input type="checkbox" id="notify_active" checked={this.state.user.notify_active} name="notify_active" value="notify_active" onChange={this.onCheckboxChange} />
+                <input type="checkbox" id="notify_active" checked={this.state.active.notify_active === null ? true : this.state.active.notify_active} name="notify_active" value="notify_active" onChange={this.onActiveCheckboxChange} />
                 <label className="ml-3" htmlFor="notify_active">{I18n.t('admin.notify.active')}</label>
               </div>
             )
           }
         </div>
-        {!user.is_admin && this.createAddSiteSection()}
+        
+        {this.isCUAdmin() && user.privilege <= PRIVILEGE.STAFF && this.createAddSiteSection()}
         <h5>
           <b>
             {`${I18n.t('admin.sites.of')} ${user.email}`}
@@ -165,7 +220,7 @@ class UserPage extends React.PureComponent {
         </h5>
         <SitesTable
           sites={sites}
-          showOption={!user.is_admin}
+          showOption={!user.is_admin && this.authStore.user.privilege >= PRIVILEGE.ADMIN}
           optionText={I18n.t('common.remove')}
           onOptionClick={this.onDeleteSite}
         />
@@ -173,7 +228,7 @@ class UserPage extends React.PureComponent {
         <br />
         <div className="mb-3">
           <Button className="btn pl-5 pr-5" onClick={this.onSave}>{I18n.t('common.save')}</Button>
-          <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>
+          {this.isCUAdmin() && <DangerButton className="btn ml-3 pl-5 pr-5" data-toggle="modal" data-target="#delete-confirm-modal">{I18n.t('common.remove')}</DangerButton>}
         </div>
         <NoticeMessage store={this.userStore} />
       </div>

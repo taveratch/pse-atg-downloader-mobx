@@ -2,6 +2,7 @@ import I18n from 'src/common/I18n'
 import React from 'react'
 import { colors } from 'src/common/mixins'
 import history from 'src/common/history'
+import { PRIVILEGE } from 'src/constants'
 import styled from 'styled-components'
 
 const Tr = styled.tr`
@@ -62,7 +63,8 @@ class UsersTable extends React.PureComponent {
                   <Tr key={i} onClick={() => { this.onClick(i) }}>
                     <td className="pl-3 pr-3">
                       {user.email}
-                      {user.is_admin && <AdminMessage className="ml-3">{`(${I18n.t('admin.administrator')})`}</AdminMessage>}
+                      {user.privilege === PRIVILEGE.ADMIN  && <AdminMessage className="ml-3">{`(${I18n.t('admin.administrator')})`}</AdminMessage>}
+                      {user.privilege === PRIVILEGE.STAFF  && <AdminMessage className="ml-3">{`(${I18n.t('admin.staff')})`}</AdminMessage>}
                     </td>
                     <td className="pl-3 pr-3">
                       {user.active ?

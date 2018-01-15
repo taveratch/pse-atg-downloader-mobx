@@ -5,6 +5,7 @@ import React from 'react'
 import moment from 'moment'
 import { observer } from 'mobx-react'
 import stores from 'src/stores'
+import styled from 'styled-components'
 
 const style = {
   thead: {
@@ -22,6 +23,18 @@ const style = {
   }
 }
 
+const Th = styled.th`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 50%;
+`
+const Td = styled.th`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 50%;
+  font-weight: normal;
+`
+
 const downloadingBar = () => <div style={style.progress.downloading} className="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Downloading...</div>
 const errorBar = () => <div style={style.progress.error} className="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">File not found.</div>
 
@@ -38,9 +51,9 @@ class InventoryList extends React.Component {
         <table className='w-100'>
           <thead style={style.thead}>
             <tr className='pt-4 pb-4'>
-              <th className='text-right pr-5'>{I18n.t('app.date')}</th>
-              <th className='pl-5'>{I18n.t('app.download')}</th>
-              <th></th>
+              <Th className='text-right pr-5'>{I18n.t('app.date')}</Th>
+              <Th className='pl-5'>{I18n.t('app.download')}</Th>
+              <Th></Th>
             </tr>
           </thead>
           <tbody>
@@ -48,8 +61,8 @@ class InventoryList extends React.Component {
               inventories.map((inventory, i) => {
                 return (
                   <tr key={i}>
-                    <td className='text-right pr-5'>{moment(inventory.dateStr, 'DD/MM/YYYY').format('D MMMM YYYY')}</td>
-                    <td className='pl-5 pr-3'>
+                    <Td className='text-right pr-5'>{moment(inventory.dateStr, 'DD/MM/YYYY').format('D MMMM YYYY')}</Td>
+                    <Td className='pl-5 pr-3'>
                       <div className='d-flex'>
                         <DownloadButton download={this.props.download} inventory={inventory}/>
                         {
@@ -64,7 +77,7 @@ class InventoryList extends React.Component {
                           )
                         }
                       </div>
-                    </td>
+                    </Td>
                   </tr>
                 )
               })
