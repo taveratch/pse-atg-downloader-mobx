@@ -21,5 +21,6 @@ export default {
   'common.inactive': 'รอการอนุมัติ',
   'common.email.verified': 'ยืนยันอีเมล',
   'common.verified': 'ยืนยันเรียบร้อย',
-  'common.not.verified': 'ยังไม่ยืนยัน'
+  'common.not.verified': 'ยังไม่ยืนยัน',
+  'common.confirm.password': 'ยืนยันรหัสผ่าน'
 }

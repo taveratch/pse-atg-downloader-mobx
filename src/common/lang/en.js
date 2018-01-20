@@ -21,5 +21,6 @@ export default {
   'common.inactive': 'Inactive',
   'common.email.verified': 'Email Verification',
   'common.verified': 'Verified',
-  'common.not.verified': 'Unverified'
+  'common.not.verified': 'Unverified',
+  'common.confirm.password': 'Confirm password'
 }
