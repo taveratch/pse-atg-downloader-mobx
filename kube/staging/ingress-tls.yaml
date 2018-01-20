@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: atg-react-ingress
+  namespace: staging
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+    dns.alpha.kubernetes.io/external: "true"
+spec:
+  tls:
+  - hosts:
+    - staging-atg.padungsilpa.group
+    secretName: react-staging-secret
+  rules:
+  - host: staging-atg.padungsilpa.group
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: react-staging-svc
+          servicePort: 80
+      - path: /.well-known/acme-challenge
+        backend:
+          serviceName: kube-lego-gce
+          servicePort: 8080
