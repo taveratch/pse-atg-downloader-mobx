@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pse-atg-react
+  namespace: production
+  labels:
+    app: pse-atg-react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pse-atg-react
+  template:
+    metadata:
+      labels:
+        app: pse-atg-react
+    spec:
+      containers:
+      - name: pse-atg-react
+        image: gcr.io/pse-atg/pse-atg-react:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: API
+          value: https://atg-api.padungsilpa.group
+      restartPolicy: Always
