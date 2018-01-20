@@ -2,8 +2,9 @@ import { action, computed, observable } from 'mobx'
 
 import Api from 'src/common/Api'
 import FetchedStore from 'src/stores/fetched-store'
-import _ from 'lodash'
+import I18n from '../common/I18n'
 import { PRIVILEGE } from 'src/constants'
+import _ from 'lodash'
 import tokenManager from 'src/utils/token-manager'
 
 const signupState = {
@@ -11,7 +12,8 @@ const signupState = {
   name: '',
   password: '',
   tel: '',
-  serial_number: ''
+  serial_number: '',
+  confirm_password: ''
 }
 
 class Auth extends FetchedStore {
@@ -61,7 +63,19 @@ class Auth extends FetchedStore {
       })
   }
 
+  validatePassword() {
+    if(this.signupState.password === this.signupState.confirm_password)
+      return true
+    this.handleError({
+      error: I18n.t('signup.password.mismatch'),
+      success: false
+    })
+    return false
+  }
+
   signup() {
+    if(!this.validatePassword())
+      return false
     this._setFetching(true)
     return Api.signup(this.signupState)
       .then(() => {
@@ -86,7 +100,6 @@ class Auth extends FetchedStore {
   }
 
   handleError(err) {
-    console.log(err)
     this._setFetching(false)
     this.reset()
     this._setSuccess(err.success)

@@ -48,6 +48,7 @@ class SignUp extends React.Component {
           <input className='form-control' name='name' placeholder={I18n.t('common.name')} onChange={this.handleChange} required />
           <input className='form-control mt-2' name='email' type='email' placeholder={I18n.t('common.email')} onChange={this.handleChange.bind(this)} required />
           <input className='form-control mt-2' name='password' type='password' placeholder={I18n.t('common.password')} onChange={this.handleChange.bind(this)} required/>
+          <input className='form-control mt-2' name='confirm_password' type='password' placeholder={I18n.t('common.confirm.password')} onChange={this.handleChange.bind(this)} required/>
           <input className='form-control mt-2' name='tel' placeholder={I18n.t('common.tel')} onChange={this.handleChange.bind(this)} required/>
           <input className='form-control mt-2' name='serial_number' placeholder={I18n.t('common.serial.number')} onChange={this.handleChange.bind(this)} required/>
           <div className="form-check mt-2">
