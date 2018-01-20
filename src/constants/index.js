@@ -3,3 +3,9 @@ export const downloadTypes = {
   HOURLY: 1,
   EVERY: 3
 }
+
+export const PRIVILEGE = {
+  USER: 0,
+  STAFF: 1,
+  ADMIN: 2
+}

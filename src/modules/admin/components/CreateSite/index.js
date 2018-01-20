@@ -33,6 +33,8 @@ class CreateSite extends React.PureComponent {
         <NoticeMessage store={stores.admin.site} />
         <Input label={I18n.t('admin.site.name')} name="name" onChange={this.handleChange} />
         <br />
+        <Input label={I18n.t('admin.site.serial.number')} name="serial_number" onChange={this.handleChange} />
+        <br />
         <Input label={I18n.t('admin.site.url')} name="url" onChange={this.handleChange} />
         <br />
         <Input label={I18n.t('admin.site.port')} name="port" type="number" onChange={this.handleChange} />

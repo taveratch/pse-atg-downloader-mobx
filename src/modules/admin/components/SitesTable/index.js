@@ -42,6 +42,7 @@ class SitesTable extends React.PureComponent {
           <thead style={style.thead}>
             <tr>
               <th className="pl-3 pr-3">{I18n.t('admin.site.name')}</th>
+              <th className="pl-3 pr-3">{I18n.t('admin.site.serial.number')}</th>
               <th className="pl-3 pr-3">{I18n.t('admin.site.url')}</th>
               <th className="pl-3 pr-3">{I18n.t('admin.site.port')}</th>
               {showOption && <th className="pl-3 pr-3"></th>}
@@ -53,6 +54,7 @@ class SitesTable extends React.PureComponent {
                 return (
                   <Tr key={i}>
                     <td className="pl-3 pr-3" onClick={() => { this.onClick(i) }}>{site.name}</td>
+                    <td className="pl-3 pr-3" onClick={() => { this.onClick(i) }}>{site.serial_number}</td>
                     <td className="pl-3 pr-3" onClick={() => { this.onClick(i) }}>{site.url}</td>
                     <td className="pl-3 pr-3" onClick={() => { this.onClick(i) }}>{site.port}</td>
                     {showOption && <td className="pl-3 pr-3">

@@ -6,6 +6,7 @@ export default Button.extend`
     border: 1px solid ${colors.red};
     color: ${colors.red};
     transition: 0.3s;
+    border-radius: 0.25rem;
     &:hover {
       background: ${colors.red};
       color: ${colors.white};

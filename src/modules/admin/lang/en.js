@@ -6,6 +6,7 @@ export default {
   'admin.create.new.site': 'Create new site',
   'admin.number.of.sites': 'Number of sites',
   'admin.site.name': 'Site name',
+  'admin.site.serial.number': 'Serial number',
   'admin.site.url': 'Url',
   'admin.site.port': 'Port',
   'admin.create': 'Create',
@@ -20,5 +21,10 @@ export default {
   'admin.blank.password.for.nothing': 'Leave blank to use the current password',
   'admin.sites.of': 'Sites of',
   'admin.site.has.been.created': 'Site {siteName} has been created.',
-  'admin.user.has.been.created': 'User {name} has been created.'
+  'admin.user.has.been.created': 'User {name} has been created.',
+  'admin.active': 'Active',
+  'admin.notify.active': 'Notify user via email',
+  'admin.active.unverified.message': 'The account need to be verified first',
+  'admin.privilege': 'Privilege',
+  'admin.staff': 'Staff'
 }

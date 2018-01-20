@@ -6,14 +6,15 @@ export default {
       url: '/site'
     })
   },
-  createSite: ({ name, url, port }) => {
+  createSite: ({ name, url, port, serial_number }) => {
     return ApiManager.fetch({
       url: '/site/create',
       method: 'POST',
       body: {
         name,
         url,
-        port
+        port,
+        serial_number
       }
     })
   },
@@ -40,11 +41,9 @@ export default {
       body: {
         email: user.email,
         password: user.password,
-        site_id: user.site_id,
-        is_admin: user.is_admin,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        tel: user.tel
+        name: user.name,
+        tel: user.tel,
+        serial_number: user.serial_number
       }
     })
   },
@@ -76,6 +75,7 @@ export default {
         url: updatedSite.url,
         name: updatedSite.name,
         port: updatedSite.port,
+        serial_number: updatedSite.serial_number
       }
     })
   },
@@ -97,11 +97,12 @@ export default {
       body: {
         email: updatedUser.email,
         password: updatedUser.password,
-        is_admin: updatedUser.is_admin,
-        firstname: updatedUser.firstname,
-        lastname: updatedUser.lastname,
+        privilege: updatedUser.privilege,
+        name: updatedUser.name,
         tel: updatedUser.tel,
-        site_ids: updatedUser.siteIds
+        site_ids: updatedUser.siteIds,
+        active: updatedUser.active,
+        notify_active: updatedUser.notify_active
       }
     })
   },
@@ -126,6 +127,31 @@ export default {
       url: `${site.url}:${site.port}/Inventory/${inventory.name}`,
       headers: {
         'Authorization': 'Basic dXNlcjpwYXNz'
+      }
+    })
+  },
+  verify: (userId, token) => {
+    return ApiManager.fetch({
+      method: 'POST',
+      url: '/verify',
+      body: {
+        userId,
+        token
+      }
+    })
+  },
+  getPrivileges: () => {
+    return ApiManager.fetch({
+      url: '/users/privileges'
+    })
+  },
+  activateUser: (userId, params) => {
+    return ApiManager.fetch({
+      method: 'POST',
+      url: `/users/${userId}/active`,
+      body: {
+        active: params.active,
+        notify_active: params.notify_active
       }
     })
   }

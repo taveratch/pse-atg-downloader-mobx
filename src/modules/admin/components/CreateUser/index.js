@@ -2,6 +2,7 @@ import AdminActions, { StoreActions } from 'src/modules/admin/actions'
 
 import Button from 'src/common/components/Buttons/Button'
 import Dropdown from 'src/common/components/Dropdown'
+import { PRIVILEGE } from 'src/constants'
 import I18n from 'src/common/I18n'
 import Input from 'src/common/components/Input'
 import NoticeMessage from 'src/common/components/NoticeMessage'
@@ -30,8 +31,10 @@ class CreateUser extends React.Component {
     user: {
       email: '',
       password: '',
-      site_id: null,
-      is_admin: false,
+      privilege: PRIVILEGE.USER,
+      tel: '',
+      serial_number: '',
+      name: ''
     },
     dropdownText: I18n.t('admin.please.choose.site')
   }
@@ -68,7 +71,7 @@ class CreateUser extends React.Component {
 
   changeSite = (index, site) => {
     this.setState({
-      user: { ...this.state.user, ...{ site_id: site.id }},
+      user: { ...this.state.user, ...{ serial_number: site.serial_number }},
       dropdownText: site.name
     })
   }
@@ -88,9 +91,7 @@ class CreateUser extends React.Component {
           <Button className='btn' onClick={this.generatePassword}>{I18n.t('admin.auto.generate')}</Button>
         </Flex>
         <br />
-        <Input label={I18n.t('common.firstname')} name="firstname" onChange={this.handleChange} />
-        <br />
-        <Input label={I18n.t('common.lastname')} name="lastname" onChange={this.handleChange} />
+        <Input label={I18n.t('common.name')} name="name" onChange={this.handleChange} />
         <br />
         <Input label={I18n.t('common.tel')} name="tel" onChange={this.handleChange} />
         <br />

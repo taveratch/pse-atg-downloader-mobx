@@ -11,8 +11,16 @@ export default {
   'common.close': 'Close',
   'common.back': 'Back',
   'common.please.wait': 'Please wait',
-  'common.firstname': 'Firstname',
-  'common.lastname': 'Lastname',
+  'common.name': 'Name',
   'common.tel': 'Phone number',
-  'common.welcome': 'Welcome'
+  'common.serial.number': 'ATG Console\'s serial number',
+  'common.welcome': 'Welcome',
+  'common.or': 'or',
+  'common.status': 'Status',
+  'common.active': 'Actived',
+  'common.inactive': 'Inactive',
+  'common.email.verified': 'Email Verification',
+  'common.verified': 'Verified',
+  'common.not.verified': 'Unverified',
+  'common.confirm.password': 'Confirm password'
 }
