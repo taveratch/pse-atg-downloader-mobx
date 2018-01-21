@@ -8,10 +8,12 @@ import adminUsers from 'src/stores/admin/users'
 import auth from 'src/stores/auth'
 import inventory from 'src/stores/inventory'
 import sites from 'src/stores/sites'
+import verify from 'src/stores/verify'
 
 const stores = {}
 
 _.set(stores, 'auth', new auth())
+_.set(stores, 'verify', new verify())
 _.set(stores, 'inventory', inventory)
 _.set(stores, 'sites', sites)
 _.set(stores, 'downloadPage', new DownloadPage())
