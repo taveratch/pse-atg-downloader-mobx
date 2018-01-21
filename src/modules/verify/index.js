@@ -24,21 +24,21 @@ const LoginBox = styled.div`
 @observer
 class Verify extends React.Component {
 
-  authStore = this.props.stores.auth
+  verifyStore = this.props.stores.verify
 
   componentWillUnmount() {
-    StoreActions.reset('auth')
+    StoreActions.reset('verify')
   }
 
   componentWillMount() {
     const { token, userId } = qs.parse(this.props.location.search)
-    this.authStore.verify(userId, token)
+    this.verifyStore.verify(userId, token)
   }
 
   renderVerifyMessage() {
     return (
       <div>
-        <div>{I18n.t('verify.message', { email: this.authStore.user.email })}</div>
+        <div>{I18n.t('verify.message', { email: this.verifyStore.user.email })}</div>
         <Link to="/signin" className="d-block text-center">{I18n.t('signin.signin')}</Link>
       </div>
     )
@@ -51,9 +51,9 @@ class Verify extends React.Component {
           <LoginBox className='col-md-6 col-sm-10 col-xs-10 col-lg-6 p-0'>
             <Header title={I18n.t('verify.title')} />
             <div className="pl-4 pr-4 pb-4">
-              {!this.authStore.success && <ErrorMessage className="text-center mb-0">{this.authStore.message}</ErrorMessage>}
-              {this.authStore.fetching && <LoadingSpinner />}
-              {this.authStore.user && this.renderVerifyMessage()}
+              {!this.verifyStore.success && <ErrorMessage className="text-center mb-0">{this.verifyStore.message}</ErrorMessage>}
+              {this.verifyStore.fetching && <LoadingSpinner />}
+              {this.verifyStore.user && this.renderVerifyMessage()}
             </div>
           </LoginBox>
         </div>

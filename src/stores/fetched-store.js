@@ -28,6 +28,11 @@ class FetchedStore {
     this.success = true
     this.message = null
   }
+
+  @action.bound
+  __reset() {
+    
+  }
 }
 
 export default FetchedStore
