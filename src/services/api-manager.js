@@ -33,7 +33,7 @@ class ApiManager {
           try {
             error.json().then(err => reject(err))
           } catch (err) {
-            error.text().then(err => reject(err))
+            reject(error)
           }
         })
     })
