@@ -13,4 +13,7 @@
 #
 # [START runtime]
 runtime: nodejs8
+
+env_variables:
+  API: https://api.atg.padungsilpa.group
 # [END runtime]
