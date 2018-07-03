@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 # [START runtime]
-runtime: nodejs8
+runtime: custom
 
 env_variables:
   API: https://api.atg.padungsilpa.group
