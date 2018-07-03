@@ -9,7 +9,7 @@ class ApiManager {
     if (options.external)
       url = options.url
     else {
-      url = config.api + '/_api' + options.url
+      url = config.api + options.url
       options.json = true
     }
     options.url = config.proxy + '/proxy?q=' + url + `?locale=${locale.get()}`
