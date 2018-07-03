@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "babel-node": "babel-node",
-    "start": "NODE_ENV=production nodemon --exec npm run babel-node -- ./src/app.js",
+    "start": "NODE_ENV=production npm run babel-node -- ./src/app.js",
     "dev": "NODE_PATH=. concurrently \"npm run client\" \"npm run proxy-server\"",
     "client:live": "nodemon --exec npm run babel-node -- ./src/app.js",
     "client": "babel-node ./src/app.js",
