@@ -1,27 +1,26 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pse-atg-react
-  namespace: production
+  namespace: pse-atg
+  name: web
   labels:
-    app: pse-atg-react
+    app: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pse-atg-react
+      app: web
   template:
     metadata:
       labels:
-        app: pse-atg-react
+        app: web
     spec:
       containers:
-      - name: pse-atg-react
-        image: gcr.io/pse-atg/pse-atg-react:latest
-        imagePullPolicy: Always
+      - name: web
+        image: gcr.io/kubernetes-217215/github-taweesoft-pse-atg-downloader-mobx:latest
         ports:
         - containerPort: 8080
         env:
         - name: API
-          value: https://atg-api.padungsilpa.group
+          value: https://api.atg.padungsilpa.group
       restartPolicy: Always

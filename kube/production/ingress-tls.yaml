@@ -1,26 +1,25 @@
-apiVersion: extensions/v1beta1
 kind: Ingress
+apiVersion: extensions/v1beta1
 metadata:
-  name: atg-react-ingress
-  namespace: production
+  namespace: pse-atg
+  name: web
   annotations:
-    kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "gce"
-    dns.alpha.kubernetes.io/external: "true"
+    kubernetes.io/tls-acme: "true"
 spec:
   tls:
-  - hosts:
-    - atg.padungsilpa.group
-    secretName: react-production-secret
+  - secretName: atg-padungsilpa.group-tls # [TODO] Change this to YOUR_HOST-tls
+    hosts:
+    - atg.padungsilpa.group # [TODO] Change this to your host
   rules:
-  - host: atg.padungsilpa.group
+  - host: atg.padungsilpa.group # [TODO] Change this to your host
     http:
       paths:
-      - path: /*
-        backend:
-          serviceName: react-production-svc
-          servicePort: 80
-      - path: /.well-known/acme-challenge/*
+      - path: /.well-known/acme-challenge/_selftest
         backend:
           serviceName: kube-lego-gce
           servicePort: 8080
+      - path: /*
+        backend:
+          serviceName: web
+          servicePort: 80
