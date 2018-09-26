@@ -4,8 +4,9 @@ metadata:
   namespace: pse-atg
   name: web
   annotations:
-    kubernetes.io/ingress.class: "gce"
     kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   tls:
   - secretName: atg-padungsilpa.group-tls # [TODO] Change this to YOUR_HOST-tls
@@ -15,11 +16,7 @@ spec:
   - host: atg.padungsilpa.group # [TODO] Change this to your host
     http:
       paths:
-      - path: /.well-known/acme-challenge/_selftest
-        backend:
-          serviceName: kube-lego-gce
-          servicePort: 8080
-      - path: /*
+      - path: /
         backend:
           serviceName: web
           servicePort: 80
